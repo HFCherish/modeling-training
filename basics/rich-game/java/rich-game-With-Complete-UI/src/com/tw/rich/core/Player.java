@@ -32,12 +32,12 @@ public class Player {
         return status;
     }
 
-    public void setLastCommand(Command lastCommand) {
-        this.lastCommand = lastCommand;
-    }
-
     public void waitForResponse() {
         status = Status.WAIT_FOR_RESPONSE;
+    }
+
+    public void endTurn() {
+        status = Status.WAIT_FOR_TURN;
     }
 
     public enum Status {

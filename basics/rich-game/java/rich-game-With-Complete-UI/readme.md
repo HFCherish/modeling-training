@@ -4,7 +4,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
 ### PLAYER TASKS
 1. 玩家状态多态（多态行为：不同状态执行命令时，有不同的操作）
 	1. 玩家在wait for command状态，如果执行了需要回复的命令，应该记录需要回复的命令, wait for response － 10 : 14
-	1. 玩家在wait for response状态，如果回复了上一条待回复命令后，不接受进一步的response，end turn － 10 :
+	1. 玩家在wait for response状态，如果回复了上一条待回复命令后，不接受进一步的response，end turn － 10 : 9
 1. 玩家命令多态（多态行为：不同命令执行不同的操作）
 	1. 玩家输入roll命令（place多态（多态行为：走到不同的place，有不同的操作））
 		1. estate多态（不同的estate，到达后有不同的操作）
