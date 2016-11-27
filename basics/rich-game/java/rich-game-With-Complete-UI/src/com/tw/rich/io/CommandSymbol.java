@@ -14,6 +14,7 @@ public enum  CommandSymbol {
     };
 
     public static Command convertToCommand(String command){
+        //use reflection
         return null;
     }
 

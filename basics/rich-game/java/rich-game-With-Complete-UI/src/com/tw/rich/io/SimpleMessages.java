@@ -21,6 +21,7 @@ public enum SimpleMessages{
     }
 
     private static String convertToSimpleMessage(Message message){
+        //use reflection
         return null;
     }
 }

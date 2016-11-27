@@ -14,6 +14,7 @@ public enum PlaceSymbol {
     };
 
     public static String convertToSymbol(Place place){
+        //use reflection
         return null;
     }
     abstract String getSymbol();

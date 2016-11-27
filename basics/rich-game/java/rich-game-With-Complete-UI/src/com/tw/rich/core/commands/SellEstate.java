@@ -7,12 +7,12 @@ import com.tw.rich.core.Player;
  */
 public class SellEstate implements Command {
     @Override
-    public Player.Status execute(Player player) {
+    public Command execute(Player player) {
         return null;
     }
 
     @Override
-    public Player.Status respond(Player player, Command response) {
+    public Command respond(Player player, Command response) {
         return null;
     }
 }
