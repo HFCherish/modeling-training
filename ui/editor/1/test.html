@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<title>test setTimeout</title>
+		<script type="text/javascript">
+			function startTime() {
+				var date = new Date()
+				var h = date.getHours()
+				var m = date.getMinutes()
+				var s = date.getSeconds()
+				document.getElementById('txt').innerHTML = h + ":" + m + ":" + s
+				setTimeout(startTime, 500)
+			}
+
+		</script>
+	</head>
+	<body onload="startTime()">
+		<p id='txt'></p>
+	</body>
+</html>

@@ -1,0 +1,170 @@
+#%RAML 0.8
+title: 163music
+version: v1
+mediaType:  application/json
+
+
+/users:
+  post:
+    description: user can register
+    responses:
+      201:
+        description: register successfully
+      400:
+        description: wrong input [email registered, field missed]
+  get:
+    description: admin can get all users
+    responses:
+      200:
+        description: get successfully
+      403:
+        description: not admin
+  /uid:
+    get:
+      description: user can get self profile
+      responses:
+        200:
+          description: get personal profile
+        404:
+          description: user not exists
+        403:
+          description: currentUser is not uid. cannot see others' profile
+    put:
+      description: user can update self profile
+      responses:
+        204:
+        403: 
+          description: currentUser is not uid. cannot update others' profile
+    /session:
+      post:
+        description: user can login
+        responses:
+          201: 
+            description: login successfully
+          403: 
+            description: currentUser is not uid. cannot see others' profile
+      delete:
+        description: user can logout
+        responses:
+          201: 
+            description: logout successfully
+          409: 
+            description: has not login
+          403: 
+            description: currentUser is not uid. cannot see others' profile
+/users/uid/orders:
+  post:
+    description: user can create order to buy charge product
+    responses:
+      201: 
+        description: create order successfully
+      403: 
+        description: not currentUser
+      400: 
+        description: field incomplete
+      409: 
+        description: has bought the product before
+  get:
+    description: user can get all orders of self
+    responses:
+      200:
+      403:
+        description: not currentUser
+  /oid:
+    get:
+      description: user can get an order of self
+      responses:
+        200:
+          description: user can access order detail
+        404:
+          description: order not exists
+        403:
+          description: not currentUser
+    /payment:
+      post: 
+        description: user can pay for the order
+        responses:
+          201:
+          400:
+            description: wrong account
+          403:
+            description: not currentUser
+    /access_rights:
+      post:
+        description: user can get the access_rights of the product he/she bought
+        responses:
+          200:
+          403:
+/products:
+  post:
+    description: admin can create charge product
+    responses:
+      201:
+      400:
+      403:
+        description: not admin
+  get:
+    description: users can get all products
+    responses:
+      200:
+  /pid:
+    get:
+      description: users can get some product info
+      responses:
+        200:
+        404:
+    put:
+      description: admin can make the product invisible
+      responses:
+        204:
+        404:
+        403: 
+          description: not admin
+    /access_contract:
+      post:
+        description: admin can establish a new accessContract for the product to define the accessRights user will get from the product
+        responses:
+          201:
+          403:
+            description: not admin
+/categories:
+  post:
+    description: admin can create new categories of music
+    responses:
+      201:
+      400:
+      403:
+/musics:
+  post:
+    description: admin can add new music
+    responses:
+      201:
+      400:
+      403:
+        description: not admin
+  get:
+    description: users can get all musics
+    responses:
+      200:
+  /mid:
+    put:
+      description: admin can update music info
+      responses:
+        204:
+        400:
+        403:
+    /charge:
+      post:
+        description: admin can designates the charge of music. It can be NORMAL(means no charge), SongChage(means need buy song/membership), AlbumCharge(means need buy album)
+        responses:
+          201:
+          403:
+          400:
+    /music_access:
+      post: 
+        description: user can access a music, either listen or download
+        responses:
+          201:
+          400:
+          403: 
+            description: user has no right to access the music

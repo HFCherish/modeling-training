@@ -1,0 +1,133 @@
+#%RAML 0.8
+title: shopping API
+version: v1
+mediaType:  application/json
+
+
+/users:
+  post:
+    description: owner can register
+    responses:
+      201:
+      400:
+  /session:
+    post:
+      description: owner can login
+  get:
+    description: admin can get all users
+    responses:
+      200:
+  /uid:
+    get:
+      description: owner can get self profile
+      responses:
+        200:
+        404:
+    put:
+      description: owner can update self profile
+      responses:
+        204:
+    /session:
+      delete:
+        description: owner can logout
+/users/uid/orders:
+  /orderItems:
+    post:
+      description: owner can create order items
+      body:
+        application/json:
+          example: !include examples/request_post_order_item.json
+      responses:
+        201:
+        400:
+  post:
+    description: owner can create order by several orter items, and the freight info
+    body:
+      application/json:
+        example: !include examples/request_post_order.json
+    responses:
+      201:
+      400:
+  get:
+    description: owner can get all orders of self
+    responses:
+      200:
+      404:
+  /oid:
+    get:
+      description: owner can get an order of self
+      responses:
+        200:
+        404:
+    put:
+      description: owner can modify the order item and freight info
+      responses:
+        204:
+        400:
+    /payment:
+      post: 
+        description: owner can pay for the order
+        responses:
+          201:
+          400:
+      /refund_requests:
+        post:
+          description: owner can apply for refunding of some items
+        /rrid:
+          get:
+            description: owner can get some refund Request
+          put:
+            description: owner can modify the refund Request
+          delete:
+            description: owner can cancel the refund Request
+          /refund:
+            post:
+              description: accountant can conduct refund to the refund request
+/products:
+  post:
+    description: sellers can create product
+    responses:
+      201:
+      400:
+  get:
+    description: sellers can get all products
+    responses:
+      200:
+  /pid:
+    get:
+      description: sellers can get some product info
+      responses:
+        200:
+        404:
+    put:
+      description: sellers can update the product info
+      responses:
+        204:
+        404:
+    delete:
+      description: sellers can delete some product
+      responses:
+        204:
+        404:
+/stores:
+  post:
+    description: warehouse manager can create stores info
+    responses:
+      201:
+      400:
+  get:
+    description: warehouse manager can get all stores info
+    responses:
+      200:
+  /sid:
+    get:
+      description: warehouse manager can get some store info
+      responses:
+        200:
+        404:
+    put:
+      description: warehouse manager can update some store info
+    delete:
+      description: warehouse manager can delete some store
+
+

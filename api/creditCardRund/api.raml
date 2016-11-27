@@ -1,0 +1,158 @@
+#%RAML 0.8
+title: credit_card
+version: v1
+mediaType:  application/json
+
+
+/users:
+  post:
+    description: user can register
+    responses:
+      201:
+        description: register successfully
+      400:
+        description: wrong input [email registered, field missed]
+  get:
+    description: admin can get all users
+    responses:
+      200:
+        description: get successfully
+      403:
+        description: not admin
+  /uid:
+    get:
+      description: user can get self profile
+      responses:
+        200:
+          description: get personal profile
+        404:
+          description: user not exists
+        403:
+          description: currentUser is not uid. cannot see others' profile
+    put:
+      description: user can update self profile
+      responses:
+        204:
+        403: 
+          description: currentUser is not uid. cannot update others' profile
+    /session:
+      post:
+        description: user can login
+        responses:
+          201: 
+            description: login successfully
+          403: 
+            description: currentUser is not uid. cannot see others' profile
+      delete:
+        description: user can logout
+        responses:
+          201: 
+            description: logout successfully
+          409: 
+            description: has not login
+          403: 
+            description: currentUser is not uid. cannot see others' profile
+/users/uid/cards:
+  post:
+    description: bank can create cards for user
+    responses:
+      201:
+      403: 
+        description: not banker
+  get:
+    description: customer can get all the cards of himself. banker get all the cards created by hims
+    responses:
+      200:
+  /cid:
+    get:
+      description: customer can get some card detail of himself. banker can get some card created by him
+      responses:
+        200:
+        404:
+        403: 
+         description: cid not belongs to customer or cid not created by banker
+    /cancel: 
+      post:
+        description: banker can cancel the card for user
+        responses:
+          201:
+          404: 
+            description: card not exists for uid
+          403:
+            description: current user is not banker
+/instalment_products:
+  post:
+    description: banker create new instalment product
+    responses:
+      201:
+      403: 
+        description: not banker
+      400:
+  get:
+    description: get all instalment products
+    responses:
+      200:
+  /pid:
+    get:
+      description: get some instalment product
+      responses:
+        200:
+        404:
+/users/uid/instalment_requests:
+  post:
+    description: customer apply for instalment
+    responses:
+      201:
+      403:
+        description: current user is not uid
+  get:
+    description: get all instalment requests of uid
+    responses:
+      200:
+  /iid:
+    get:
+      description: get some instalment request of uid
+      responses:
+        200:
+        404: 
+          description: the iid for uid not exists
+        403: 
+          description: current user is not banker or uid
+/users/uid/cards/cid/bills:
+  get:
+    description: get all bill history of cid owned by uid
+    responses:
+      200:
+        description: successfully
+      403:
+        description: current user is not banker or uid
+  /current:
+    get:
+      description: get the current bill of cid owned by uid
+      responses:
+        200:
+          description: successfully
+        403:
+          description: current user is not banker or uid
+    /transactions:
+      post:
+        description: produce a new transaction on cid of uid
+        responses:
+          201:
+          400:
+          403:
+            description: transaction is not valid, or current user is not the transaction owner, or transaction is not belong to uid
+    /refunds:
+      post:
+        description: customer refund
+        responses:
+          201:
+          400:
+  /bid:
+    get: 
+      description: get detail of some bill[bid]
+      responses:
+        200:
+        404:
+        403:
+          description: current user is not banker or not uid
