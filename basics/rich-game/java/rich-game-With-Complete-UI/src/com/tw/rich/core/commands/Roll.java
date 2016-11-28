@@ -6,7 +6,7 @@ import com.tw.rich.core.Player;
 /**
  * Created by pzzheng on 11/27/16.
  */
-public class Roll implements Command {
+public class Roll extends Command {
     private Dice dice;
 
     public Roll(Dice dice) {

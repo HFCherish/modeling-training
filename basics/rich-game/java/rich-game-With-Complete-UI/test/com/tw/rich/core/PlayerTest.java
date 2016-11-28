@@ -51,7 +51,7 @@ public class PlayerTest {
         assertThat(player.lastCommand, is(toResponseCommand));
 
 
-        when(command.respond(eq(player), any())).thenAnswer( p -> {
+        when(toResponseCommand.respond(eq(player), any())).thenAnswer( p -> {
             ((Player) p.getArgument(0)).endTurn();
             return null;
         });

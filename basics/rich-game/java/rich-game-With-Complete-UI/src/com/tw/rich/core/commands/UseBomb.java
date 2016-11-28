@@ -5,7 +5,7 @@ import com.tw.rich.core.Player;
 /**
  * Created by pzzheng on 11/27/16.
  */
-public class UseBomb implements Command {
+public class UseBomb extends Command {
     @Override
     public Command execute(Player player) {
         return null;

@@ -5,7 +5,7 @@ import com.tw.rich.core.Player;
 /**
  * Created by pzzheng on 11/27/16.
  */
-public class SellTool implements Command {
+public class SellTool extends Command {
     @Override
     public Command execute(Player player) {
         return null;

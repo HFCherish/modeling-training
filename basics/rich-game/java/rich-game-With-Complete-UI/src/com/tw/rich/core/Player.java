@@ -80,7 +80,7 @@ public class Player {
         }, WAIT_FOR_RESPONSE {
             @Override
             Command action(Player player, Command command) {
-                return command.respond(player, command);
+                return player.lastCommand.respond(player, command);
             }
         };
 

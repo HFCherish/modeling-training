@@ -5,7 +5,7 @@ import com.tw.rich.core.Player;
 /**
  * Created by pzzheng on 11/27/16.
  */
-public interface Command {
-    Command execute(Player player);
-    Command respond(Player player, Command response);
+public abstract class Command {
+    public abstract Command execute(Player player);
+    public abstract Command respond(Player player, Command response);
 }
