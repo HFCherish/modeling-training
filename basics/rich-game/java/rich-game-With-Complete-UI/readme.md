@@ -38,7 +38,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
                 1. 在prison待两天 －2 : 1
             1. 走到hospital，end turn －3 : 1
             1. 走到magic house，end turn －3 : 1  
-            1. 走到mineral estate，加点数，end turn －5 :  
+            1. 走到mineral estate，加点数，end turn －5 : 2  
             1. tool多态：（经过不同的tool有不同的行为）
                 1. 经过炸弹，送进医院，end turn －3 :
                     1. 医院待三天 －3 - 
