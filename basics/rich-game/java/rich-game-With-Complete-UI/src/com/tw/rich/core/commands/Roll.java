@@ -19,8 +19,8 @@ public class Roll extends Command {
     public Command execute(Player player) {
         Place currentPlace = player.getGame().getMap().move(player.currentPlace(), dice.next());
         if(currentPlace.getTool() != null) {
-            currentPlace.getTool().encounter(player);
-            return null;
+            player.moveTo(currentPlace);
+            return currentPlace.getTool().encounter(player);
         }
         return currentPlace.comeHere(player);
     }

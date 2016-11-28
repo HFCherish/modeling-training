@@ -1,6 +1,7 @@
 package com.tw.rich.core.assistenceItems;
 
 import com.tw.rich.core.Player;
+import com.tw.rich.core.commands.Command;
 import com.tw.rich.core.places.Hospital;
 
 /**
@@ -9,19 +10,19 @@ import com.tw.rich.core.places.Hospital;
 public enum Tool {
     BLOCK(50) {
         @Override
-        public void encounter(Player player) {
-
+        public Command encounter(Player player) {
+            return player.currentPlace().comeHere(player);
         }
     }, BOMB(50) {
         @Override
-        public void encounter(Player player) {
-            player.getGame().getMap().getHospital().comeHere(player);
+        public Command encounter(Player player) {
             player.stuckFor(Hospital.HOSPITAL_DAYS);
+            return player.getGame().getMap().getHospital().comeHere(player);
         }
     }, ROBOT(30) {
         @Override
-        public void encounter(Player player) {
-
+        public Command encounter(Player player) {
+            return null;
         }
     };
 
@@ -31,7 +32,7 @@ public enum Tool {
         this.value = value;
     }
 
-    public abstract void encounter(Player player);
+    public abstract Command encounter(Player player);
 
     public int getValue() {
         return value;
