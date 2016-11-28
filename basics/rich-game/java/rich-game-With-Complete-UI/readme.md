@@ -36,7 +36,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
                         1. 福神5轮内有效 －10 : 5
             1. 走到prison，进入prison，end turn －5 : 3
                 1. 在prison待两天 －2 : 1
-            1. 走到hospital，end turn －3 :  
+            1. 走到hospital，end turn －3 : 1
             1. 走到magic house，end turn －3 :  
             1. 走到mineral estate，加点数，end turn －5 :  
             1. tool多态：（经过不同的tool有不同的行为）
