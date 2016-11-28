@@ -1,6 +1,6 @@
 package com.tw.rich.core.commands;
 
-import com.tw.rich.core.Player;
+import com.tw.rich.core.player.Player;
 import com.tw.rich.core.places.Estate;
 
 /**

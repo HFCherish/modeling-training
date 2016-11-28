@@ -1,8 +1,7 @@
 package com.tw.rich.core.places;
 
-import com.tw.rich.core.Player;
+import com.tw.rich.core.player.Player;
 import com.tw.rich.core.assistenceItems.Gift;
-import com.tw.rich.core.assistenceItems.Tool;
 import com.tw.rich.core.commands.Command;
 import com.tw.rich.core.commands.CommandFactory;
 
