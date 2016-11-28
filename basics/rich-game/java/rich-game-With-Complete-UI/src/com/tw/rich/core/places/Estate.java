@@ -11,31 +11,53 @@ public class Estate extends Place {
     private int emptyPrice;
     private Type type;
     private Player owner;
+    private Level level;
 
     public Estate(int emptyPrice) {
         this.emptyPrice = emptyPrice;
-        type = Type.EMPTY;
+        level = Level.EMPTY;
     }
 
     @Override
     public Command comeHere(Player player) {
         player.moveTo(this);
-        return type.comeHere(player, this);
+        return typeFor(player).comeHere(player, this);
     }
 
     public void sellTo(Player player) {
         owner = player;
     }
 
+    public Type typeFor(Player player) {
+        if (owner == null) return Type.EMPTY;
+        if (owner.equals(player)) return Type.OWN;
+        return Type.OTHER;
+    }
+
     public int getEmptyPrice() {
         return emptyPrice;
     }
 
-    public enum Type{
+    public void upgrade() {
+        if (!isHighestLevel()) {
+            level = Level.values()[level.ordinal() + 1];
+        }
+    }
+
+    boolean isHighestLevel() {
+        Level[] values = Level.values();
+        return level.equals(values[values.length - 1]);
+    }
+
+    public enum Level {
+        EMPTY, THATCH, FOREIGN_STYLE, SKYSCRAPER
+    }
+
+    public enum Type {
         EMPTY {
             @Override
             Command comeHere(Player player, Estate estate) {
-                if(player.getAsset().getFunds() < estate.emptyPrice) {
+                if (player.getAsset().getFunds() < estate.emptyPrice) {
                     player.endTurn();
                     return null;
                 }
@@ -50,7 +72,11 @@ public class Estate extends Place {
         }, OWN {
             @Override
             Command comeHere(Player player, Estate estate) {
-                return null;
+                if (player.getAsset().getFunds() < estate.emptyPrice || estate.isHighestLevel()) {
+                    player.endTurn();
+                    return null;
+                }
+                    return null;
             }
         };
 
