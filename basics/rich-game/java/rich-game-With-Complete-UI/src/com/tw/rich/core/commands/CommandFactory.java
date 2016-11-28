@@ -12,6 +12,8 @@ public class CommandFactory {
     public static Command SayYes = new SimpleCommand();
     public static Command BuyTool = new BuyTool();
     public static Command GetGift = new GetGift();
+    public static Command Query = new SimpleCommand();
+    public static Command Help = new SimpleCommand();
 
     public static Command Roll(Dice dice) {
         return new Roll(dice);
