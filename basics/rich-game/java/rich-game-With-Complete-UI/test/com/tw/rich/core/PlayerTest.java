@@ -58,6 +58,4 @@ public class PlayerTest {
         player.execute(command);
         assertThat(player.getStatus(), is(Player.Status.WAIT_FOR_TURN));
     }
-
-
 }
