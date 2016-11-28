@@ -16,7 +16,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
 				1. 钱不够，end turn －5 :
 				1. 最高级，end turn －5 : 16
 				1. 如果钱够，wait for response to upgrade estate －5 :
-				1. response yes， upgrade; response no，不upgrade. end turn －5 :
+				1. response yes， upgrade; response no，不upgrade. end turn －5 : 5
 			1. 走到others estate
 				1. 钱不够，交过路费，bankrupt －5 :
 				1. 钱够，交过路费，end turn －10 :

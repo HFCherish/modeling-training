@@ -61,6 +61,10 @@ public class Player {
         currentPlace = place;
     }
 
+    public void bankrupt() {
+        status = Status.BANKRUPT;
+    }
+
     public enum Status {
         WAIT_FOR_TURN {
             @Override
