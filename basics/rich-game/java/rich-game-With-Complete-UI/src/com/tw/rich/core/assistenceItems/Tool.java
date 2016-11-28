@@ -1,6 +1,7 @@
 package com.tw.rich.core.assistenceItems;
 
 import com.tw.rich.core.Player;
+import com.tw.rich.core.places.Hospital;
 
 /**
  * Created by pzzheng on 11/27/16.
@@ -8,17 +9,18 @@ import com.tw.rich.core.Player;
 public enum Tool {
     BLOCK(50) {
         @Override
-        void encounter(Player player) {
+        public void encounter(Player player) {
 
         }
     }, BOMB(50) {
         @Override
-        void encounter(Player player) {
-
+        public void encounter(Player player) {
+            player.getGame().getMap().getHospital().comeHere(player);
+            player.stuckFor(Hospital.HOSPITAL_DAYS);
         }
     }, ROBOT(30) {
         @Override
-        void encounter(Player player) {
+        public void encounter(Player player) {
 
         }
     };
@@ -29,7 +31,7 @@ public enum Tool {
         this.value = value;
     }
 
-    abstract void encounter(Player player);
+    public abstract void encounter(Player player);
 
     public int getValue() {
         return value;

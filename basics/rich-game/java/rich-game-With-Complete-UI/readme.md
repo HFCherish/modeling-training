@@ -40,8 +40,8 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
             1. 走到magic house，end turn －3 : 1  
             1. 走到mineral estate，加点数，end turn －5 : 2  
             1. tool多态：（经过不同的tool有不同的行为）
-                1. 经过炸弹，送进医院，end turn －3 :
-                    1. 医院待三天 －3 - 
+                1. 经过炸弹，送进医院，end turn －3 : 
+                    1. 医院待三天 －3 - 8
                 1. 经过block，停止，进到block后的place －3 : 
     1. block n. wait for command. 如果有block，在地图上放block －10 ：
     1. bomb n. wait for command. 如果有bomb，在地图上放bomb，wait for command －10

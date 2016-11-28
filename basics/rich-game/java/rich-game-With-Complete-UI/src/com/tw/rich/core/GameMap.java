@@ -1,5 +1,6 @@
 package com.tw.rich.core;
 
+import com.tw.rich.core.places.Hospital;
 import com.tw.rich.core.places.Place;
 
 /**
@@ -7,6 +8,10 @@ import com.tw.rich.core.places.Place;
  */
 public class GameMap {
     public Place move(Place start, int steps) {
+        return null;
+    }
+
+    public Hospital getHospital() {
         return null;
     }
 }
