@@ -1,5 +1,6 @@
 package com.tw.rich.core;
 
+import com.tw.rich.core.assistenceItems.Tool;
 import com.tw.rich.core.places.Hospital;
 import com.tw.rich.core.places.Place;
 
@@ -13,5 +14,9 @@ public class GameMap {
 
     public Hospital getHospital() {
         return null;
+    }
+
+    public boolean setTool(Tool tool, Place start, int steps) {
+        return false;
     }
 }
