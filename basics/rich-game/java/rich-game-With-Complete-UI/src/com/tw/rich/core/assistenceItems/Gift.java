@@ -14,12 +14,12 @@ public enum Gift {
     }, POINT_CARD(200) {
         @Override
         public void getThis(Player player) {
-
+            player.getAsset().addPoints(value);
         }
     }, LUCKY_GOD(5) {
         @Override
         public void getThis(Player player) {
-
+            player.getLuckyGod();
         }
     };
     int value;

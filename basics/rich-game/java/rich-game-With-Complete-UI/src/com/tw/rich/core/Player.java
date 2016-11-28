@@ -49,6 +49,7 @@ public class Player {
     }
 
     public void endTurn() {
+        if(luckyDays > 0)   luckyDays--;
         status = Status.WAIT_FOR_TURN;
     }
 
@@ -82,6 +83,10 @@ public class Player {
 
     public boolean isStucked() {
         return stuckDays > 0;
+    }
+
+    public void inTurn() {
+        status = Status.WAIT_FOR_TURN;
     }
 
     public enum Status {

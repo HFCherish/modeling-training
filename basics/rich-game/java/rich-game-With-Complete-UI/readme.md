@@ -30,10 +30,10 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
             1. 走到gifthouse
                 1. wait for response to select gift  10 : 
                 1. 输入正确，获得gift; 输入错误，不获得gift. end turn. (gift多态（不同gift有不同行为）) －10 : 
-                    1. 资金卡：加钱，end turn
-                    1. point卡：加点数，end turn
-                    1. 福神：获得福神，end turn
-                        1. 福神5轮内有效 －10 : 
+                    1. 资金卡：加钱，end turn : 12
+                    1. point卡：加点数，end turn : 1
+                    1. 福神：获得福神，end turn : 1
+                        1. 福神5轮内有效 －10 : 5
             1. 走到prison，进入prison，end turn －5 : 
                 1. 在prison待两天 －2 -  
             1. 走到hospital，end turn －3 :  
