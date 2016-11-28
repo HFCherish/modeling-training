@@ -8,17 +8,17 @@ import com.tw.rich.core.Player;
 public enum Gift {
     FUND_CARD(2000) {
         @Override
-        void getThis(Player player) {
-
+        public void getThis(Player player) {
+            player.getAsset().addFunds(value);
         }
     }, POINT_CARD(200) {
         @Override
-        void getThis(Player player) {
+        public void getThis(Player player) {
 
         }
     }, LUCKY_GOD(5) {
         @Override
-        void getThis(Player player) {
+        public void getThis(Player player) {
 
         }
     };
@@ -28,7 +28,7 @@ public enum Gift {
         this.value = value;
     }
 
-    abstract void getThis(Player player);
+    public abstract void getThis(Player player);
 
     public int getValue() {
         return value;
