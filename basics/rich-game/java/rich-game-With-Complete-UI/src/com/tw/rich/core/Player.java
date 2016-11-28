@@ -16,6 +16,7 @@ public class Player {
     private Place currentPlace;
     private Asset asset;
     private int luckyDays;
+    private int stuckDays;
 
     public Status execute(Command command) {
         if (status.equals(Status.WAIT_FORM_COMMAND) || status.equals(Status.WAIT_FOR_RESPONSE)) {
@@ -73,6 +74,14 @@ public class Player {
 
     public boolean isLucky() {
         return luckyDays > 0;
+    }
+
+    public void stuckFor(int stuckDays) {
+        this.stuckDays = stuckDays + 1;
+    }
+
+    public boolean isStucked() {
+        return stuckDays > 0;
     }
 
     public enum Status {
