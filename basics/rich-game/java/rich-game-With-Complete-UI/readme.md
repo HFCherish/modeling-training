@@ -54,7 +54,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
 ### MAP TASKS
 1. 可以从map的一个点移动到另一个点
     1. 移动到目标  －15 : 5 
-    1. 经过炸弹或block就停 －10 : 
+    1. 经过炸弹或block就停 －10 : : 12 
 1. 可以在map上放block，bomb
     1. 能在指定地点放 －5 :  
     1. 只能在前后十步放; 如果有人不能放; 如果有道具不能放 －10 
