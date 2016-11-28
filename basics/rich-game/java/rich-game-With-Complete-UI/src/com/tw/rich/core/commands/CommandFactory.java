@@ -1,6 +1,7 @@
 package com.tw.rich.core.commands;
 
 import com.tw.rich.core.Dice;
+import com.tw.rich.core.assistenceItems.Tool;
 import com.tw.rich.core.places.Estate;
 
 /**
@@ -8,6 +9,7 @@ import com.tw.rich.core.places.Estate;
  */
 public class CommandFactory {
     public static Command SayYes = new SimpleCommand();
+    public static Command BuyTool = new BuyTool();
 
     public static Command Roll(Dice dice) {
         return new Roll(dice);
@@ -19,5 +21,9 @@ public class CommandFactory {
 
     public static Command UpgradeEstate(Estate estate) {
         return new UpgradeEstate(estate);
+    }
+
+    public static Command BuyTool(Tool tool) {
+        return new BuyTool(tool);
     }
 }
