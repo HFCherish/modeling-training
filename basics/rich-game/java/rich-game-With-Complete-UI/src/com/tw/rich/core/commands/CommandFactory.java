@@ -25,6 +25,10 @@ public class CommandFactory {
         return new SellTool(tool);
     }
 
+    public static Command SellEstate(Estate estate) {
+        return new SellEstate(estate);
+    }
+
     public static Command UpgradeEstate(Estate estate) {
         return new UpgradeEstate(estate);
     }

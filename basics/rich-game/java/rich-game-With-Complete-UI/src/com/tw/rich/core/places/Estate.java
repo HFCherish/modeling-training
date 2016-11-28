@@ -53,6 +53,10 @@ public class Estate extends Place {
         return level;
     }
 
+    public void empty() {
+        owner = null;
+    }
+
     public enum Level {
         EMPTY, THATCH, FOREIGN_STYLE, SKYSCRAPER
     }
