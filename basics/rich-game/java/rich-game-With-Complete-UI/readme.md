@@ -23,7 +23,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
 				1. 如果有福神，end turn －5 : 4 
 				1. 如果房主在监狱或医院，end turn －5 : 2
             1. 走到toolhouse
-                1. 点数不够，end turn －5 ：
+                1. 点数不够，end turn －5 ：6
                 2. 如果点数够，wait for response to select tool －5 :  
                 3. 选择工具后，买工具，继续留在toolhouse(回到a) －5 : 
                 1. F后，end turn －5 :  

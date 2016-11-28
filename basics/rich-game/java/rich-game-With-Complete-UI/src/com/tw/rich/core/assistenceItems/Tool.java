@@ -30,4 +30,8 @@ public enum Tool {
     }
 
     abstract void encounter(Player player);
+
+    public int getValue() {
+        return value;
+    }
 }
