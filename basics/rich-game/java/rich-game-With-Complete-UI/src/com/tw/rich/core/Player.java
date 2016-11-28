@@ -50,6 +50,7 @@ public class Player {
 
     public void endTurn() {
         if(luckyDays > 0)   luckyDays--;
+        if(stuckDays > 0)   stuckDays--;
         status = Status.WAIT_FOR_TURN;
     }
 
