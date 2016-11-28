@@ -13,16 +13,31 @@ public enum Tool {
         public Command encounter(Player player) {
             return player.currentPlace().comeHere(player);
         }
+
+        @Override
+        public boolean useThis(Player player, int steps) {
+            return player.getGame().getMap().setTool(this, player.currentPlace(), steps);
+        }
     }, BOMB(50) {
         @Override
         public Command encounter(Player player) {
             player.stuckFor(Hospital.HOSPITAL_DAYS);
             return player.getGame().getMap().getHospital().comeHere(player);
         }
+
+        @Override
+        public boolean useThis(Player player, int steps) {
+            return player.getGame().getMap().setTool(this, player.currentPlace(), steps);
+        }
     }, ROBOT(30) {
         @Override
         public Command encounter(Player player) {
             return null;
+        }
+
+        @Override
+        public boolean useThis(Player player, int steps) {
+            return player.getGame().getMap().useRobot(player.currentPlace());
         }
     };
 
@@ -37,4 +52,6 @@ public enum Tool {
     public int getValue() {
         return value;
     }
+
+    public abstract boolean useThis(Player player, int steps);
 }

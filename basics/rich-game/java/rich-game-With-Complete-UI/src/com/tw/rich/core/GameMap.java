@@ -19,4 +19,8 @@ public class GameMap {
     public boolean setTool(Tool tool, Place start, int steps) {
         return false;
     }
+
+    public boolean useRobot(Place start) {
+        return false;
+    }
 }
