@@ -1,6 +1,7 @@
 package com.tw.rich.core;
 
 
+import com.tw.rich.core.assistenceItems.Gift;
 import com.tw.rich.core.commands.Command;
 import com.tw.rich.core.places.Estate;
 import com.tw.rich.core.places.Place;
@@ -14,6 +15,7 @@ public class Player {
     Command lastCommand;
     private Place currentPlace;
     private Asset asset;
+    private int luckyDays;
 
     public Status execute(Command command) {
         if (status.equals(Status.WAIT_FORM_COMMAND) || status.equals(Status.WAIT_FOR_RESPONSE)) {
@@ -63,6 +65,14 @@ public class Player {
 
     public void bankrupt() {
         status = Status.BANKRUPT;
+    }
+
+    public void getLuckyGod() {
+        luckyDays = Gift.LUCKY_GOD.getValue() + 1;
+    }
+
+    public boolean isLucky() {
+        return luckyDays > 0;
     }
 
     public enum Status {

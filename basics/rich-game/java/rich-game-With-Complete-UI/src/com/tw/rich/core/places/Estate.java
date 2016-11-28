@@ -72,12 +72,14 @@ public class Estate extends Place {
             @Override
             Command comeHere(Player player, Estate estate) {
                 int charge = estate.emptyPrice * (estate.level.ordinal() + 1) / 2;
-                if(player.getAsset().getFunds() < charge) {
-                    player.bankrupt();
-                    return null;
+                if(!player.isLucky()) {
+                    if(player.getAsset().getFunds() < charge) {
+                        player.bankrupt();
+                        return null;
+                    }
+                    player.getAsset().addFunds(-charge);
+                    estate.owner.getAsset().addFunds(charge);
                 }
-                player.getAsset().addFunds(-charge);
-                estate.owner.getAsset().addFunds(charge);
                 player.endTurn();
                 return null;
             }

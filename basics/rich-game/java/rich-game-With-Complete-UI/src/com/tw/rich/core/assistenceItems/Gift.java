@@ -29,4 +29,8 @@ public enum Gift {
     }
 
     abstract void getThis(Player player);
+
+    public int getValue() {
+        return value;
+    }
 }

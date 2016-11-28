@@ -19,8 +19,8 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
 				1. response yes， upgrade; response no，不upgrade. end turn －5 : 5
 			1. 走到others estate
 				1. 钱不够，交过路费，bankrupt －5 : 4
-				1. 钱够，交过路费，end turn －10 :
-				1. 如果有福神，end turn －5 :
+				1. 钱够，交过路费，end turn －10 : 8
+				1. 如果有福神，end turn －5 : 4 
 				1. 如果房主在监狱或医院，end turn －5 :
             1. 走到toolhouse
                 1. 点数不够，end turn －5 ：
