@@ -9,6 +9,8 @@ import com.tw.rich.core.commands.Command;
 public class MagicHouse extends Place {
     @Override
     public Command comeHere(Player player) {
+        player.moveTo(this);
+        player.endTurn();
         return null;
     }
 }
