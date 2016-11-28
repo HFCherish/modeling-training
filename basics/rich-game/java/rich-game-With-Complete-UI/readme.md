@@ -26,7 +26,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
                 1. 点数不够，end turn －5 ：6
                 2. 如果点数够，wait for response to select tool －5 :  
                 3. 选择工具后，买工具，继续留在toolhouse(回到a) －5 : 18
-                1. F后，end turn －5 :  
+                1. F后，end turn －5 :  5
             1. 走到gifthouse
                 1. wait for response to select gift  10 : 
                 1. 输入正确，获得gift; 输入错误，不获得gift. end turn. (gift多态（不同gift有不同行为）) －10 : 
