@@ -47,7 +47,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
     1. bomb n. wait for command. 如果有bomb，在地图上放bomb，wait for command －10
     1. robot. wait for command. 如果有robot，在地图上使用robot，wait for command －3 -
     1. sell x. wait for command. 如果有房产，卖房产，置为空地 －10
-    1. sellTool x. wait for command. 如果有tool，卖tool -10
+    1. sellTool x. wait for command. 如果有tool，卖tool -10 : 9
     1. query，打印player信息，wait for command －10 :  3
     1. help，打印help信息，wait for command －5 : 3
 
