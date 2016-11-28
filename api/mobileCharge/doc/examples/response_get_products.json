@@ -1,0 +1,22 @@
+{
+  "count": 10,
+  "prev": "xx",
+  "next": "xxx",
+  "first": "xxx",
+  "last": "xxx",
+  "items": [{
+	"id": "xxx",
+	"name": "沃派4g套餐",
+	"price": 4342,
+	"type": "TOP_UP | PACKAGE",
+	"content": {
+		"minutes": 32,
+		"data": 32,
+		"messages": 32,
+		"money": 23 
+	},
+	"links": [{
+		"rel": "self",
+		"uri": "/products/pid"
+	}]
+}]}

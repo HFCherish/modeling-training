@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "phone_number": {
+      "type": "number"
+    },
+    "ID_Card": {
+      "type": "string",
+      "description": "certificate with real identity"
+    },
+    "card_locale": {
+      "type": "string"
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rel": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rel",
+          "uri"
+        ]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "phone_number",
+    "ID_Card",
+    "card_locale",
+    "links"
+  ]
+}

@@ -1,0 +1,180 @@
+#%RAML 0.8
+title: mobile charge
+version: v1
+mediaType:  application/json
+
+/users:
+  /uid:
+    get:
+      description: can get card detail of user
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/response_200_get_card.json
+              schema: !include schemas/response_200_get_card.schema.json
+        404:
+          description: current user is not uid
+    /calls:
+      post:
+        description: user has a new call 
+        body:
+          application/json:
+            example: !include examples/request_create_call.json
+            schema: !include schemas/request_create_call.schema.json
+        responses:
+          201:
+            headers:
+              location:
+                example: "users/uid/calls/callId"
+          409:
+            description: no enough balance
+          404:
+            description: current user is not uid
+      get:
+        description: get all call records of some month
+        queryParameters:
+          perPage: 
+            type: integer
+            default: 10
+          page:
+            type: integer
+            default: 1
+          month:
+            type: integer
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/response_get_call_records.json
+          404:
+            description: current user is not uid
+    /messages:
+      post:
+        description: user send a message
+        body:
+          application/json:
+            example: !include examples/request_post_message.json
+        responses:
+          201:
+            headers:
+              location:
+                example: "users/uid/messages/mid"
+          409:
+            description: no enough balance
+          404:
+            description: current user is not uid
+      get:
+        description: get all message records of some month
+        queryParameters:
+          perPage: 
+            type: integer
+            default: 10
+          page:
+            type: integer
+            default: 1
+          month:
+            type: integer
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/response_get_message_records.json
+          404:
+            description: current user is not uid
+    /data_accesses:
+      post:
+        description: user access a web
+        body:
+          application/json:
+            example: !include examples/request_post_data_access.json
+        responses:
+          201:
+            headers:
+              location:
+                example: "users/uid/data_accesses/daid"
+          404:
+            description: current user is not uid
+      get:
+        description: get all data access records of some month
+        queryParameters:
+          perPage: 
+            type: integer
+            default: 10
+          page:
+            type: integer
+            default: 1
+          month:
+            type: integer
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/response_get_data_access_records.json
+          404:
+            description: current user is not uid
+    # /balance:
+    #   get: 
+    #     description: get the remained money and data of card
+    #     responses: 
+    #       200:
+    #       404:
+    #         description: current user is not cid
+    /package_purchases:
+      post:
+        description: purchase a package
+        body:
+          application/json:
+            example: !include examples/request_post_package_purchase.json
+        responses:
+          201:
+            headers:
+              location:
+                example: "users/uid/package_purchases/ppid"
+      get:
+        description: get all package purchase records
+        queryParameters:
+          valid:
+            type: boolean
+            default: true
+            description: only get the packages that is valid at present
+        responses:
+          200:
+            body: 
+              application/json:
+                example: !include examples/response_get_package_purchase.json
+          404:
+            description: current user is not cid
+    /top_ups:
+      post:
+        description: top up for the card
+        body:
+          application/json:
+            example: !include examples/request_post_top_ups.json
+        responses:
+          201:
+            headers:
+              location:
+                example: "users/uid/top_ups/tuid"
+      get:
+        description: get all top-up records
+        responses:
+          200:
+            body: 
+              application/json:
+                example: !include examples/request_get_top_ups.json
+          404:
+            description: current user is not cid
+/products:
+  get:
+    description: get all products
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/response_get_products.json
+
+
+
+
+
