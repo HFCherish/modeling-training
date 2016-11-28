@@ -16,4 +16,8 @@ public class CommandFactory {
     public static Command BuyEstate(Estate estate) {
         return new BuyEstate(estate);
     }
+
+    public static Command UpgradeEstate(Estate estate) {
+        return new UpgradeEstate(estate);
+    }
 }

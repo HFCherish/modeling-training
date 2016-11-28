@@ -49,6 +49,10 @@ public class Estate extends Place {
         return level.equals(values[values.length - 1]);
     }
 
+    public Level getLevel() {
+        return level;
+    }
+
     public enum Level {
         EMPTY, THATCH, FOREIGN_STYLE, SKYSCRAPER
     }
@@ -76,7 +80,8 @@ public class Estate extends Place {
                     player.endTurn();
                     return null;
                 }
-                    return null;
+                player.waitForResponse();
+                return CommandFactory.UpgradeEstate(estate);
             }
         };
 
