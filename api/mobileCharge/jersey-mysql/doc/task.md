@@ -3,8 +3,9 @@
 	3. get 404 current user is not uid- 10 : 18
 	2. get 200 - 15 : 8
 3. /users/uid/calls
+	5. post 404 - 5: 10
+	5. post 400 - 10: 30
 	4. post 201 - 15:
-	5. post 404 - 5:
 	6. post 409 - 15:
 	5. get 404 - 5:
 	6. get 200 - 15:

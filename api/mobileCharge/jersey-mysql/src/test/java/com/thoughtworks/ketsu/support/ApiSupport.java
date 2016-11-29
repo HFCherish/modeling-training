@@ -6,6 +6,7 @@ import com.thoughtworks.ketsu.infrastructure.services.AuthorizationServiceImpl;
 import com.thoughtworks.ketsu.util.Json;
 import com.thoughtworks.ketsu.web.AuthorizationService;
 import com.thoughtworks.ketsu.web.UsersApi;
+import com.thoughtworks.ketsu.web.exception.IllegalArgumentExceptionMapper;
 import com.thoughtworks.ketsu.web.jersey.RecordListWriter;
 import com.thoughtworks.ketsu.web.jersey.RecordWriter;
 import com.thoughtworks.ketsu.web.jersey.RoutesFeature;
@@ -72,6 +73,7 @@ public class ApiSupport {
                         .register(RecordListWriter.class)
                         .register(RecordWriter.class)
                         .register(RoutesFeature.class)
+                        .register(IllegalArgumentExceptionMapper.class)
                         .register(new AbstractBinder() {
                             @Override
                             protected void configure() {

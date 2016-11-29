@@ -13,6 +13,6 @@ public class UsersApi {
     @Path("{userId}")
     public UserApi getUser(@PathParam("userId") String userId,
                            @Context UserRepo userRepo) {
-        return userRepo.findById(userId).map(UserApi::new).orElseThrow(() -> new NotFoundException("user not exists."));
+        return userRepo.findBy(userId).map(UserApi::new).orElseThrow(() -> new NotFoundException("user not exists."));
     }
 }

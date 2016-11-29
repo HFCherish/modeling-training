@@ -4,6 +4,7 @@ import com.thoughtworks.ketsu.domain.user.Balance;
 import com.thoughtworks.ketsu.domain.user.User;
 import com.thoughtworks.ketsu.support.ApiSupport;
 import com.thoughtworks.ketsu.support.ApiTestRunner;
+import com.thoughtworks.ketsu.support.TestHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -27,16 +28,16 @@ public class UserApiTest extends ApiSupport{
 
     @Test
     public void should_404_when_get_card_and_card_not_exists() {
-        when(userRepo.findById(anyString())).thenReturn(Optional.empty());
+        when(userRepo.findBy(anyString())).thenReturn(Optional.empty());
         Response response = get("users/1");
         assertThat(response.getStatus(), is(404));
     }
 
     @Test
     public void should_404_when_get_card_and_current_user_is_not_uid() {
-        User user = new User("13241667788", "beijing", "410111222233445566", mock(Balance.class));
-        User otherUser = new User("13241667788", "beijing", "410111222233445566", mock(Balance.class));
-        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
+        User user = TestHelper.getUser(mock(Balance.class));
+        User otherUser = TestHelper.getUser(mock(Balance.class));
+        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(otherUser));
         Response response = get("users/"+ user.getId().id());
         assertThat(response.getStatus(), is(404));
@@ -44,8 +45,8 @@ public class UserApiTest extends ApiSupport{
 
     @Test
     public void should_200_when_get_card() {
-        User user = new User("13241667788", "beijing", "410111222233445566", mock(Balance.class));
-        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
+        User user = TestHelper.getUser(mock(Balance.class));
+        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
         Response response = get("users/"+ user.getId().id());
