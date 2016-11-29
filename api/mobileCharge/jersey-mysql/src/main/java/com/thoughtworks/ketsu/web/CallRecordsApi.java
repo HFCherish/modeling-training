@@ -60,12 +60,12 @@ public class CallRecordsApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<CallRecord> getAllOfUser(@Context CallRecordRepo callRecordRepo,
+    public Page<CallRecord> getAllOfUser(@Context CallRecordRepo callRecordRepo,
                                          @QueryParam("page") int page,
                                          @QueryParam("perPage") int perPage,
                                          @Context UriInfo uriInfo) {
-//        return callRecordRepo.findAllOf(user).toPage(page, perPage, uriInfo);
-        return callRecordRepo.findAllOf(user);
+        return callRecordRepo.findAllOf(user).toPage(page, perPage, uriInfo);
+//        return callRecordRepo.findAllOf(user);
     }
 
 
