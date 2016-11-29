@@ -6,8 +6,10 @@ import com.thoughtworks.ketsu.util.IdGenerator;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
+import static com.thoughtworks.ketsu.util.LocaleFormatter.getCityAndCountry;
 import static java.util.Arrays.asList;
 
 /**
@@ -15,12 +17,12 @@ import static java.util.Arrays.asList;
  */
 public class User implements Record {
     private final String phoneNumber;
-    private final String locale;
+    private final Locale locale;
     private final String idCard;
     private final EntityId id;
     private Balance initialBalance;
 
-    public User(String phoneNumber, String locale, String idCard, Balance initialBalance) {
+    public User(String phoneNumber, Locale locale, String idCard, Balance initialBalance) {
         this.initialBalance = initialBalance;
         this.id = new EntityId(IdGenerator.next());
         this.phoneNumber = phoneNumber;
@@ -53,7 +55,7 @@ public class User implements Record {
         return new HashMap(){{
             put("id", id.id());
             put("phone_number", phoneNumber);
-            put("card_locale", locale);
+            put("card_locale", getCityAndCountry(locale));
             put("links", asList(
                 routes.linkMap("self", routes.userUrl(id.id()).getPath())
             ));
