@@ -20,10 +20,10 @@ public class User implements Record {
     private final Locale locale;
     private final String idCard;
     private final EntityId id;
-    private Balance initialBalance;
+    private Balance balance;
 
     public User(String phoneNumber, Locale locale, String idCard, Balance initialBalance) {
-        this.initialBalance = initialBalance;
+        this.balance = initialBalance;
         this.id = new EntityId(IdGenerator.next());
         this.phoneNumber = phoneNumber;
         this.locale = locale;
@@ -47,6 +47,10 @@ public class User implements Record {
 
     public Locale getLocale() {
         return locale;
+    }
+
+    public Balance getBalance() {
+        return balance;
     }
 
     @Override
