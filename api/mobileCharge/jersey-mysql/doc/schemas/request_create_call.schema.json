@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "from_locale": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "object",
+      "properties": {
+        "start": "number",
+        "end": "number"
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    }
+  },
+  "required": [
+    "from_locale",
+    "target",
+    "duration"
+  ]
+}

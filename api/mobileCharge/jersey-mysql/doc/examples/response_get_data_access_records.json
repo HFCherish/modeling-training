@@ -1,0 +1,18 @@
+{
+  "count": 10,
+  "prev": "xx",
+  "next": "xxx",
+  "first": "xxx",
+  "last": "xxx",
+  "items": [{
+	"createdAt": 324,
+	"from_locale": "beijing",
+	"target_consumer": "music.163.com",
+	"charge_type": "FREE | CHARGE",
+	"data": 978979,
+	"fee": 8098,
+	"links": [{
+		"rel": "self",
+		"uri": "/users/uid/data_accesses/daid"
+	}]
+}]}

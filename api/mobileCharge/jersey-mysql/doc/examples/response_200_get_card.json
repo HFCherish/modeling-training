@@ -1,0 +1,10 @@
+{
+	"id": "xxx",
+	"phone_number": 1236879,
+	"ID_Card": "234542",
+	"card_locale": "beijing",
+	"links": [{
+		"rel": "self",
+		"uri": "/users/uid"
+	}]
+}

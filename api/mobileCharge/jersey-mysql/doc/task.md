@@ -1,0 +1,33 @@
+1. /users/uid
+	2. get 200 - 15 : 
+	3. get 404 not exists - 10 : 15
+	3. get 404 current user is not uid- 10 : 18
+3. /users/uid/calls
+	4. post 201 - 15:
+	5. post 404 - 5:
+	6. post 409 - 15:
+	5. get 404 - 5:
+	6. get 200 - 15:
+7. /users/uid/messages:
+	8. post 201 - 15:
+	9. post 404 - 5:
+	10. post 409 - 10:
+	11. get 200 - 15:
+	12. get 404 - 5:
+13. /users/uid/data_accesses:
+	14. post 201: -15:
+	15. post 404: -5:
+	16. get 200: - 10:
+	17. get 404 -5:
+18. /users/uid/package_purchases:
+	19. post 201 -10:
+	20. post 400 -15:
+	21. get 404 -5:
+	22. get 200 - 15:
+23. /users/uid/top_ups:
+	19. post 201 -10:
+	20. post 400 -15:
+	21. get 404 -5:
+	22. get 200 - 15:
+23. /products:
+	24. get 200 -15: 
