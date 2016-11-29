@@ -8,9 +8,7 @@ import com.thoughtworks.ketsu.util.Json;
 import com.thoughtworks.ketsu.web.AuthorizationService;
 import com.thoughtworks.ketsu.web.UsersApi;
 import com.thoughtworks.ketsu.web.exception.IllegalArgumentExceptionMapper;
-import com.thoughtworks.ketsu.web.jersey.RecordListWriter;
-import com.thoughtworks.ketsu.web.jersey.RecordWriter;
-import com.thoughtworks.ketsu.web.jersey.RoutesFeature;
+import com.thoughtworks.ketsu.web.jersey.*;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.ServletRegistration;
 import org.glassfish.grizzly.servlet.WebappContext;
@@ -74,7 +72,10 @@ public class ApiSupport {
                 application = new ResourceConfig(UsersApi.class)
                         .register(RecordListWriter.class)
                         .register(RecordWriter.class)
+                        .register(PageToJson.class)
                         .register(RoutesFeature.class)
+                        .register(LoggingFilter.class)
+                        .register(CORSResponseFilter.class)
                         .register(IllegalArgumentExceptionMapper.class)
                         .register(new AbstractBinder() {
                             @Override
@@ -137,6 +138,7 @@ public class ApiSupport {
     protected Response get(String uri) {
         return session(test.target(uri).request()).get();
     }
+
     protected Response delete(String uri) {
         return session(test.target(uri).request()).delete();
     }

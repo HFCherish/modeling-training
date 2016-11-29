@@ -27,8 +27,6 @@ mediaType:  application/json
             headers:
               location:
                 example: "users/uid/calls/callId"
-          409:
-            description: no enough balance
           404:
             description: current user is not uid
       get:
@@ -60,8 +58,6 @@ mediaType:  application/json
             headers:
               location:
                 example: "users/uid/messages/mid"
-          409:
-            description: no enough balance
           404:
             description: current user is not uid
       get:

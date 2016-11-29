@@ -6,13 +6,11 @@
 	5. post 404 - 5: 10
 	5. post 400 - 10: 30
 	4. post 201 - 15: 30
-	6. post 409 - 15:
-	5. get 404 - 5:
+	5. get 404 - 5: 4
 	6. get 200 - 15:
 7. /users/uid/messages:
 	8. post 201 - 15:
 	9. post 404 - 5:
-	10. post 409 - 10:
 	11. get 200 - 15:
 	12. get 404 - 5:
 13. /users/uid/data_accesses:

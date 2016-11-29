@@ -26,7 +26,10 @@ public class UserApi {
     }
 
     @Path("calls")
-    public CallRecordsApi toCallsApi() {
+    public CallRecordsApi toCallsApi(@Context AuthorizationService authorizationService) {
+        if (!authorizationService.currentUserIs(user)) {
+            throw new NotFoundException("user not exists");
+        }
         return new CallRecordsApi(user);
     }
 
