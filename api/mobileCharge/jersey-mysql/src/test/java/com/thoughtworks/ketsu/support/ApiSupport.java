@@ -1,6 +1,7 @@
 package com.thoughtworks.ketsu.support;
 
 import com.thoughtworks.ketsu.domain.CurrentUserService;
+import com.thoughtworks.ketsu.domain.user.CallRecordRepo;
 import com.thoughtworks.ketsu.domain.user.UserRepo;
 import com.thoughtworks.ketsu.infrastructure.services.AuthorizationServiceImpl;
 import com.thoughtworks.ketsu.util.Json;
@@ -60,6 +61,7 @@ public class ApiSupport {
     protected String token = "";
 
     protected UserRepo userRepo = mock(UserRepo.class);
+    protected CallRecordRepo callRecordRepo = mock(CallRecordRepo.class);
     protected CurrentUserService currentUserService = mock(CurrentUserService.class);
 
     @Before
@@ -79,6 +81,7 @@ public class ApiSupport {
                             protected void configure() {
                                 bind(userRepo).to(UserRepo.class);
                                 bind(currentUserService).to(CurrentUserService.class);
+                                bind(callRecordRepo).to(CallRecordRepo.class);
                                 bind(AuthorizationServiceImpl.class).to(AuthorizationService.class);
                             }
                         });

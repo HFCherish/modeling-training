@@ -5,7 +5,7 @@
 3. /users/uid/calls
 	5. post 404 - 5: 10
 	5. post 400 - 10: 30
-	4. post 201 - 15:
+	4. post 201 - 15: 30
 	6. post 409 - 15:
 	5. get 404 - 5:
 	6. get 200 - 15:

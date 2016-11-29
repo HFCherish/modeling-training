@@ -26,8 +26,8 @@ public class UserApi {
     }
 
     @Path("calls")
-    public CallsApi toCallsApi() {
-        return new CallsApi(user);
+    public CallRecordsApi toCallsApi() {
+        return new CallRecordsApi(user);
     }
 
     @Path("messages")

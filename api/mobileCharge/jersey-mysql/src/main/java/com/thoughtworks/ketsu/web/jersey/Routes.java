@@ -27,4 +27,8 @@ public class Routes {
     public URI userUrl(String uid) {
         return URI.create(String.format("%susers/%s", baseUri, uid));
     }
+
+    public URI callRecordsUrl(String uid, String callRecordId) {
+        return URI.create(baseUri + "users/" + uid + "/calls/" + callRecordId);
+    }
 }
