@@ -58,8 +58,8 @@ public class CallRecordsApi {
                 ((Map) info.get("from_locale")).get("country").toString(),
                 ((Map) info.get("from_locale")).get("city").toString());
 
-        CallRecord callerRecord = callRecordRepo.save(new CallRecord(user, target.get(), from_locale, duration));
-        callRecordRepo.save(new CallRecord(target.get(), user, from_locale, duration));
+        CallRecord callerRecord = callRecordRepo.save(new CallRecord(user, target.get(), from_locale, duration, CallRecord.CallType.CALLER));
+        callRecordRepo.save(new CallRecord(target.get(), user, from_locale, duration, CallRecord.CallType.CALLEE));
 
         return Response.status(201).location(routes.callRecordsUrl(user.getId().id(), callerRecord.getId().id())).build();
     }

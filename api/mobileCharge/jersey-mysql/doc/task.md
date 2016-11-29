@@ -11,9 +11,9 @@
 	6. get 200 - 15: 
 	    1. basic info :26
 	    1. paginated - 15: 1
-	    1. show fee info - 15:
-	    1. show call_type info - 15:
+	    1. show call_type info - 5: 4
 	    1. show communication_type info -15:
+	    1. show fee info - 15:
 7. /users/uid/messages:
 	8. post 201 - 15:
 	9. post 404 - 5:
