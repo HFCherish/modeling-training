@@ -56,7 +56,7 @@ public class CallRecordsApi {
         Duration duration = new Duration((long) (((Map) info.get("duration")).get("start")), (long) (((Map) info.get("duration")).get("end")));
         Locale from_locale = new Locale(((Map) info.get("from_locale")).get("language").toString(),
                 ((Map) info.get("from_locale")).get("country").toString(),
-                ((Map) info.get("from_locale")).get("city").toString());
+                ((Map) info.get("from_locale")).get("city").toString().toLowerCase());
 
         CallRecord callerRecord = callRecordRepo.save(new CallRecord(user, target.get(), from_locale, duration, CallRecord.CallType.CALLER));
         callRecordRepo.save(new CallRecord(target.get(), user, from_locale, duration, CallRecord.CallType.CALLEE));

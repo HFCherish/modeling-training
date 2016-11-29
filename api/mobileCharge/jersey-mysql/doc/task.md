@@ -12,7 +12,7 @@
 	    1. basic info :26
 	    1. paginated - 15: 1
 	    1. show call_type info - 5: 4
-	    1. show communication_type info -15:
+	    1. show communication_type info -15: 8
 	    1. show fee info - 15:
 7. /users/uid/messages:
 	8. post 201 - 15:

@@ -45,6 +45,10 @@ public class User implements Record {
 
     }
 
+    public Locale getLocale() {
+        return locale;
+    }
+
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
