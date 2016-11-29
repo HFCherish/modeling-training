@@ -1,7 +1,7 @@
 1. /users/uid
-	2. get 200 - 15 : 
 	3. get 404 not exists - 10 : 15
 	3. get 404 current user is not uid- 10 : 18
+	2. get 200 - 15 : 8
 3. /users/uid/calls
 	4. post 201 - 15:
 	5. post 404 - 5:

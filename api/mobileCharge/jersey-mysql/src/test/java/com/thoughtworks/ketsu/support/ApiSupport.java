@@ -6,6 +6,9 @@ import com.thoughtworks.ketsu.infrastructure.services.AuthorizationServiceImpl;
 import com.thoughtworks.ketsu.util.Json;
 import com.thoughtworks.ketsu.web.AuthorizationService;
 import com.thoughtworks.ketsu.web.UsersApi;
+import com.thoughtworks.ketsu.web.jersey.RecordListWriter;
+import com.thoughtworks.ketsu.web.jersey.RecordWriter;
+import com.thoughtworks.ketsu.web.jersey.RoutesFeature;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.ServletRegistration;
 import org.glassfish.grizzly.servlet.WebappContext;
@@ -66,6 +69,9 @@ public class ApiSupport {
             @Override
             protected Application configure() {
                 application = new ResourceConfig(UsersApi.class)
+                        .register(RecordListWriter.class)
+                        .register(RecordWriter.class)
+                        .register(RoutesFeature.class)
                         .register(new AbstractBinder() {
                             @Override
                             protected void configure() {

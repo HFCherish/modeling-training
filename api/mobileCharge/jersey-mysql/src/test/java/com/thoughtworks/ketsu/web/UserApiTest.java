@@ -9,6 +9,8 @@ import org.junit.runner.RunWith;
 
 import javax.ws.rs.core.Response;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -38,5 +40,19 @@ public class UserApiTest extends ApiSupport{
         when(currentUserService.currentUser()).thenReturn(Optional.of(otherUser));
         Response response = get("users/"+ user.getId().id());
         assertThat(response.getStatus(), is(404));
+    }
+
+    @Test
+    public void should_200_when_get_card() {
+        User user = new User("13241667788", "beijing", "410111222233445566", mock(Balance.class));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
+        when(currentUserService.currentUser()).thenReturn(Optional.of(user));
+
+        Response response = get("users/"+ user.getId().id());
+
+        assertThat(response.getStatus(), is(200));
+        Map fetchedUserInfo = response.readEntity(Map.class);
+        assertThat(fetchedUserInfo.get("id"), is(user.getId().id()));
+        assertThat(canFindLink(((List)fetchedUserInfo.get("links")), "self", "users/" + user.getId().id()), is(true));
     }
 }

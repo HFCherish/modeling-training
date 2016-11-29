@@ -1,6 +1,9 @@
 package com.thoughtworks.ketsu.web.jersey;
 
 import javax.ws.rs.core.UriInfo;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Routes {
 
@@ -13,4 +16,15 @@ public class Routes {
 //    public URI userUrl(User user) {
 //        return URI.create(String.format("%susers/%s", baseUri, user.getUserId().id()));
 //    }
+
+    public Map<String, Object> linkMap(String rel, String uri) {
+        return new HashMap() {{
+            put("rel", rel);
+            put("uri", uri);
+        }};
+    }
+
+    public URI userUrl(String uid) {
+        return URI.create(String.format("%susers/%s", baseUri, uid));
+    }
 }
