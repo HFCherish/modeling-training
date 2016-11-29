@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -43,6 +44,9 @@ public class CallRecordsApi {
                 info);
         validate(all(fieldNotEmpty("start", "start time is required"),
                 fieldNotEmpty("end", "end time is required")), (Map) info.get("duration"));
+        validate(all(fieldNotEmpty("language", "language is required"),
+                fieldNotEmpty("country", "country is required"),
+                fieldNotEmpty("city", "city is required")), (Map)info.get("from_locale"));
 
         Optional<User> target = userRepo.findBy(info.get("target").toString());
         if(!target.isPresent()) {
@@ -50,7 +54,9 @@ public class CallRecordsApi {
         }
 
         Duration duration = new Duration((long) (((Map) info.get("duration")).get("start")), (long) (((Map) info.get("duration")).get("end")));
-        String from_locale = info.get("from_locale").toString();
+        Locale from_locale = new Locale(((Map) info.get("from_locale")).get("language").toString(),
+                ((Map) info.get("from_locale")).get("country").toString(),
+                ((Map) info.get("from_locale")).get("city").toString());
 
         CallRecord callerRecord = callRecordRepo.save(new CallRecord(user, target.get(), from_locale, duration));
         callRecordRepo.save(new CallRecord(target.get(), user, from_locale, duration));

@@ -3,7 +3,25 @@
   "type": "object",
   "properties": {
     "from_locale": {
-      "type": "string"
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country codes are defined by ISO 3166"
+        },
+        "language": {
+          "type": "string",
+          "description": "Language codes are defined by ISO 639"
+        }
+      },
+      "required": [
+        "city",
+        "country",
+        "language"
+      ]
     },
     "target": {
       "type": "string"

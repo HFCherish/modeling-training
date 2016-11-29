@@ -9,11 +9,15 @@
 		"start": 34324,
 		"end": 3424
 	},
-	"from_locale": "beijing",
+	"from_locale": "Beijing-China",
 	"target": {
 		"id": "xxx",
 		"phone_number": 1236879,
-		"card_locale": "beijing"
+		"card_locale": {
+			"city": "beijing",
+			"country": "CN",
+			"language": "zh"
+		}
 	},
 	"communication_type": "LOCAL | INTERNAL | INTERNATIONAL",
 	"call_type": "CALLER | CALLEE",

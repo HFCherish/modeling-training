@@ -157,7 +157,8 @@
       "description": "certificate with real identity"
     },
     "card_locale": {
-      "type": "string"
+      "type": "string",
+      "description": "format is like this: Beijing-China"
     },
     "links": {
       "type": "array",
@@ -190,7 +191,7 @@
 	"id": "xxx",
 	"phone_number": 1236879,
 	"ID_Card": "234542",
-	"card_locale": "beijing",
+	"card_locale": "Beijing-China",
 	"links": [{
 		"rel": "self",
 		"uri": "/users/uid"
@@ -200,7 +201,25 @@
   "type": "object",
   "properties": {
     "from_locale": {
-      "type": "string"
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country codes are defined by ISO 3166"
+        },
+        "language": {
+          "type": "string",
+          "description": "Language codes are defined by ISO 639"
+        }
+      },
+      "required": [
+        "city",
+        "country",
+        "language"
+      ]
     },
     "target": {
       "type": "string"
@@ -228,9 +247,13 @@
 		"start": 88809,
 		"end": 342432
 	},
-	"from_locale": "beijing",
+	"from_locale": {
+		"city": "beijing",
+		"country": "CN",
+		"language": "zh"
+	},
 	"target": "xxx"
-}</code></pre></div><div class="tab-pane" id="users_uid_calls_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Headers</h3><ul><li><strong>location</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>users/uid/calls/callId</pre></li></ul><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>current user is not uid</p><h2>HTTP status code <a href="http://httpstatus.es/409" target="_blank">409</a></h2><p>no enough balance</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_uid_calls_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/users/uid</span>/calls</h4></div><div class="modal-body"><div class="alert alert-info"><p>get all call records of some month</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_uid_calls_get_request" data-toggle="tab">Request</a></li><li><a href="#users_uid_calls_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_uid_calls_get_request"><h3>Query Parameters</h3><ul><li><strong>perPage</strong>: <em>(integer - default: 10)</em></li><li><strong>page</strong>: <em>(integer - default: 1)</em></li><li><strong>month</strong>: <em>(integer)</em></li></ul></div><div class="tab-pane" id="users_uid_calls_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+}</code></pre></div><div class="tab-pane" id="users_uid_calls_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Headers</h3><ul><li><strong>location</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>users/uid/calls/callId</pre></li></ul><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>current user is not uid</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_uid_calls_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/users/uid</span>/calls</h4></div><div class="modal-body"><div class="alert alert-info"><p>get all call records of some month</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_uid_calls_get_request" data-toggle="tab">Request</a></li><li><a href="#users_uid_calls_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_uid_calls_get_request"><h3>Query Parameters</h3><ul><li><strong>perPage</strong>: <em>(integer - default: 10)</em></li><li><strong>page</strong>: <em>(integer - default: 1)</em></li><li><strong>month</strong>: <em>(integer)</em></li></ul></div><div class="tab-pane" id="users_uid_calls_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
   "count": 10,
   "prev": "xx",
   "next": "xxx",
@@ -241,11 +264,15 @@
 		"start": 34324,
 		"end": 3424
 	},
-	"from_locale": "beijing",
+	"from_locale": "Beijing-China",
 	"target": {
 		"id": "xxx",
 		"phone_number": 1236879,
-		"card_locale": "beijing"
+		"card_locale": {
+			"city": "beijing",
+			"country": "CN",
+			"language": "zh"
+		}
 	},
 	"communication_type": "LOCAL | INTERNAL | INTERNATIONAL",
 	"call_type": "CALLER | CALLEE",
@@ -258,7 +285,7 @@
 	"type": "MMS | SMS",
 	"content": "xxx",
 	"target": "xxx"
-}</code></pre></div><div class="tab-pane" id="users_uid_messages_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Headers</h3><ul><li><strong>location</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>users/uid/messages/mid</pre></li></ul><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>current user is not uid</p><h2>HTTP status code <a href="http://httpstatus.es/409" target="_blank">409</a></h2><p>no enough balance</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_uid_messages_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/users/uid</span>/messages</h4></div><div class="modal-body"><div class="alert alert-info"><p>get all message records of some month</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_uid_messages_get_request" data-toggle="tab">Request</a></li><li><a href="#users_uid_messages_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_uid_messages_get_request"><h3>Query Parameters</h3><ul><li><strong>perPage</strong>: <em>(integer - default: 10)</em></li><li><strong>page</strong>: <em>(integer - default: 1)</em></li><li><strong>month</strong>: <em>(integer)</em></li></ul></div><div class="tab-pane" id="users_uid_messages_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+}</code></pre></div><div class="tab-pane" id="users_uid_messages_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Headers</h3><ul><li><strong>location</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>users/uid/messages/mid</pre></li></ul><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>current user is not uid</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_uid_messages_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/users/uid</span>/messages</h4></div><div class="modal-body"><div class="alert alert-info"><p>get all message records of some month</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_uid_messages_get_request" data-toggle="tab">Request</a></li><li><a href="#users_uid_messages_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_uid_messages_get_request"><h3>Query Parameters</h3><ul><li><strong>perPage</strong>: <em>(integer - default: 10)</em></li><li><strong>page</strong>: <em>(integer - default: 1)</em></li><li><strong>month</strong>: <em>(integer)</em></li></ul></div><div class="tab-pane" id="users_uid_messages_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
   "count": 10,
   "prev": "xx",
   "next": "xxx",
@@ -270,7 +297,7 @@
 	"communication_type": "LOCAL | INTERNAL | INTERNATIONAL",
 	"target": {
 		"id": "xxx",
-		"card_locale": "beijing",
+		"card_locale": "Beijing-China",
 		"phone_number": 68979
 	},
 	"call_type": "SENDER | RECEIVER",
@@ -280,7 +307,11 @@
 		"uri": "/users/uid/messages/mid"
 	}]
 }]}</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>current user is not uid</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_users_uid_data_accesses"><span class="parent">/users/uid</span>/data_accesses</a> <span class="methods"><a href="#users_uid_data_accesses_post"><span class="badge badge_post">post</span></a> <a href="#users_uid_data_accesses_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_users_uid_data_accesses" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#users_uid_data_accesses_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>user access a web</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#users_uid_data_accesses_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>get all data access records of some month</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_uid_data_accesses_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/users/uid</span>/data_accesses</h4></div><div class="modal-body"><div class="alert alert-info"><p>user access a web</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_uid_data_accesses_post_request" data-toggle="tab">Request</a></li><li><a href="#users_uid_data_accesses_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_uid_data_accesses_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
-	"from_locale": "beijing",
+	"from_locale": {
+		"city": "beijing",
+		"country": "CN",
+		"language": "zh"
+	},
 	"target_consumer": "xxx",
 	"charge_type": "FREE | CHARGE",
 	"data": 978979,
@@ -293,7 +324,7 @@
   "last": "xxx",
   "items": [{
 	"createdAt": 324,
-	"from_locale": "beijing",
+	"from_locale": "Beijing-China",
 	"target_consumer": "music.163.com",
 	"charge_type": "FREE | CHARGE",
 	"data": 978979,

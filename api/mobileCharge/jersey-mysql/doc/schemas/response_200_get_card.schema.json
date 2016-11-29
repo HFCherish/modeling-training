@@ -13,7 +13,8 @@
       "description": "certificate with real identity"
     },
     "card_locale": {
-      "type": "string"
+      "type": "string",
+      "description": "format is like this: Beijing-China"
     },
     "links": {
       "type": "array",

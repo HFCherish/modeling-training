@@ -6,7 +6,7 @@
   "last": "xxx",
   "items": [{
 	"createdAt": 324,
-	"from_locale": "beijing",
+	"from_locale": "Beijing-China",
 	"target_consumer": "music.163.com",
 	"charge_type": "FREE | CHARGE",
 	"data": 978979,

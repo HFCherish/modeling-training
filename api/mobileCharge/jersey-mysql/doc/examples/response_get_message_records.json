@@ -10,7 +10,7 @@
 	"communication_type": "LOCAL | INTERNAL | INTERNATIONAL",
 	"target": {
 		"id": "xxx",
-		"card_locale": "beijing",
+		"card_locale": "Beijing-China",
 		"phone_number": 68979
 	},
 	"call_type": "SENDER | RECEIVER",

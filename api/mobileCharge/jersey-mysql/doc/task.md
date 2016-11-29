@@ -10,7 +10,7 @@
 	5. get 404 - 5: 4
 	6. get 200 - 15: 
 	    1. basic info :26
-	    1. paginated - 15:
+	    1. paginated - 15: 1
 	    1. show fee info - 15:
 	    1. show call_type info - 15:
 	    1. show communication_type info -15:

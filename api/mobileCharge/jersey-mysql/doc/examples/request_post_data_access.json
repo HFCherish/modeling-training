@@ -1,5 +1,9 @@
 {
-	"from_locale": "beijing",
+	"from_locale": {
+		"city": "beijing",
+		"country": "CN",
+		"language": "zh"
+	},
 	"target_consumer": "xxx",
 	"charge_type": "FREE | CHARGE",
 	"data": 978979,
