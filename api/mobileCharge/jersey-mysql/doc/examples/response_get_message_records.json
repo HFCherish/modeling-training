@@ -9,11 +9,11 @@
 	"createdAt": 57869,
 	"communication_type": "LOCAL | INTERNAL | INTERNATIONAL",
 	"target": {
-		"id": "xxx",
-		"card_locale": "Beijing-China",
-		"phone_number": 68979
+		"phone_number": "1236879",
+		"card_locale": "Beijing-China"
 	},
-	"call_type": "SENDER | RECEIVER",
+	"from_locale": "Beijing-China",
+	"send_type": "SENDER | RECEIVER",
 	"fee": 8098,
 	"links": [{
 		"rel": "self",

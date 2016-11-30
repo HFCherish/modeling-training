@@ -5,16 +5,20 @@
     "id": {
       "type": "string"
     },
-    "phone_number": {
-      "type": "number"
+    "card": {
+      "type": "object",
+      "properties": {
+        "phone_number": "string",
+        "card_locale": {
+          "type": "string",
+          "description": "format is like this: Beijing-China"
+        }
+      },
+      "required": ["phone_number", "card_locale"]
     },
     "ID_Card": {
       "type": "string",
       "description": "certificate with real identity"
-    },
-    "card_locale": {
-      "type": "string",
-      "description": "format is like this: Beijing-China"
     },
     "links": {
       "type": "array",
@@ -37,9 +41,8 @@
   },
   "required": [
     "id",
-    "phone_number",
     "ID_Card",
-    "card_locale",
+    "card",
     "links"
   ]
 }

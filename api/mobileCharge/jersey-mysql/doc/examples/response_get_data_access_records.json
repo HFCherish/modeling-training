@@ -9,6 +9,7 @@
 	"from_locale": "Beijing-China",
 	"target_consumer": "music.163.com",
 	"charge_type": "FREE | CHARGE",
+	"communication_type": "LOCAL | INTERNAL | INTERNATIONAL",
 	"data": 978979,
 	"fee": 8098,
 	"links": [{

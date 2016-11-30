@@ -14,10 +14,10 @@
 	    1. show communication_type info -15: 8
 	    1. show fee info - 15:  30
 7. /users/uid/messages:
+	9. post 400 - 10:
 	8. post 201 - 15:
 	9. post 404 - 5:
 	11. get 200 - 15:
-	12. get 404 - 5:
 13. /users/uid/data_accesses:
 	14. post 201: -15:
 	15. post 404: -5:

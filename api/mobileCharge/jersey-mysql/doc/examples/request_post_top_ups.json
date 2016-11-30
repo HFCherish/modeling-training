@@ -1,3 +1,7 @@
 {
-	"product": "xxx"
+	"product": "xxx",
+	"amount": 100,
+	"target": {
+		"phone_number": "13256787899"
+	}
 }

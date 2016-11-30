@@ -20,8 +20,8 @@ mediaType:  application/json
         description: user has a new call 
         body:
           application/json:
-            example: !include examples/request_create_call.json
-            schema: !include schemas/request_create_call.schema.json
+            example: !include examples/request_post_call.json
+            schema: !include schemas/request_post_call.schema.json
         responses:
           201:
             headers:
@@ -155,14 +155,14 @@ mediaType:  application/json
               location:
                 example: "users/uid/top_ups/tuid"
           400:
-            description: product not exists
+            description: product not exists / target phone number not supported (not a user in the system)
       get:
         description: get all top-up records
         responses:
           200:
             body: 
               application/json:
-                example: !include examples/request_get_top_ups.json
+                example: !include examples/response_get_top_ups.json
           404:
             description: current user is not cid
 /products:

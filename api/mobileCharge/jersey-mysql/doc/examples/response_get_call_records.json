@@ -11,13 +11,8 @@
 	},
 	"from_locale": "Beijing-China",
 	"target": {
-		"id": "xxx",
-		"phone_number": 1236879,
-		"card_locale": {
-			"city": "beijing",
-			"country": "CN",
-			"language": "zh"
-		}
+		"phone_number": "1236879",
+		"card_locale": "Beijing-China"
 	},
 	"communication_type": "LOCAL | INTERNAL | INTERNATIONAL",
 	"call_type": "CALLER | CALLEE",
