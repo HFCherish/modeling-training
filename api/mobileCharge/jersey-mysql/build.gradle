@@ -15,7 +15,7 @@ apply plugin: 'idea'
 
 def currentEnv = System.getenv()
 
-mainClassName = "com.thoughtworks.ketsu.MainServer"
+mainClassName = "com.thoughtworks.mobileCharge.MainServer"
 
 flyway {
     driver = 'com.mysql.jdbc.Driver'
@@ -42,7 +42,7 @@ sourceSets {
 }
 
 ext {
-    main='com.thoughtworks.ketsu.MainServer'
+    main='com.thoughtworks.mobileCharge.MainServer'
     joda_time = '2.6'
     servlet_api = '3.0.1'
     jaxrs = '2.0.1'

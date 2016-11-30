@@ -10,10 +10,10 @@
         <setting name="useGeneratedKeys" value="true"/>
     </settings>
     <typeHandlers>
-        <typeHandler handler="com.thoughtworks.ketsu.infrastructure.mybatis.handlers.DateTimeTypeHandler"
+        <typeHandler handler="com.thoughtworks.mobileCharge.infrastructure.mybatis.handlers.DateTimeTypeHandler"
                      javaType="org.joda.time.DateTime"/>
     </typeHandlers>
-    <objectFactory type="com.thoughtworks.ketsu.infrastructure.mybatis.factory.ObjectFactory"/>
+    <objectFactory type="com.thoughtworks.mobileCharge.infrastructure.mybatis.factory.ObjectFactory"/>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC">
