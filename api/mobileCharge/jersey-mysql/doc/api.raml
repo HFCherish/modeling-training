@@ -29,6 +29,8 @@ mediaType:  application/json
                 example: "users/uid/calls/callId"
           404:
             description: current user is not uid
+          400:
+            description: field incomplete
       get:
         description: get all call records of some month
         queryParameters:
@@ -60,6 +62,8 @@ mediaType:  application/json
                 example: "users/uid/messages/mid"
           404:
             description: current user is not uid
+          400:
+            description: field incomplete
       get:
         description: get all message records of some month
         queryParameters:
@@ -91,6 +95,8 @@ mediaType:  application/json
                 example: "users/uid/data_accesses/daid"
           404:
             description: current user is not uid
+          400:
+            description: field incomplete
       get:
         description: get all data access records of some month
         queryParameters:
