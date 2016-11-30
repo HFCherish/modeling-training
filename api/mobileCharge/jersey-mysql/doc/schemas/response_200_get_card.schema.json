@@ -5,7 +5,7 @@
     "id": {
       "type": "string"
     },
-    "card": {
+    "phone_card": {
       "type": "object",
       "properties": {
         "phone_number": "string",
@@ -42,7 +42,7 @@
   "required": [
     "id",
     "ID_Card",
-    "card",
+    "phone_card",
     "links"
   ]
 }

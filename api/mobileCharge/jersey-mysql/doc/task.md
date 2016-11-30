@@ -16,10 +16,9 @@
 
 -----------
 1. can get card info when get user detail
-    1. 400, modify check condition (field, not check target) -10
-    1. 200, modify result detail - 10
+    1. 200, modify result detail - 10 : 10
 1. modify post & get calls
-    1. modify target info -15
+    1. modify target info and not check target when post -15
     1. add call type -10
 1. can get call records according to month -15
 -----------
