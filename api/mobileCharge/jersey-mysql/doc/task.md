@@ -6,7 +6,6 @@
 	5. post 404 - 5: 10
 	5. post 400 - 10: 30
 	4. post 201 - 15: 30
-	    1. modify the user & target balance -15:
 	5. get 404 - 5: 4
 	6. get 200 - 15: 
 	    1. basic info :26
