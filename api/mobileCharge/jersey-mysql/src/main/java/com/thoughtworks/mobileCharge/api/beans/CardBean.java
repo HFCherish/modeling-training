@@ -9,11 +9,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class CardBean {
-    @JsonProperty("phone_number")
+//    @JsonProperty("phone_number")
     String phoneNumber;
 
-    @JsonProperty("card_locale")
+//    @JsonProperty("card_locale")
     LocaleBean cardLocale;
+
+    public CardBean(@JsonProperty(value = "phone_number", required = true) String phoneNumber,
+                    @JsonProperty(value = "card_locale", required = true) LocaleBean cardLocale) {
+        this.phoneNumber = phoneNumber;
+        this.cardLocale = cardLocale;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;

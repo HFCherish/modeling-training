@@ -28,42 +28,13 @@ public class CallRecordsApi {
         this.user = user;
     }
 
-//    @POST
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response createCallRecord(Map<String, Object> info,
-//                                     @Context UserRepo userRepo,
-//                                     @Context CallRecordRepo callRecordRepo,
-//                                     @Context Routes routes) {
-//
-//
-//        validate(all(fieldNotEmpty("from_locale", "from_locale is required"),
-//                fieldNotEmpty("target", "target id is required"),
-//                fieldNotEmpty("call_type", "call type is required"),
-//                fieldNotEmpty("duration", "duration is required")),
-//                info);
-//        validate(all(fieldNotEmpty("start", "start time is required"),
-//                fieldNotEmpty("end", "end time is required")), (Map) info.get("duration"));
-//        validate(all(fieldNotEmpty("language", "language is required"),
-//                fieldNotEmpty("country", "country is required"),
-//                fieldNotEmpty("city", "city is required")), (Map) info.get("from_locale"));
-//        long startInstant = (long)(((Map) info.get("duration")).get("start"));
-//        long endInstant = (long)(((Map) info.get("duration")).get("end"));
-//        Duration duration = new Duration(startInstant, endInstant);
-//        Locale from_locale = getLocaleFrom((Map) info.get("from_locale"));
-//        Locale target_locale = getLocaleFrom((Map) ((Map) info.get("target")).get("card_locale"));
-//
-//        CallRecord callerRecord = callRecordRepo.save(new CallRecord(from_locale, user, new DateTime(startInstant), duration, CallRecord.CallType.valueOf(info.get("call_type").toString().toUpperCase()), new PhoneCard(((Map) info.get("target")).get("phone_number").toString(), target_locale)));
-//
-//        return Response.status(201).location(routes.callRecordsUrl(user.getId().id(), callerRecord.getId().id())).build();
-//    }
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createCallRecordUseBean(CallRecordRequestBean info,
                                      @Context UserRepo userRepo,
                                      @Context CallRecordRepo callRecordRepo,
                                      @Context Routes routes) {
-
-
+        System.out.println("********* herer");
         Duration duration = new Duration(info.getDuration().getStart(), info.getDuration().getEnd());
         Locale from_locale = getLocaleFrom(info.getFromLocale());
         Locale target_locale = getLocaleFrom(info.getTarget().getCardLocale());

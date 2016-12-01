@@ -67,6 +67,36 @@ public class CallRecordsApiTest extends ApiSupport {
     }
 
     @Test
+    public void should_400_when_post_calls_with_incomplete_input() {
+        User user = getUser(mock(Balance.class));
+        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
+        when(currentUserService.currentUser()).thenReturn(Optional.of(user));
+        CallRecord callRecord = mock(CallRecord.class);
+        when(callRecord.getId()).thenReturn(new EntityId("1"));
+        when(callRecordRepo.save(anyObject())).thenReturn(callRecord);
+
+        Response response = post(callsUrl(user), new HashMap() {
+            {
+                put("duration", new HashMap() {{
+                    put("start", new DateTime().getMillis());
+//                    put("end", new DateTime().getMillis());
+                }});
+                put("from_locale", beijingLocaleMap());
+
+                put("target", new HashMap() {{
+                    put("phone_number", "12332323212");
+                    put("card_locale", beijingLocaleMap());
+                }});
+                put("call_type", CallRecord.CallType.CALLER);
+
+            }
+
+        });
+
+//        Response  response = post(callsUrl(user), new HashMap());
+        assertThat(response.getStatus(), is(400));
+    }
+    @Test
     public void should_404_when_post_call_record_to_other_card() {
         User user = getUser(mock(Balance.class));
         User currentUser = getUser(mock(Balance.class));

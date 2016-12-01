@@ -1,5 +1,6 @@
 package com.thoughtworks.mobileCharge.api.beans;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -9,14 +10,27 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class LocaleBean {
-    @JsonProperty("country")
+//    @JsonProperty("country")
     String country;
 
-    @JsonProperty("city")
+//    @JsonProperty("city")
     String city;
 
-    @JsonProperty("language")
+//    @JsonProperty("language")
     String language;
+
+//    @JsonCreator
+    public LocaleBean(@JsonProperty(value = "country", required = true) String country,
+                      @JsonProperty(value = "city", required = true) String city,
+                      @JsonProperty(value = "language", required = true) String language) {
+        this.country = country;
+        this.city = city;
+        this.language = language;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
 
     public String getCountry() {
         return country;
@@ -24,9 +38,5 @@ public class LocaleBean {
 
     public String getCity() {
         return city;
-    }
-
-    public String getLanguage() {
-        return language;
     }
 }
