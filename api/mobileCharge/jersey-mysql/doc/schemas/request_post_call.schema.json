@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "from_locale": {
+      "type": "object",
+      "properties": {
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country codes are defined by ISO 3166"
+        },
+        "language": {
+          "type": "string",
+          "description": "Language codes are defined by ISO 639"
+        }
+      },
+      "required": [
+        "city",
+        "country",
+        "language"
+      ]
+    },
+    "target": {
+      "type": "object",
+      "properties": {
+        "phone_number": "string",
+        "card_locale": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string"
+            },
+            "country": {
+              "type": "string",
+              "description": "Country codes are defined by ISO 3166"
+            },
+            "language": {
+              "type": "string",
+              "description": "Language codes are defined by ISO 639"
+            }
+          },
+          "required": ["city", "country", "language"]
+      },
+      "required": ["phone_number", "card_locale"]
+    },
+    "duration": {
+      "type": "object",
+      "properties": {
+        "start": "number",
+        "end": "number"
+      },
+      "required": [
+        "start",
+        "end"
+      ]
+    },
+    "call_type": {
+      "type": "enum"
+    }
+  },
+  "required": [
+    "from_locale",
+    "target",
+    "duration",
+    "call_type"
+  ]
+}
+}

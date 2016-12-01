@@ -1,0 +1,20 @@
+{
+	"duration": {
+		"start": 88809,
+		"end": 342432
+	},
+	"from_locale": {
+		"city": "beijing",
+		"country": "CN",
+		"language": "zh"
+	},
+	"target": {
+		"phone_number": "123123243",
+		"card_locale": {
+			"city": "beijing",
+			"country": "CN",
+			"language": "zh"
+		}
+	},
+	"call_type": "CALLER | CALLEE"
+}

@@ -1,0 +1,18 @@
+{
+	"remainedMoney": 34.2,
+	"remainedData": {
+		"local": 32.1,
+		"international": 32.1,
+		"internal": 32.1
+	},
+	"remainedCallMinutes": {
+		"local": 12,
+		"internal": 32,
+		"international": 324
+	},
+	"remainedMessages": {
+		"local": 12,
+		"internal": 32,
+		"international": 324
+	}
+}
