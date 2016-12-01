@@ -20,8 +20,8 @@
 1. modify post & get calls
     1. modify target info and not check target when post -15 :26
     1. add call type -10 : 1
-1. can get call records according to month -15 : 
-    1. add start when create call record - 10: 16
+1. can get call records according to month -15 : 14
+    1. add start when create call record - 10: 12
 -----------
 
 7. /users/uid/messages:
