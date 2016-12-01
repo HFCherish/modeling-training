@@ -67,13 +67,20 @@ public class CallRecordsApiTest extends ApiSupport {
     }
 
     @Test
-    public void should_400_when_post_calls_with_incomplete_input() {
+    public void should_400_when_post_calls_with_empty_input() {
         User user = getUser(mock(Balance.class));
         when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
-        CallRecord callRecord = mock(CallRecord.class);
-        when(callRecord.getId()).thenReturn(new EntityId("1"));
-        when(callRecordRepo.save(anyObject())).thenReturn(callRecord);
+
+        Response response = post(callsUrl(user), new HashMap());
+        assertThat(response.getStatus(), is(400));
+    }
+
+    @Test
+    public void should_400_when_post_calls_durantion_end_missed() {
+        User user = getUser(mock(Balance.class));
+        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
+        when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
         Response response = post(callsUrl(user), new HashMap() {
             {
@@ -93,9 +100,9 @@ public class CallRecordsApiTest extends ApiSupport {
 
         });
 
-//        Response  response = post(callsUrl(user), new HashMap());
         assertThat(response.getStatus(), is(400));
     }
+
     @Test
     public void should_404_when_post_call_record_to_other_card() {
         User user = getUser(mock(Balance.class));
@@ -137,20 +144,20 @@ public class CallRecordsApiTest extends ApiSupport {
         when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
-        CallRecord callRecord_Aug = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 8,1,1,1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", getLocaleFrom(beijingLocaleMap())));
-        CallRecord callRecord_Jul = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 7,1,1,1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", getLocaleFrom(beijingLocaleMap())));
+        CallRecord callRecord_Aug = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 8, 1, 1, 1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", getLocaleFrom(beijingLocaleMap())));
+        CallRecord callRecord_Jul = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 7, 1, 1, 1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", getLocaleFrom(beijingLocaleMap())));
         when(callRecordRepo.findAllOf(eq(user), eq(7))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord_Jul)));
         when(callRecordRepo.findAllOf(eq(user), eq(8))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord_Aug)));
         when(callRecordRepo.findAllOf(eq(user), eq(0))).thenReturn(new PaginatedList<>(2, (page, perPage) -> asList(callRecord_Aug, callRecord_Jul)));
 
 
         Response response = get(callsUrl(user));
-        assertThat(((List)response.readEntity(Map.class).get("items")).size(), is(2));
+        assertThat(((List) response.readEntity(Map.class).get("items")).size(), is(2));
 
         response = target(callsUrl(user)).queryParam("month", 7).request().get();
-        assertThat(((List)response.readEntity(Map.class).get("items")).size(), is(1));
+        assertThat(((List) response.readEntity(Map.class).get("items")).size(), is(1));
 
         response = target(callsUrl(user)).queryParam("month", 8).request().get();
-        assertThat(((List)response.readEntity(Map.class).get("items")).size(), is(1));
+        assertThat(((List) response.readEntity(Map.class).get("items")).size(), is(1));
     }
 }

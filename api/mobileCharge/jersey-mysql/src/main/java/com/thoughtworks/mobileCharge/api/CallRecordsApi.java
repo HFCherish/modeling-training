@@ -34,7 +34,6 @@ public class CallRecordsApi {
                                      @Context UserRepo userRepo,
                                      @Context CallRecordRepo callRecordRepo,
                                      @Context Routes routes) {
-        System.out.println("********* herer");
         Duration duration = new Duration(info.getDuration().getStart(), info.getDuration().getEnd());
         Locale from_locale = getLocaleFrom(info.getFromLocale());
         Locale target_locale = getLocaleFrom(info.getTarget().getCardLocale());
@@ -54,7 +53,6 @@ public class CallRecordsApi {
                                          @DefaultValue("0") @QueryParam("month") int month,
                                          @Context UriInfo uriInfo) {
         return callRecordRepo.findAllOf(user, month).toPage(page, perPage, uriInfo);
-//        return callRecordRepo.findAllOf(user);
     }
 
 
