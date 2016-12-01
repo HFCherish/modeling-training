@@ -16,9 +16,7 @@ import org.junit.runner.RunWith;
 import javax.ws.rs.core.Response;
 import java.util.*;
 
-import static com.thoughtworks.mobileCharge.support.TestHelper.beijingLocaleMap;
-import static com.thoughtworks.mobileCharge.support.TestHelper.getUser;
-import static com.thoughtworks.mobileCharge.util.LocaleFormatter.getLocaleFrom;
+import static com.thoughtworks.mobileCharge.support.TestHelper.*;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -120,7 +118,7 @@ public class CallRecordsApiTest extends ApiSupport {
         User user = getUser(mock(Balance.class));
         when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
-        CallRecord callRecord = new CallRecord(new Locale("zh", "CN", "beijing"), user, DateTime.now(), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", getLocaleFrom(beijingLocaleMap())));
+        CallRecord callRecord = new CallRecord(new Locale("zh", "CN", "beijing"), user, DateTime.now(), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", beijingLocale()));
         when(callRecordRepo.findAllOf(eq(user), anyInt())).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord)));
 
 
@@ -144,8 +142,8 @@ public class CallRecordsApiTest extends ApiSupport {
         when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
-        CallRecord callRecord_Aug = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 8, 1, 1, 1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", getLocaleFrom(beijingLocaleMap())));
-        CallRecord callRecord_Jul = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 7, 1, 1, 1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", getLocaleFrom(beijingLocaleMap())));
+        CallRecord callRecord_Aug = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 8, 1, 1, 1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", beijingLocale()));
+        CallRecord callRecord_Jul = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 7, 1, 1, 1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", beijingLocale()));
         when(callRecordRepo.findAllOf(eq(user), eq(7))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord_Jul)));
         when(callRecordRepo.findAllOf(eq(user), eq(8))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord_Aug)));
         when(callRecordRepo.findAllOf(eq(user), eq(0))).thenReturn(new PaginatedList<>(2, (page, perPage) -> asList(callRecord_Aug, callRecord_Jul)));

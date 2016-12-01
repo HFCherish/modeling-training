@@ -1,6 +1,7 @@
 package com.thoughtworks.mobileCharge.api.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.thoughtworks.mobileCharge.domain.user.PhoneCard;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,11 +22,7 @@ public class CardBean {
         this.cardLocale = cardLocale;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public LocaleBean getCardLocale() {
-        return cardLocale;
+    public PhoneCard getPhoneCard() {
+        return new PhoneCard(phoneNumber, cardLocale.getLocale());
     }
 }

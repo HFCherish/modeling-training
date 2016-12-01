@@ -20,4 +20,8 @@ public class TestHelper {
         }};
     }
 
+    public static Locale beijingLocale() {
+        return new Locale("zh", "CN", "beijing");
+    }
+
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Locale;
 
 /**
  * Created by pzzheng on 12/1/16.
@@ -28,15 +29,7 @@ public class LocaleBean {
         this.language = language;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public String getCity() {
-        return city;
+    public Locale getLocale() {
+        return new Locale(language, country, city.toLowerCase());
     }
 }

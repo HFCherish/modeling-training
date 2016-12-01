@@ -13,10 +13,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.Locale;
-import java.util.Map;
-
-import static com.thoughtworks.mobileCharge.api.validators.Validators.*;
-import static com.thoughtworks.mobileCharge.util.LocaleFormatter.getLocaleFrom;
 
 /**
  * Created by pzzheng on 11/29/16.
@@ -34,11 +30,14 @@ public class CallRecordsApi {
                                      @Context UserRepo userRepo,
                                      @Context CallRecordRepo callRecordRepo,
                                      @Context Routes routes) {
-        Duration duration = new Duration(info.getDuration().getStart(), info.getDuration().getEnd());
-        Locale from_locale = getLocaleFrom(info.getFromLocale());
-        Locale target_locale = getLocaleFrom(info.getTarget().getCardLocale());
 
-        CallRecord callerRecord = callRecordRepo.save(new CallRecord(from_locale, user, new DateTime(info.getDuration().getStart()), duration, info.getCallType(), new PhoneCard(info.getTarget().getPhoneNumber(), target_locale)));
+        CallRecord callerRecord = callRecordRepo.save(new CallRecord(
+                info.getFromLocale().getLocale(),
+                user,
+                new DateTime(info.getDuration().getStart()),
+                new Duration(info.getDuration().getStart(), info.getDuration().getEnd()),
+                info.getCallType(),
+                info.getTarget().getPhoneCard()));
 
         return Response.status(201).location(routes.callRecordsUrl(user.getId().id(), callerRecord.getId().id())).build();
     }
