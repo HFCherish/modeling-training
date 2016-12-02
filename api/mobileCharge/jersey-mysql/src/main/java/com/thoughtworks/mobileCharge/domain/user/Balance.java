@@ -15,21 +15,19 @@ import java.util.stream.Stream;
 public class Balance implements Record{
     private static double FREE_CHARGE = 0.0;
     private double remainedMoney;
-    private HashMap<CallRecord.CommunicationType, Integer> freeCallMinutes;
-    private HashMap<CallRecord.CommunicationType, Double> callerChargeUnitPrice;
-    private HashMap<CallRecord.CommunicationType, Double> calleeChargeUnitPrice;
+    private HashMap<CallRecord.CallChargeType, MessageRecord.ChargeBalance> callAccounts;
     private HashMap<MessageRecord.MessageChargeType, MessageRecord.ChargeBalance> messageAccounts;
     private HashMap<DataAccessRecord.DataAccessChargeType, MessageRecord.ChargeBalance> dataAccessAccounts;
 
     public Balance() {
         remainedMoney = 0.0;
-        freeCallMinutes = new HashMap<>();
-        calleeChargeUnitPrice = new HashMap<>();
-        callerChargeUnitPrice = new HashMap<>();
-        Stream.of(CommunicationRecord.CommunicationType.values()).forEach(type -> {
-            freeCallMinutes.put(type, 0);
-            callerChargeUnitPrice.put(type, 0.1);
-        });
+
+        callAccounts = new HashMap();
+        for(CommunicationRecord.CommunicationType communicationType : CommunicationRecord.CommunicationType.values()) {
+                for(CallRecord.CallType callType: CallRecord.CallType.values()) {
+                    callAccounts.put(new CallRecord.CallChargeType(communicationType, callType), new MessageRecord.ChargeBalance());
+                }
+        }
 
         messageAccounts = new HashMap();
         for(CommunicationRecord.CommunicationType communicationType : CommunicationRecord.CommunicationType.values()) {
@@ -57,8 +55,8 @@ public class Balance implements Record{
             put("remainedMoney", remainedMoney);
             put("remainedData", new HashMap() {{
                 put("local", dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(CommunicationRecord.CommunicationType.LOCAL)).freeNumbers);
-                put("local", dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(CommunicationRecord.CommunicationType.INTERNAL)).freeNumbers);
-                put("local", dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(CommunicationRecord.CommunicationType.INTERNATIONAL)).freeNumbers);
+                put("internal", dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(CommunicationRecord.CommunicationType.INTERNAL)).freeNumbers);
+                put("international", dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(CommunicationRecord.CommunicationType.INTERNATIONAL)).freeNumbers);
             }});
         }};
     }
@@ -72,25 +70,17 @@ public class Balance implements Record{
         public static BiFunction<CommunicationRecord, Balance, Double> callCharge() {
             return (record, balance) -> {
                 double charge = 0.0;
-                CommunicationRecord.CommunicationType communicationType = record.communicationType;
-                int costMinutes = (int) ((CallRecord) record).duration.getStandardMinutes();
 
-                if (((CallRecord) record).callType.equals(CallRecord.CallType.CALLEE)) {
-                    charge = costMinutes * balance.calleeChargeUnitPrice.get(communicationType);
+                MessageRecord.ChargeBalance callChargeBalance = balance.callAccounts.get(new CallRecord.CallChargeType(record.communicationType, ((CallRecord)record).callType));
+                Long costMinutes = ((CallRecord) record).duration.getStandardMinutes();
+                long freeMinutes = callChargeBalance.freeNumbers;
+                if (freeMinutes > costMinutes) {
+                    callChargeBalance.addFreeNumber(-costMinutes);
+                } else {
+                    callChargeBalance.addFreeNumber(-freeMinutes);
+                    charge = callChargeBalance.unitPrice * (costMinutes - freeMinutes);
+                    balance.remainedMoney -= charge;
                 }
-
-                else {
-                    int freeMinutes = balance.freeCallMinutes.get(communicationType);
-                    balance.freeCallMinutes.compute(communicationType, (k, v) -> v - Math.min(freeMinutes, costMinutes));
-                    if (freeMinutes >= costMinutes) {
-                        charge = FREE_CHARGE;
-                    }
-                    else {
-                        charge = (costMinutes - freeMinutes) * balance.callerChargeUnitPrice.get(communicationType);
-                    }
-                }
-
-                balance.remainedMoney -= charge;
 
                 return charge;
             };

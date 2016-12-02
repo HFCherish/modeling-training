@@ -69,4 +69,32 @@ public class CallRecord extends CommunicationRecord implements Record {
         CALLER, CALLEE
     }
 
+    public static class CallChargeType {
+        CommunicationType communicationType;
+        CallType callType;
+
+        public CallChargeType(CommunicationType communicationType, CallType callType) {
+            this.communicationType = communicationType;
+            this.callType = callType;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            CallChargeType that = (CallChargeType) o;
+
+            if (communicationType != that.communicationType) return false;
+            return callType == that.callType;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = communicationType != null ? communicationType.hashCode() : 0;
+            result = 31 * result + (callType != null ? callType.hashCode() : 0);
+            return result;
+        }
+    }
 }
