@@ -1,27 +1,30 @@
 package com.thoughtworks.mobileCharge.api;
 
 import com.thoughtworks.mobileCharge.domain.EntityId;
+import com.thoughtworks.mobileCharge.domain.PaginatedList;
 import com.thoughtworks.mobileCharge.domain.user.Balance;
 import com.thoughtworks.mobileCharge.domain.user.MessageRecord;
+import com.thoughtworks.mobileCharge.domain.user.PhoneCard;
 import com.thoughtworks.mobileCharge.domain.user.User;
 import com.thoughtworks.mobileCharge.support.ApiSupport;
 import com.thoughtworks.mobileCharge.support.ApiTestRunner;
 import com.thoughtworks.mobileCharge.support.TestHelper;
+import com.thoughtworks.mobileCharge.util.LocaleFormatter;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
-import static com.thoughtworks.mobileCharge.support.TestHelper.getUser;
-import static com.thoughtworks.mobileCharge.support.TestHelper.messageRecordMap;
+import static com.thoughtworks.mobileCharge.support.TestHelper.*;
+import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
@@ -75,28 +78,35 @@ public class MessageRecordsApiTest extends ApiSupport {
         assertThat(response.getStatus(), is(404));
     }
 
-    //
-//    @Test
-//    public void should_200_when_get_all_call_records() {
-//        User user = getUser(mock(Balance.class));
-//        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
-//        when(currentUserService.currentUser()).thenReturn(Optional.of(user));
-//        CallRecord callRecord = new CallRecord(user, getUser(mock(Balance.class)), new Locale("zh", "CN", "beijing"), new Duration(1000), CallRecord.CallType.CALLER);
-//        when(callRecordQueryService.findAllOf(eq(user))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord)));
-//
-//
-//        Response response = get(messageRecordsUrl(user));
-//
-//        assertThat(response.getStatus(), is(200));
-//        Map fetchedInfo = response.readEntity(Map.class);
-//        assertThat(fetchedInfo.get("count"), is(1));
-//        assertThat(((List) fetchedInfo.get("items")).size(), is(1));
-//        Map callRecordInfo = (Map) ((List) fetchedInfo.get("items")).get(0);
-//        assertThat(callRecordInfo.get("id"), is(callRecord.getId().id()));
-//        assertThat(callRecordInfo.get("call_type"), is(CallRecord.CallType.CALLER.name()));
+
+    @Test
+    public void should_200_when_get_all_call_records() {
+        User user = getUser(mock(Balance.class));
+        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(currentUserService.currentUser()).thenReturn(Optional.of(user));
+        MessageRecord messageRecord = new MessageRecord(user,
+                beijingLocale(),
+                new PhoneCard("12332432211", beijingLocale()),
+                MessageRecord.Type.MMS,
+                MessageRecord.SendType.SENDER,
+                new DateTime().getMillis());
+        when(messageRecordQueryService.findAllOf(eq(user), anyInt())).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(messageRecord)));
+
+
+        Response response = get(messageRecordsUrl(user));
+
+        assertThat(response.getStatus(), is(200));
+        Map fetchedInfo = response.readEntity(Map.class);
+        assertThat(fetchedInfo.get("count"), is(1));
+        assertThat(((List) fetchedInfo.get("items")).size(), is(1));
+        Map callRecordInfo = (Map) ((List) fetchedInfo.get("items")).get(0);
+        assertThat(callRecordInfo.get("id"), is(messageRecord.getId().id()));
+        assertThat(callRecordInfo.get("type"), is(MessageRecord.Type.MMS.name()));
+        assertThat(callRecordInfo.get("send_type"), is(MessageRecord.SendType.SENDER.name()));
+        assertThat(callRecordInfo.get("from_locale"), is(LocaleFormatter.getCityAndCountry(beijingLocale())));
 //        assertThat(callRecordInfo.get("communication_type"), is(CallRecord.CommunicationType.LOCAL.name()));
 //        assertThat(callRecordInfo.get("fee"), is(0.0));
-//        assertThat(canFindLink((List) callRecordInfo.get("links"), "self", messageRecordsUrl(user) + "/" + callRecord.getId().id()), is(true));
-//
-//    }
+        assertThat(canFindLink((List) callRecordInfo.get("links"), "self", messageRecordsUrl(user) + "/" + messageRecord.getId().id()), is(true));
+
+    }
 }

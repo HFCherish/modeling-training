@@ -34,7 +34,10 @@ public class UserApi {
     }
 
     @Path("messages")
-    public MessagesApi toMessagesApi() {
+    public MessagesApi toMessagesApi(@Context AuthorizationService authorizationService) {
+        if(!authorizationService.currentUserIs(user)) {
+            throw new NotFoundException();
+        }
         return new MessagesApi(user);
     }
 

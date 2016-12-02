@@ -9,18 +9,11 @@ import org.joda.time.DateTime;
 import java.util.HashMap;
 import java.util.Locale;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class TestHelper {
     public static User getUser(Balance balance) {
         return new User("410111222233445566", balance, new PhoneCard("13241667788", new Locale("zh", "CN", "beijing")));
-    }
-
-    public static User getSpyUser(Balance balance) {
-        User user = new User("410111222233445566", balance, new PhoneCard("13241667788", new Locale("zh", "CN", "beijing")));
-        return spy(user);
     }
 
     public static HashMap<String, Object> beijingLocaleMap() {
@@ -51,4 +44,6 @@ public class TestHelper {
             put("createdAt", new DateTime().getMillis());
         }};
     }
+
+
 }

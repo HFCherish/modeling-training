@@ -2,15 +2,16 @@ package com.thoughtworks.mobileCharge.api;
 
 import com.thoughtworks.mobileCharge.api.beans.MessageRequestBean;
 import com.thoughtworks.mobileCharge.api.jersey.Routes;
+import com.thoughtworks.mobileCharge.api.services.MessageRecordQueryService;
+import com.thoughtworks.mobileCharge.domain.Page;
 import com.thoughtworks.mobileCharge.domain.user.MessageRecord;
 import com.thoughtworks.mobileCharge.domain.user.User;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.POST;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 
 /**
@@ -26,18 +27,26 @@ public class MessagesApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createMessage(MessageRequestBean info,
-                                  @Context AuthorizationService authorizationService,
                                   @Context Routes routes) {
-        if(!authorizationService.currentUserIs(user)) {
-            throw new NotFoundException();
-        }
 
-        MessageRecord messageRecord = user.saveMessage(new MessageRecord(info.getFromLocale().getLocale(),
+
+        MessageRecord messageRecord = user.saveMessage(new MessageRecord(user,
+                info.getFromLocale().getLocale(),
                 info.getTarget().getPhoneCard(),
                 info.getType(),
                 info.getSendType(),
                 info.getCreatedAt()));
 
         return Response.created(routes.messageRecordUrl(user.getId().id(), messageRecord.getId().id())).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Page<MessageRecord> findAll(@DefaultValue("0") @QueryParam("month") int month,
+                                       @QueryParam("page") int page,
+                                       @QueryParam("perPage") int perPage,
+                                       @Context UriInfo uriInfo,
+                                       @Context MessageRecordQueryService messageRecordQueryService) {
+        return messageRecordQueryService.findAllOf(user, month).toPage(page, perPage, uriInfo);
     }
 }
