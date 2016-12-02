@@ -27,7 +27,6 @@ public class CallRecord extends CommunicationRecord implements Record {
     private User owner;
     private double fee;
     protected CallType callType;
-    protected CommunicationType communicationType;
 
     private PhoneCard targetCard;
 
@@ -69,16 +68,6 @@ public class CallRecord extends CommunicationRecord implements Record {
 
     public enum CallType {
         CALLER, CALLEE
-    }
-
-    public enum CommunicationType {
-        LOCAL, INTERNAL, INTERNATIONAL;
-
-        public static CommunicationType typeOf(Locale from_locale, Locale locale) {
-            if (from_locale.equals(locale)) return LOCAL;
-            if (from_locale.getCountry().equals(locale.getCountry())) return INTERNAL;
-            return INTERNATIONAL;
-        }
     }
 
 }

@@ -25,14 +25,16 @@ public class MessageRecord extends CommunicationRecord implements Record {
     private EntityId id;
     private User user;
 
-    public MessageRecord(User user, Locale from_locale, PhoneCard target, Type type, SendType sendType, Long createdAt) {
+    public MessageRecord(User user, Locale from_locale, PhoneCard targetCard, Type type, SendType sendType, Long createdAt) {
         this.id = new EntityId(IdGenerator.next());
         this.user = user;
         this.from_locale = from_locale;
-        this.target = target;
+        this.target = targetCard;
         this.type = type;
         this.sendType = sendType;
         this.createdAt = createdAt;
+
+        this.communicationType = CommunicationType.typeOf(from_locale, targetCard.locale);
     }
 
     public EntityId getId() {
@@ -48,6 +50,7 @@ public class MessageRecord extends CommunicationRecord implements Record {
             put("createdAt", new DateTime(createdAt));
             put("from_locale", LocaleFormatter.getCityAndCountry(from_locale));
             put("target", target.toRefJson(routes));
+            put("communication_type", communicationType.name());
             put("links", asList(
                     routes.linkMap("self", routes.messageRecordUrl(user.getId().id(), id.id()).getPath())
             ));

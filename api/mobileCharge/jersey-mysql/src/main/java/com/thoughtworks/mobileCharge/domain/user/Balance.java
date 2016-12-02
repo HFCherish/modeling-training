@@ -17,7 +17,7 @@ public class Balance {
 
     public Balance() {
         remainedMoney = 0.0;
-        Stream.of(CallRecord.CommunicationType.values()).forEach(type -> {
+        Stream.of(CommunicationRecord.CommunicationType.values()).forEach(type -> {
             freeCallMinutes.put(type, 0);
             callerChargeRates.put(type, 0.1);
         });

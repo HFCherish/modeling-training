@@ -2,10 +2,7 @@ package com.thoughtworks.mobileCharge.api;
 
 import com.thoughtworks.mobileCharge.domain.EntityId;
 import com.thoughtworks.mobileCharge.domain.PaginatedList;
-import com.thoughtworks.mobileCharge.domain.user.Balance;
-import com.thoughtworks.mobileCharge.domain.user.CallRecord;
-import com.thoughtworks.mobileCharge.domain.user.PhoneCard;
-import com.thoughtworks.mobileCharge.domain.user.User;
+import com.thoughtworks.mobileCharge.domain.user.*;
 import com.thoughtworks.mobileCharge.support.ApiSupport;
 import com.thoughtworks.mobileCharge.support.ApiTestRunner;
 import org.joda.time.DateTime;
@@ -126,7 +123,7 @@ public class CallRecordsApiTest extends ApiSupport {
         Map callRecordInfo = (Map) ((List) fetchedInfo.get("items")).get(0);
         assertThat(callRecordInfo.get("id"), is(callRecord.getId().id()));
         assertThat(callRecordInfo.get("call_type"), is(CallRecord.CallType.CALLER.name()));
-        assertThat(callRecordInfo.get("communication_type"), is(CallRecord.CommunicationType.LOCAL.name()));
+        assertThat(callRecordInfo.get("communication_type"), is(CommunicationRecord.CommunicationType.LOCAL.name()));
         assertThat(callRecordInfo.get("fee"), is(0.0));
         assertThat(canFindLink((List) callRecordInfo.get("links"), "self", callsUrl(user) + "/" + callRecord.getId().id()), is(true));
     }

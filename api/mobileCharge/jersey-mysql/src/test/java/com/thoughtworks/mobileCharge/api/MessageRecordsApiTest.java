@@ -2,10 +2,7 @@ package com.thoughtworks.mobileCharge.api;
 
 import com.thoughtworks.mobileCharge.domain.EntityId;
 import com.thoughtworks.mobileCharge.domain.PaginatedList;
-import com.thoughtworks.mobileCharge.domain.user.Balance;
-import com.thoughtworks.mobileCharge.domain.user.MessageRecord;
-import com.thoughtworks.mobileCharge.domain.user.PhoneCard;
-import com.thoughtworks.mobileCharge.domain.user.User;
+import com.thoughtworks.mobileCharge.domain.user.*;
 import com.thoughtworks.mobileCharge.support.ApiSupport;
 import com.thoughtworks.mobileCharge.support.ApiTestRunner;
 import com.thoughtworks.mobileCharge.support.TestHelper;
@@ -99,14 +96,14 @@ public class MessageRecordsApiTest extends ApiSupport {
         Map fetchedInfo = response.readEntity(Map.class);
         assertThat(fetchedInfo.get("count"), is(1));
         assertThat(((List) fetchedInfo.get("items")).size(), is(1));
-        Map callRecordInfo = (Map) ((List) fetchedInfo.get("items")).get(0);
-        assertThat(callRecordInfo.get("id"), is(messageRecord.getId().id()));
-        assertThat(callRecordInfo.get("type"), is(MessageRecord.Type.MMS.name()));
-        assertThat(callRecordInfo.get("send_type"), is(MessageRecord.SendType.SENDER.name()));
-        assertThat(callRecordInfo.get("from_locale"), is(LocaleFormatter.getCityAndCountry(beijingLocale())));
-//        assertThat(callRecordInfo.get("communication_type"), is(CallRecord.CommunicationType.LOCAL.name()));
-//        assertThat(callRecordInfo.get("fee"), is(0.0));
-        assertThat(canFindLink((List) callRecordInfo.get("links"), "self", messageRecordsUrl(user) + "/" + messageRecord.getId().id()), is(true));
+        Map messageRecordInfo = (Map) ((List) fetchedInfo.get("items")).get(0);
+        assertThat(messageRecordInfo.get("id"), is(messageRecord.getId().id()));
+        assertThat(messageRecordInfo.get("type"), is(MessageRecord.Type.MMS.name()));
+        assertThat(messageRecordInfo.get("send_type"), is(MessageRecord.SendType.SENDER.name()));
+        assertThat(messageRecordInfo.get("from_locale"), is(LocaleFormatter.getCityAndCountry(beijingLocale())));
+        assertThat(messageRecordInfo.get("communication_type"), is(CommunicationRecord.CommunicationType.LOCAL.name()));
+//        assertThat(messageRecordInfo.get("fee"), is(0.0));
+        assertThat(canFindLink((List) messageRecordInfo.get("links"), "self", messageRecordsUrl(user) + "/" + messageRecord.getId().id()), is(true));
 
     }
 }
