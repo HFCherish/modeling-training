@@ -69,18 +69,6 @@ public class MessageRecord extends CommunicationRecord implements Record {
 
     public enum SendType {SENDER, RECEIVER}
 
-    public static class ChargeBalance {
-        long freeNumbers;
-        double unitPrice;
-
-        public ChargeBalance() {
-        }
-
-        public void addFreeNumber(long increment) {
-            freeNumbers -= increment;
-        }
-    }
-
     public static class MessageChargeType {
         CommunicationType communicationType;
         Type type;

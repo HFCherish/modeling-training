@@ -1,41 +1,53 @@
-< html >
-	< head >
-	< title > test < /title> < script type = "text/javascript" >
-	function view() {
-		var titleNodes = document.getElementsByClassName("title");
-		// for(var i=0; i<titleNodes.length; i++) {
-		// 	titleNodes.item(i).innerHTML = 	
-		// }
-		Array.from(titleNodes).forEach(function(titleNode) {
-			titleNode.innerHTML = "<h1>my test title</h1>";
-		});
-
-		var textNodes = document.getElementsByClassName("text");
-		Array.from(textNodes).forEach(function(textNode) {
-				textNode.innerHTML = "<textarea readonly>my test textarea</textarea>";
-			})
-			// while(titleNode.firstChild) {
-			// 	titleNode.removeChild(titleNode.firstChild);
+<html>
+	<head>
+	<title> test </title> 
+	<script type = "text/javascript">
+		function view() {
+			var titleNodes = document.getElementsByClassName("title");
+			// for(var i=0; i<titleNodes.length; i++) {
+			// 	titleNodes.item(i).innerHTML = 	
 			// }
-			// titleNode.appendChild()
-	}
+			Array.from(titleNodes).forEach(function(titleNode) {
+				titleNode.innerHTML = "<h1>my test title</h1>";
+			});
 
-function render() {
-	var titleNodes = document.getElementsByClassName("title");
-	Array.from(titleNodes).forEach(function(titleNode) {
-		titleNode.innerHTML = "<input type='text'></input>";
-	});
+			var textNodes = document.getElementsByClassName("text");
+			Array.from(textNodes).forEach(function(textNode) {
+					textNode.innerHTML = "<textarea readonly>my test textarea</textarea>";
+				})
+				// while(titleNode.firstChild) {
+				// 	titleNode.removeChild(titleNode.firstChild);
+				// }
+				// titleNode.appendChild()
+		}
 
-	var textNodes = document.getElementsByClassName("text");
-	Array.from(textNodes).forEach(function(textNode) {
-		textNode.innerHTML = "<textarea></textarea>";
-	});
-} < /script> < /head> < body >
-	< button onclick = "view()" > show < /button> < button onclick = "render()" > edit < /button> < ul class = "page" >
-	< li class = "row" >
-	< ul class = "columns" >
-	< li class = "column" >
-	< ul class = "component" >
-	< li class = "title" > < /li> < li class = "text" > < /li> < /ul> < /li> < /ul> < /li> < /ul> < /body>
+		function render() {
+			var titleNodes = document.getElementsByClassName("title");
+			Array.from(titleNodes).forEach(function(titleNode) {
+				titleNode.innerHTML = "<input type='text'></input>";
+			});
 
-< /html>
+			var textNodes = document.getElementsByClassName("text");
+			Array.from(textNodes).forEach(function(textNode) {
+				textNode.innerHTML = "<textarea></textarea>";
+			});
+		} 
+	</script> 
+</head>
+ <body>
+	<button onclick = "view()"> show </button> <button onclick = "render()"> edit </button> 
+	<ul class = "page">
+		<li class = "row">
+			<ul class = "columns">
+				<li class = "column">
+					<ul class = "component">
+						<li class = "title"> </li> 
+						<li class = "text"> </li> 
+						</ul>
+				 </li> 
+			</ul> 
+		</li> 
+	</ul> 
+</body>
+
+</html>

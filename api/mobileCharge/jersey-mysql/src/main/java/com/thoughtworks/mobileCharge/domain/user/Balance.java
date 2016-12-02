@@ -15,9 +15,9 @@ import java.util.stream.Stream;
 public class Balance implements Record {
     private static double FREE_CHARGE = 0.0;
     private double remainedMoney;
-    private HashMap<CallRecord.CallChargeType, MessageRecord.ChargeBalance> callAccounts;
-    private HashMap<MessageRecord.MessageChargeType, MessageRecord.ChargeBalance> messageAccounts;
-    private HashMap<DataAccessRecord.DataAccessChargeType, MessageRecord.ChargeBalance> dataAccessAccounts;
+    private HashMap<CallRecord.CallChargeType, ChargeBalance> callAccounts;
+    private HashMap<MessageRecord.MessageChargeType, ChargeBalance> messageAccounts;
+    private HashMap<DataAccessRecord.DataAccessChargeType, ChargeBalance> dataAccessAccounts;
 
     public Balance() {
         remainedMoney = 0.0;
@@ -25,7 +25,7 @@ public class Balance implements Record {
         callAccounts = new HashMap();
         for (CommunicationRecord.CommunicationType communicationType : CommunicationRecord.CommunicationType.values()) {
             for (CallRecord.CallType callType : CallRecord.CallType.values()) {
-                callAccounts.put(new CallRecord.CallChargeType(communicationType, callType), new MessageRecord.ChargeBalance());
+                callAccounts.put(new CallRecord.CallChargeType(communicationType, callType), new ChargeBalance());
             }
         }
 
@@ -33,14 +33,14 @@ public class Balance implements Record {
         for (CommunicationRecord.CommunicationType communicationType : CommunicationRecord.CommunicationType.values()) {
             for (MessageRecord.Type messageType : MessageRecord.Type.values()) {
                 for (MessageRecord.SendType sendType : MessageRecord.SendType.values()) {
-                    messageAccounts.put(new MessageRecord.MessageChargeType(communicationType, messageType, sendType), new MessageRecord.ChargeBalance());
+                    messageAccounts.put(new MessageRecord.MessageChargeType(communicationType, messageType, sendType), new ChargeBalance());
                 }
             }
         }
 
         dataAccessAccounts = new HashMap<>();
         Stream.of(CommunicationRecord.CommunicationType.values()).forEach(type -> {
-            dataAccessAccounts.put(new DataAccessRecord.DataAccessChargeType(type), new MessageRecord.ChargeBalance());
+            dataAccessAccounts.put(new DataAccessRecord.DataAccessChargeType(type), new ChargeBalance());
         });
 
     }
@@ -59,18 +59,27 @@ public class Balance implements Record {
                 put("international", dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(CommunicationRecord.CommunicationType.INTERNATIONAL)).freeNumbers);
             }});
             put("remainedCallMinutes", new HashMap() {{
-                put("local", callAccounts.get(new CallRecord.CallChargeType(CommunicationRecord.CommunicationType.LOCAL, CallRecord.CallType.CALLER)).freeNumbers +
-                        callAccounts.get(new CallRecord.CallChargeType(CommunicationRecord.CommunicationType.LOCAL, CallRecord.CallType.CALLEE)).freeNumbers);
-                put("internal", callAccounts.get(new CallRecord.CallChargeType(CommunicationRecord.CommunicationType.INTERNAL, CallRecord.CallType.CALLER)).freeNumbers +
-                        callAccounts.get(new CallRecord.CallChargeType(CommunicationRecord.CommunicationType.INTERNAL, CallRecord.CallType.CALLEE)).freeNumbers);
-                put("internal", callAccounts.get(new CallRecord.CallChargeType(CommunicationRecord.CommunicationType.INTERNATIONAL, CallRecord.CallType.CALLER)).freeNumbers +
-                        callAccounts.get(new CallRecord.CallChargeType(CommunicationRecord.CommunicationType.INTERNATIONAL, CallRecord.CallType.CALLEE)).freeNumbers);
-            }});
+                put("local", getFreeNumbers(callAccounts, CommunicationRecord.CommunicationType.LOCAL));
+                put("internal", getFreeNumbers(callAccounts, CommunicationRecord.CommunicationType.INTERNAL));
+                put("international", getFreeNumbers(callAccounts, CommunicationRecord.CommunicationType.INTERNATIONAL));
+            }
+                public long getFreeNumbers
+                        (Map<CallRecord.CallChargeType, ChargeBalance> accounts, CommunicationRecord.CommunicationType communicationType) {
+                    return accounts.get(new CallRecord.CallChargeType(communicationType, CallRecord.CallType.CALLEE)).freeNumbers +
+                            accounts.get(new CallRecord.CallChargeType(communicationType, CallRecord.CallType.CALLER)).freeNumbers;
+                }
+            });
             put("remainedMessages", new HashMap() {{
                     put("local", getMessageMap(CommunicationRecord.CommunicationType.LOCAL));
                     put("internal", getMessageMap(CommunicationRecord.CommunicationType.INTERNAL));
                     put("international", getMessageMap(CommunicationRecord.CommunicationType.INTERNATIONAL));
             }
+                public long getFreeNumbers
+                        (Map<MessageRecord.MessageChargeType, ChargeBalance> accounts, CommunicationRecord.CommunicationType
+                                communicationType, MessageRecord.Type type) {
+                    return accounts.get(new MessageRecord.MessageChargeType(communicationType, type, MessageRecord.SendType.SENDER)).freeNumbers +
+                            accounts.get(new MessageRecord.MessageChargeType(communicationType, type, MessageRecord.SendType.RECEIVER)).freeNumbers;
+                }
 
                 public HashMap getMessageMap(final CommunicationRecord.CommunicationType communicationType) {
                     return new HashMap() {{
@@ -81,12 +90,6 @@ public class Balance implements Record {
             });
 
         }};
-    }
-    public long getFreeNumbers
-            (Map<MessageRecord.MessageChargeType, MessageRecord.ChargeBalance> accounts, CommunicationRecord.CommunicationType
-                    communicationType, MessageRecord.Type type) {
-        return accounts.get(new MessageRecord.MessageChargeType(communicationType, type, MessageRecord.SendType.SENDER)).freeNumbers +
-                accounts.get(new MessageRecord.MessageChargeType(communicationType, type, MessageRecord.SendType.RECEIVER)).freeNumbers;
     }
 
     @Override
@@ -99,7 +102,7 @@ public class Balance implements Record {
             return (record, balance) -> {
                 double charge = 0.0;
 
-                MessageRecord.ChargeBalance callChargeBalance = balance.callAccounts.get(new CallRecord.CallChargeType(record.communicationType, ((CallRecord) record).callType));
+                ChargeBalance callChargeBalance = balance.callAccounts.get(new CallRecord.CallChargeType(record.communicationType, ((CallRecord) record).callType));
                 Long costMinutes = ((CallRecord) record).duration.getStandardMinutes();
                 long freeMinutes = callChargeBalance.freeNumbers;
                 if (freeMinutes > costMinutes) {
@@ -119,7 +122,7 @@ public class Balance implements Record {
                 double charge = 0.0;
 
                 if (((DataAccessRecord) record).chargeType.equals(ChargeType.CHARGE)) {
-                    MessageRecord.ChargeBalance dataAccessChargeBalance = balance.dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(record.communicationType));
+                    ChargeBalance dataAccessChargeBalance = balance.dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(record.communicationType));
                     Long costData = ((DataAccessRecord) record).data;
                     long freeData = dataAccessChargeBalance.freeNumbers;
                     if (freeData > costData) {
@@ -139,7 +142,7 @@ public class Balance implements Record {
             return (record, balance) -> {
                 double charge = 0.0;
 
-                MessageRecord.ChargeBalance messageChargeBalance = balance.messageAccounts.get(new MessageRecord.MessageChargeType(record.communicationType,
+                ChargeBalance messageChargeBalance = balance.messageAccounts.get(new MessageRecord.MessageChargeType(record.communicationType,
                         ((MessageRecord) record).type,
                         ((MessageRecord) record).sendType));
                 if (messageChargeBalance.freeNumbers > 0) {

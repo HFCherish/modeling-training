@@ -12,34 +12,16 @@
 	},
 	"remainedMessages": {
 		"local": {
-			"MMS": {
-				"SENDER": 10,
-				"RECEIVER": 10
-			},
-			"SMS": {
-				"SENDER": 10,
-				"RECEIVER": 10
-			}
+			"MMS": 10,
+			"SMS": 10
 		},
 		"internal": {
-			"MMS": {
-				"SENDER": 10,
-				"RECEIVER": 10
-			},
-			"SMS": {
-				"SENDER": 10,
-				"RECEIVER": 10
-			}
+			"MMS": 10,
+			"SMS": 10
 		},
 		"international": {
-			"MMS": {
-				"SENDER": 10,
-				"RECEIVER": 10
-			},
-			"SMS": {
-				"SENDER": 10,
-				"RECEIVER": 10
-			}
+			"MMS": 10,
+			"SMS": 10
 		}
 	}
 }
