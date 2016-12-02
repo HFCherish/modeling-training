@@ -2,6 +2,7 @@ package com.thoughtworks.mobileCharge.support;
 
 import com.thoughtworks.mobileCharge.domain.CurrentUserService;
 import com.thoughtworks.mobileCharge.domain.user.CallRecordRepo;
+import com.thoughtworks.mobileCharge.domain.user.PhoneCardRepo;
 import com.thoughtworks.mobileCharge.domain.user.UserRepo;
 import com.thoughtworks.mobileCharge.infrastructure.services.AuthorizationServiceImpl;
 import com.thoughtworks.mobileCharge.util.Json;
@@ -59,6 +60,7 @@ public class ApiSupport {
     protected String token = "";
 
     protected UserRepo userRepo = mock(UserRepo.class);
+    protected PhoneCardRepo phoneCardRepo = mock(PhoneCardRepo.class);
     protected CallRecordRepo callRecordRepo = mock(CallRecordRepo.class);
     protected CurrentUserService currentUserService = mock(CurrentUserService.class);
 
@@ -82,6 +84,7 @@ public class ApiSupport {
                             @Override
                             protected void configure() {
                                 bind(userRepo).to(UserRepo.class);
+                                bind(phoneCardRepo).to(PhoneCardRepo.class);
                                 bind(currentUserService).to(CurrentUserService.class);
                                 bind(callRecordRepo).to(CallRecordRepo.class);
                                 bind(AuthorizationServiceImpl.class).to(AuthorizationService.class);

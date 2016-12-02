@@ -47,6 +47,10 @@ public class User implements Record {
         return balance;
     }
 
+    public MessageRecord saveMessage(MessageRecord record){
+        return null;
+    }
+
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;

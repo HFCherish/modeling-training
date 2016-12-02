@@ -27,7 +27,7 @@
 7. /users/uid/messages:
 	9. post 400 - 10: 6
 	9. post 404 - 5: 7
-	8. post 201 - 15:
+	8. post 201 - 15: 17
 	11. get 200
 	    1. basic info - 15:
 	    1. can paginate - 5:

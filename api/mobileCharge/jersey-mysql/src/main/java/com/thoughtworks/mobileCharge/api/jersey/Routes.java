@@ -31,4 +31,8 @@ public class Routes {
     public URI callRecordsUrl(String uid, String callRecordId) {
         return URI.create(baseUri + "users/" + uid + "/calls/" + callRecordId);
     }
+
+    public URI messageRecordUrl(String uid, String messageRecordId) {
+        return URI.create(baseUri + "users/" + uid + "/messages/" + messageRecordId);
+    }
 }

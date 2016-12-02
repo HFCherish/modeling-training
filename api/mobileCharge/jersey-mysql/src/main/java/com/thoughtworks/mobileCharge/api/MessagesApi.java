@@ -1,6 +1,8 @@
 package com.thoughtworks.mobileCharge.api;
 
 import com.thoughtworks.mobileCharge.api.beans.MessageRequestBean;
+import com.thoughtworks.mobileCharge.api.jersey.Routes;
+import com.thoughtworks.mobileCharge.domain.user.MessageRecord;
 import com.thoughtworks.mobileCharge.domain.user.User;
 
 import javax.ws.rs.Consumes;
@@ -24,10 +26,18 @@ public class MessagesApi {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createMessage(MessageRequestBean info,
-                                  @Context AuthorizationService authorizationService) {
+                                  @Context AuthorizationService authorizationService,
+                                  @Context Routes routes) {
         if(!authorizationService.currentUserIs(user)) {
             throw new NotFoundException();
         }
-        return Response.created(URI.create("")).build();
+
+        MessageRecord messageRecord = user.saveMessage(new MessageRecord(info.getFromLocale().getLocale(),
+                info.getTarget().getPhoneCard(),
+                info.getType(),
+                info.getSendType(),
+                info.getCreatedAt()));
+
+        return Response.created(routes.messageRecordUrl(user.getId().id(), messageRecord.getId().id())).build();
     }
 }

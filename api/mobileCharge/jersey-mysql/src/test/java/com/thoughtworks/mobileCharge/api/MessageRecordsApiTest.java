@@ -1,10 +1,12 @@
 package com.thoughtworks.mobileCharge.api;
 
+import com.thoughtworks.mobileCharge.domain.EntityId;
 import com.thoughtworks.mobileCharge.domain.user.Balance;
 import com.thoughtworks.mobileCharge.domain.user.MessageRecord;
 import com.thoughtworks.mobileCharge.domain.user.User;
 import com.thoughtworks.mobileCharge.support.ApiSupport;
 import com.thoughtworks.mobileCharge.support.ApiTestRunner;
+import com.thoughtworks.mobileCharge.support.TestHelper;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,14 +15,15 @@ import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.Optional;
 
-import static com.thoughtworks.mobileCharge.support.TestHelper.beijingLocaleMap;
 import static com.thoughtworks.mobileCharge.support.TestHelper.getUser;
-import static com.thoughtworks.mobileCharge.support.TestHelper.phoneCardMap;
+import static com.thoughtworks.mobileCharge.support.TestHelper.messageRecordMap;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 /**
@@ -45,34 +48,21 @@ public class MessageRecordsApiTest extends ApiSupport {
         assertThat(response.getStatus(), is(400));
     }
 
-//    @Test
-//    public void should_201_when_post_calls() {
-//        User user = getUser(mock(Balance.class));
-//        User targetUser = getUser(mock(Balance.class));
-//        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
-//        when(userRepo.findBy(eq(targetUser.getId().id()))).thenReturn(Optional.of(targetUser));
-//        when(currentUserService.currentUser()).thenReturn(Optional.of(user));
-//        CallRecord callRecord = mock(CallRecord.class);
-//        when(callRecord.getId()).thenReturn(new EntityId("1"));
-//        when(callRecordRepo.save(anyObject())).thenReturn(callRecord);
-//
-//        Response response = post(messageRecordsUrl(user), new HashMap() {{
-//            put("duration", new HashMap() {{
-//                put("start", new DateTime().getMillis());
-//                put("end", new DateTime().getMillis());
-//            }});
-//            put("from_locale", new HashMap() {{
-//                put("city", "beijing");
-//                put("country", "China");
-//                put("language", "zh");
-//            }});
-//            put("target", targetUser.getId().id());
-//        }});
-//
-//        assertThat(response.getStatus(), is(201));
-//        assertThat(response.getLocation().toString().contains(messageRecordsUrl(user) + "/" + callRecord.getId().id()), is(true));
-//    }
-//
+    @Test
+    public void should_201_when_post_messages() {
+        User user = spy(getUser(mock(Balance.class)));
+        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
+        when(currentUserService.currentUser()).thenReturn(Optional.of(user));
+        MessageRecord messageRecord = mock(MessageRecord.class);
+        when(messageRecord.getId()).thenReturn(new EntityId("1"));
+        when(user.saveMessage(anyObject())).thenReturn(messageRecord);
+
+        Response response = post(messageRecordsUrl(user), messageRecordMap());
+
+        assertThat(response.getStatus(), is(201));
+        assertThat(response.getLocation().toString().contains(messageRecordsUrl(user) + "/" + messageRecord.getId().id()), is(true));
+    }
+
     @Test
     public void should_404_when_post_message_record_to_other_card() {
         User user = getUser(mock(Balance.class));
@@ -80,17 +70,12 @@ public class MessageRecordsApiTest extends ApiSupport {
         when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(currentUser));
 
-        Response response = post(messageRecordsUrl(user), new HashMap() {{
-            put("type", MessageRecord.Type.MMS);
-            put("from_locale", beijingLocaleMap());
-            put("target", phoneCardMap());
-            put("send_type", MessageRecord.SendType.SENDER);
-            put("createdAt", new DateTime().getMillis());
-        }});
+        Response response = post(messageRecordsUrl(user), TestHelper.messageRecordMap());
 
         assertThat(response.getStatus(), is(404));
     }
-//
+
+    //
 //    @Test
 //    public void should_200_when_get_all_call_records() {
 //        User user = getUser(mock(Balance.class));
