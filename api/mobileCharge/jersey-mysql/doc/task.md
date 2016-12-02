@@ -54,7 +54,7 @@
     1. get 200:
         1. contains remained money - 5:
         1. contains right remained data info - 15: 4
-        1. contains right remained call minutes info - 15:
+        1. contains right remained call minutes info - 15: 3
         1. contains right remained messages info - 15:
         
 <!--18. /users/uid/package_purchases:-->
