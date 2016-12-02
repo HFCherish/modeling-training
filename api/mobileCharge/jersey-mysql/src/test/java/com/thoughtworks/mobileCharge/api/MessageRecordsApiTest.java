@@ -1,54 +1,46 @@
-//package com.thoughtworks.mobileCharge.api;
-//
-//import com.thoughtworks.mobileCharge.domain.EntityId;
-//import com.thoughtworks.mobileCharge.domain.PaginatedList;
-//import com.thoughtworks.mobileCharge.domain.user.Balance;
-//import com.thoughtworks.mobileCharge.domain.user.CallRecord;
-//import com.thoughtworks.mobileCharge.domain.user.MessageRecord;
-//import com.thoughtworks.mobileCharge.domain.user.User;
-//import com.thoughtworks.mobileCharge.support.ApiSupport;
-//import com.thoughtworks.mobileCharge.support.ApiTestRunner;
-//import org.joda.time.DateTime;
-//import org.joda.time.Duration;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//
-//import javax.ws.rs.core.Response;
-//import java.util.*;
-//
-//import static com.thoughtworks.mobileCharge.support.TestHelper.getUser;
-//import static java.util.Arrays.asList;
-//import static org.hamcrest.CoreMatchers.is;
-//import static org.junit.Assert.assertThat;
-//import static org.mockito.Matchers.*;
-//import static org.mockito.Mockito.mock;
-//import static org.mockito.Mockito.when;
-//
-///**
-// * Created by pzzheng on 11/29/16.
-// */
-//@RunWith(ApiTestRunner.class)
-//public class MessageRecordsApiTest extends ApiSupport {
-//
-//    public String messageRecordsUrl(User user) {
-//        return "users/" + user.getId().id() + "/messages";
-//    }
-//
-//    @Test
-//    public void should_400_when_post_message_record_if_target_not_exists() {
-//        User user = getUser(mock(Balance.class));
-//        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
-//        when(userRepo.findBy(eq("1"))).thenReturn(Optional.empty());
-//        when(currentUserService.currentUser()).thenReturn(Optional.of(user));
-//
-//        Response response = post(messageRecordsUrl(user), new HashMap() {{
-//            put("type", MessageRecord.Type.SMS.name());
-//            put("target", "1");
-//        }});
-//
-//        assertThat(response.getStatus(), is(400));
-//    }
-//
+package com.thoughtworks.mobileCharge.api;
+
+import com.thoughtworks.mobileCharge.domain.user.Balance;
+import com.thoughtworks.mobileCharge.domain.user.MessageRecord;
+import com.thoughtworks.mobileCharge.domain.user.User;
+import com.thoughtworks.mobileCharge.support.ApiSupport;
+import com.thoughtworks.mobileCharge.support.ApiTestRunner;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import javax.ws.rs.core.Response;
+import java.util.HashMap;
+import java.util.Optional;
+
+import static com.thoughtworks.mobileCharge.support.TestHelper.getUser;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+/**
+ * Created by pzzheng on 11/29/16.
+ */
+@RunWith(ApiTestRunner.class)
+public class MessageRecordsApiTest extends ApiSupport {
+
+    public String messageRecordsUrl(User user) {
+        return "users/" + user.getId().id() + "/messages";
+    }
+
+    @Test
+    public void should_400_when_post_message_record_if_input_incomplete() {
+        User user = getUser(mock(Balance.class));
+        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
+        when(userRepo.findBy(eq("1"))).thenReturn(Optional.empty());
+        when(currentUserService.currentUser()).thenReturn(Optional.of(user));
+
+        Response response = post(messageRecordsUrl(user), new HashMap());
+
+        assertThat(response.getStatus(), is(400));
+    }
+
 //    @Test
 //    public void should_201_when_post_calls() {
 //        User user = getUser(mock(Balance.class));
@@ -112,4 +104,4 @@
 //        assertThat(canFindLink((List) callRecordInfo.get("links"), "self", messageRecordsUrl(user) + "/" + callRecord.getId().id()), is(true));
 //
 //    }
-//}
+}

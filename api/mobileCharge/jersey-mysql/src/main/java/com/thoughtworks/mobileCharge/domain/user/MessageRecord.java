@@ -5,4 +5,6 @@ package com.thoughtworks.mobileCharge.domain.user;
  */
 public class MessageRecord extends CommunicationRecord {
     public enum Type {SMS, MMS}
+
+    public enum SendType {SENDER, RECEIVER}
 }

@@ -25,7 +25,7 @@
 -----------
 
 7. /users/uid/messages:
-	9. post 400 - 10:
+	9. post 400 - 10: 6
 	8. post 201 - 15:
 	9. post 404 - 5:
 	11. get 200
