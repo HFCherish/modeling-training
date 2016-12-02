@@ -5,6 +5,7 @@ import com.thoughtworks.mobileCharge.api.beans.MessageRequestBean;
 import com.thoughtworks.mobileCharge.api.jersey.Routes;
 import com.thoughtworks.mobileCharge.api.services.MessageRecordQueryService;
 import com.thoughtworks.mobileCharge.domain.Page;
+import com.thoughtworks.mobileCharge.domain.user.DataAccessRecord;
 import com.thoughtworks.mobileCharge.domain.user.MessageRecord;
 import com.thoughtworks.mobileCharge.domain.user.User;
 
@@ -29,16 +30,14 @@ public class DataAccessesApi {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createDataAccess (DataAccessRequestBean info,
                                   @Context Routes routes) {
-
-
-//        MessageRecord messageRecord = user.saveMessage(new MessageRecord(user,
-//                info.getFromLocale().getLocale(),
-//                info.getTarget().getPhoneCard(),
-//                info.getType(),
-//                info.getSendType(),
-//                info.getCreatedAt()));
-return Response.created(URI.create("")).build();
-//        return Response.created(routes.messageRecordUrl(user.getId().id(), messageRecord.getId().id())).build();
+        DataAccessRecord dataAccessRecord = user.saveDataAccess(new DataAccessRecord(user,
+                info.getFromLocale().getLocale(),
+                info.getTargetConsumer(),
+                info.getWebType(),
+                info.getChargeType(),
+                info.getData(),
+                info.getCreatedAt()));
+        return Response.created(routes.dataAccessRecordUrl(user.getId().id(), dataAccessRecord.getId().id())).build();
     }
 
 //    @GET

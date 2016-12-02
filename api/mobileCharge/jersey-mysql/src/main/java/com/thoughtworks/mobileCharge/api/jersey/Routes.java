@@ -35,4 +35,8 @@ public class Routes {
     public URI messageRecordUrl(String uid, String messageRecordId) {
         return URI.create(baseUri + "users/" + uid + "/messages/" + messageRecordId);
     }
+
+    public URI dataAccessRecordUrl(String uid, String dataAccessId) {
+        return URI.create(baseUri + "users/" + uid + "/data_accesses/" + dataAccessId);
+    }
 }

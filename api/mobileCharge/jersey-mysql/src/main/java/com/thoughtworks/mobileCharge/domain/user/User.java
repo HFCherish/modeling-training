@@ -76,4 +76,8 @@ public class User implements Record {
     public Map<String, Object> toJson(Routes routes) {
         return toRefJson(routes);
     }
+
+    public DataAccessRecord saveDataAccess(DataAccessRecord record) {
+        return null;
+    }
 }

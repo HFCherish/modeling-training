@@ -40,7 +40,7 @@
 13. /users/uid/data_accesses:
 	15. post 400: -10: 7
 	15. post 404: -5: 4
-	14. post 201: -15:
+	14. post 201: -15: 5
 	16. get 200: - 10:
         1. basic info - 15:
 	    1. can paginate - 5:
