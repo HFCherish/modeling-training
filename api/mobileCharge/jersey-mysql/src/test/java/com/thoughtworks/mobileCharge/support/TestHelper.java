@@ -1,13 +1,12 @@
 package com.thoughtworks.mobileCharge.support;
 
-import com.thoughtworks.mobileCharge.domain.user.Balance;
-import com.thoughtworks.mobileCharge.domain.user.MessageRecord;
-import com.thoughtworks.mobileCharge.domain.user.PhoneCard;
-import com.thoughtworks.mobileCharge.domain.user.User;
+import com.thoughtworks.mobileCharge.domain.ChargeType;
+import com.thoughtworks.mobileCharge.domain.user.*;
 import org.joda.time.DateTime;
 
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
@@ -37,13 +36,24 @@ public class TestHelper {
 
     public static HashMap messageRecordMap() {
         return new HashMap() {{
-            put("type", MessageRecord.Type.MMS);
+            put("type", MessageRecord.Type.MMS.name());
             put("from_locale", beijingLocaleMap());
             put("target", phoneCardMap());
-            put("send_type", MessageRecord.SendType.SENDER);
+            put("send_type", MessageRecord.SendType.SENDER.name());
             put("createdAt", new DateTime().getMillis());
         }};
     }
 
 
+    public static Map<String, Object> dataAccessRecordMap() {
+        return new HashMap() {{
+            put("charge_type", ChargeType.CHARGE.name());
+            put("from_locale", beijingLocaleMap());
+            put("target_consumer", "163.music.com");
+            put("data", 12);
+            put("web_type", DataAccessRecord.WebType.G4);
+            put("createdAt", new DateTime().getMillis());
+        }};
+
+    }
 }

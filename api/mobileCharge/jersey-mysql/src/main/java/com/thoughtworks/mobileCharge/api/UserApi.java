@@ -19,7 +19,7 @@ public class UserApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public User getUser(@Context AuthorizationService authorizationService) {
-        if( !authorizationService.currentUserIs(user)) {
+        if (!authorizationService.currentUserIs(user)) {
             throw new NotFoundException("user not exists");
         }
         return user;
@@ -35,14 +35,17 @@ public class UserApi {
 
     @Path("messages")
     public MessagesApi toMessagesApi(@Context AuthorizationService authorizationService) {
-        if(!authorizationService.currentUserIs(user)) {
-            throw new NotFoundException();
+        if (!authorizationService.currentUserIs(user)) {
+            throw new NotFoundException("user not exists");
         }
         return new MessagesApi(user);
     }
 
     @Path("data_accesses")
-    public DataAccessesApi todataAccessesApi() {
+    public DataAccessesApi todataAccessesApi(@Context AuthorizationService authorizationService) {
+        if (!authorizationService.currentUserIs(user)) {
+            throw new NotFoundException("user not exists");
+        }
         return new DataAccessesApi(user);
     }
 }
