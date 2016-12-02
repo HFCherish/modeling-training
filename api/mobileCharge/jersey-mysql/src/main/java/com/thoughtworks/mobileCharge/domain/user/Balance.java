@@ -66,8 +66,27 @@ public class Balance implements Record {
                 put("internal", callAccounts.get(new CallRecord.CallChargeType(CommunicationRecord.CommunicationType.INTERNATIONAL, CallRecord.CallType.CALLER)).freeNumbers +
                         callAccounts.get(new CallRecord.CallChargeType(CommunicationRecord.CommunicationType.INTERNATIONAL, CallRecord.CallType.CALLEE)).freeNumbers);
             }});
+            put("remainedMessages", new HashMap() {{
+                    put("local", getMessageMap(CommunicationRecord.CommunicationType.LOCAL));
+                    put("internal", getMessageMap(CommunicationRecord.CommunicationType.INTERNAL));
+                    put("international", getMessageMap(CommunicationRecord.CommunicationType.INTERNATIONAL));
+            }
+
+                public HashMap getMessageMap(final CommunicationRecord.CommunicationType communicationType) {
+                    return new HashMap() {{
+                        put(MessageRecord.Type.MMS.name(), getFreeNumbers(messageAccounts, communicationType, MessageRecord.Type.MMS));
+                        put(MessageRecord.Type.SMS.name(), getFreeNumbers(messageAccounts, communicationType, MessageRecord.Type.SMS));
+                    }};
+                }
+            });
 
         }};
+    }
+    public long getFreeNumbers
+            (Map<MessageRecord.MessageChargeType, MessageRecord.ChargeBalance> accounts, CommunicationRecord.CommunicationType
+                    communicationType, MessageRecord.Type type) {
+        return accounts.get(new MessageRecord.MessageChargeType(communicationType, type, MessageRecord.SendType.SENDER)).freeNumbers +
+                accounts.get(new MessageRecord.MessageChargeType(communicationType, type, MessageRecord.SendType.RECEIVER)).freeNumbers;
     }
 
     @Override
