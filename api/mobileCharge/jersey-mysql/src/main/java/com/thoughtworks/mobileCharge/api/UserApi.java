@@ -33,7 +33,7 @@ public class UserApi {
         if (!authorizationService.currentUserIs(user)) {
             throw new NotFoundException("user not exists");
         }
-        return null;
+        return user.getBalance();
     }
 
     @Path("calls")

@@ -1,15 +1,18 @@
 package com.thoughtworks.mobileCharge.domain.user;
 
+import com.thoughtworks.mobileCharge.api.jersey.Routes;
 import com.thoughtworks.mobileCharge.domain.ChargeType;
+import com.thoughtworks.mobileCharge.infrastructure.records.Record;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 /**
  * Created by pzzheng on 11/29/16.
  */
-public class Balance {
+public class Balance implements Record{
     private static double FREE_CHARGE = 0.0;
     private double remainedMoney;
     private HashMap<CallRecord.CommunicationType, Integer> freeCallMinutes;
@@ -46,6 +49,18 @@ public class Balance {
 
     public double charge(CommunicationRecord record, BiFunction<CommunicationRecord, Balance, Double> chargeStrategy) {
         return chargeStrategy.apply(record, this);
+    }
+
+    @Override
+    public Map<String, Object> toRefJson(Routes routes) {
+        return new HashMap(){{
+            put("remainedMoney", remainedMoney);
+        }};
+    }
+
+    @Override
+    public Map<String, Object> toJson(Routes routes) {
+        return toRefJson(routes);
     }
 
     public static class ChargeStrategies {

@@ -63,7 +63,23 @@ public class UserApiTest extends ApiSupport{
         User otherUser = TestHelper.getUser(mock(Balance.class));
         when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(otherUser));
+
         Response response = get("users/"+ user.getId().id() + "/balance");
+
         assertThat(response.getStatus(), is(404));
+    }
+
+    @Test
+    public void should_200_when_get_balance_and_current_user_is_not_uid() {
+        User user = TestHelper.getUser(new Balance());
+        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(currentUserService.currentUser()).thenReturn(Optional.of(user));
+
+        Response response = get("users/"+ user.getId().id() + "/balance");
+
+        assertThat(response.getStatus(), is(200));
+        Map balanceInfo = response.readEntity(Map.class);
+        assertThat(balanceInfo.get("remainedMoney"), is(0.0));
+//        assertThat(balanceInfo.get("remained"));
     }
 }
