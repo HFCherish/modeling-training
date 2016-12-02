@@ -38,7 +38,7 @@
 	        1. can calculate according to communication type (local/internal/international) and send type -15: 
 	        1. can calculate according to communication type (local/internal/international) and receiver type -10: 27
 13. /users/uid/data_accesses:
-	15. post 400: -10:
+	15. post 400: -10: 7
 	15. post 404: -5:
 	14. post 201: -15:
 	16. get 200: - 10:
