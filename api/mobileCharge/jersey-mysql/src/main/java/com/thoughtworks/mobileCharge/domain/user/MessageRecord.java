@@ -22,11 +22,11 @@ public class MessageRecord extends CommunicationRecord implements Record {
     protected final Type type;
     protected final SendType sendType;
     private final Long createdAt;
-    private final double fee;
     private EntityId id;
     private User owner;
 
     public MessageRecord(User owner, Locale from_locale, PhoneCard targetCard, Type type, SendType sendType, Long createdAt) {
+        super();
         this.id = new EntityId(IdGenerator.next());
         this.owner = owner;
         this.from_locale = from_locale;
@@ -70,13 +70,13 @@ public class MessageRecord extends CommunicationRecord implements Record {
     public enum SendType {SENDER, RECEIVER}
 
     public static class ChargeBalance {
-        int freeNumbers;
-        double chargePrice;
+        long freeNumbers;
+        double unitPrice;
 
         public ChargeBalance() {
         }
 
-        public void addFreeNumber(int increment) {
+        public void addFreeNumber(long increment) {
             freeNumbers -= increment;
         }
     }

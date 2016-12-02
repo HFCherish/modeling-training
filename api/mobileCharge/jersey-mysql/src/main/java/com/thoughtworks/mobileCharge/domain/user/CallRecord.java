@@ -25,7 +25,6 @@ public class CallRecord extends CommunicationRecord implements Record {
     private final EntityId id;
     private final DateTime start;
     private User owner;
-    private double fee;
     protected CallType callType;
 
     private PhoneCard targetCard;

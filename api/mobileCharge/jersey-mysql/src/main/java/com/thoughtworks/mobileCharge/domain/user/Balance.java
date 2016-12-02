@@ -1,8 +1,8 @@
 package com.thoughtworks.mobileCharge.domain.user;
 
-import java.util.ArrayList;
+import com.thoughtworks.mobileCharge.domain.ChargeType;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
@@ -13,10 +13,10 @@ public class Balance {
     private static double FREE_CHARGE = 0.0;
     private double remainedMoney;
     private HashMap<CallRecord.CommunicationType, Integer> freeCallMinutes;
-    private int freeMessages;
     private HashMap<CallRecord.CommunicationType, Double> callerChargeUnitPrice;
     private HashMap<CallRecord.CommunicationType, Double> calleeChargeUnitPrice;
     private HashMap<MessageRecord.MessageChargeType, MessageRecord.ChargeBalance> messageAccounts;
+    private HashMap<DataAccessRecord.DataAccessChargeType, MessageRecord.ChargeBalance> dataAccessAccounts;
 
     public Balance() {
         remainedMoney = 0.0;
@@ -33,7 +33,12 @@ public class Balance {
                 }
             }
         }
-        freeMessages = 0;
+
+        dataAccessAccounts = new HashMap<>();
+        Stream.of(CommunicationRecord.CommunicationType.values()).forEach(type -> {
+            dataAccessAccounts.put(new DataAccessRecord.DataAccessChargeType(type), new MessageRecord.ChargeBalance());
+        });
+
     }
 
     public double charge(CommunicationRecord record, BiFunction<CommunicationRecord, Balance, Double> chargeStrategy) {
@@ -68,6 +73,27 @@ public class Balance {
             };
         }
 
+        public static BiFunction<CommunicationRecord, Balance, Double> dataAccessCharge() {
+            return (record, balance) -> {
+                double charge = 0.0;
+
+                if(((DataAccessRecord)record).chargeType.equals(ChargeType.CHARGE)) {
+                    MessageRecord.ChargeBalance dataAccessChargeBalance = balance.dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(record.communicationType));
+                    Long costData = ((DataAccessRecord) record).data;
+                    long freeData = dataAccessChargeBalance.freeNumbers;
+                    if (freeData > costData) {
+                        dataAccessChargeBalance.addFreeNumber(-costData);
+                    } else {
+                        dataAccessChargeBalance.addFreeNumber(-freeData);
+                        charge = dataAccessChargeBalance.unitPrice * (costData - freeData);
+                        balance.remainedMoney -= charge;
+                    }
+                }
+
+                return charge;
+            };
+        }
+
         public static BiFunction<CommunicationRecord, Balance, Double> messageCharge() {
             return (record, balance) -> {
                 double charge = 0.0;
@@ -79,13 +105,12 @@ public class Balance {
                     messageChargeBalance.addFreeNumber(-1);
                 }
                 else {
-                    charge = messageChargeBalance.chargePrice;
+                    charge = messageChargeBalance.unitPrice;
                     balance.remainedMoney -= charge;
                 }
 
                 return charge;
             };
-
         }
     }
 }

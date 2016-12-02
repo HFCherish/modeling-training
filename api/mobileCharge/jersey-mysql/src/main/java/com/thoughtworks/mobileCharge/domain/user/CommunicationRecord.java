@@ -6,7 +6,9 @@ import java.util.Locale;
  * Created by pzzheng on 11/29/16.
  */
 public abstract class CommunicationRecord {
+    protected double fee;
     protected CommunicationType communicationType;
+
 
     public enum CommunicationType {
         LOCAL, INTERNAL, INTERNATIONAL, communicationType;
