@@ -55,6 +55,11 @@ public class Balance implements Record{
     public Map<String, Object> toRefJson(Routes routes) {
         return new HashMap(){{
             put("remainedMoney", remainedMoney);
+            put("remainedData", new HashMap() {{
+                put("local", dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(CommunicationRecord.CommunicationType.LOCAL)).freeNumbers);
+                put("local", dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(CommunicationRecord.CommunicationType.INTERNAL)).freeNumbers);
+                put("local", dataAccessAccounts.get(new DataAccessRecord.DataAccessChargeType(CommunicationRecord.CommunicationType.INTERNATIONAL)).freeNumbers);
+            }});
         }};
     }
 

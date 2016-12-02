@@ -80,6 +80,6 @@ public class UserApiTest extends ApiSupport{
         assertThat(response.getStatus(), is(200));
         Map balanceInfo = response.readEntity(Map.class);
         assertThat(balanceInfo.get("remainedMoney"), is(0.0));
-//        assertThat(balanceInfo.get("remained"));
+        assertThat(((Map)balanceInfo.get("remainedData")).get("local"), is(0));
     }
 }
