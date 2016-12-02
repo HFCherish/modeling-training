@@ -56,4 +56,14 @@ public class UserApiTest extends ApiSupport{
         assertThat(fetchedUserInfo.get("id"), is(user.getId().id()));
         assertThat(canFindLink(((List)fetchedUserInfo.get("links")), "self", "users/" + user.getId().id()), is(true));
     }
+
+    @Test
+    public void should_404_when_get_balance_and_current_user_is_not_uid() {
+        User user = TestHelper.getUser(new Balance());
+        User otherUser = TestHelper.getUser(mock(Balance.class));
+        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(currentUserService.currentUser()).thenReturn(Optional.of(otherUser));
+        Response response = get("users/"+ user.getId().id() + "/balance");
+        assertThat(response.getStatus(), is(404));
+    }
 }

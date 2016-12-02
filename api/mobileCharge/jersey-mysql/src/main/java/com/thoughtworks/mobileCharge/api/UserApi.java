@@ -1,5 +1,6 @@
 package com.thoughtworks.mobileCharge.api;
 
+import com.thoughtworks.mobileCharge.domain.user.Balance;
 import com.thoughtworks.mobileCharge.domain.user.User;
 
 import javax.ws.rs.GET;
@@ -23,6 +24,16 @@ public class UserApi {
             throw new NotFoundException("user not exists");
         }
         return user;
+    }
+
+    @GET
+    @Path("balance")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Balance getBalance(@Context AuthorizationService authorizationService) {
+        if (!authorizationService.currentUserIs(user)) {
+            throw new NotFoundException("user not exists");
+        }
+        return null;
     }
 
     @Path("calls")

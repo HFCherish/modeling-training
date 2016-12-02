@@ -11,8 +11,35 @@
 		"international": 324
 	},
 	"remainedMessages": {
-		"local": 12,
-		"internal": 32,
-		"international": 324
+		"local": {
+			"MMS": {
+				"SENDER": 10,
+				"RECEIVER": 10
+			},
+			"SMS": {
+				"SENDER": 10,
+				"RECEIVER": 10
+			}
+		},
+		"internal": {
+			"MMS": {
+				"SENDER": 10,
+				"RECEIVER": 10
+			},
+			"SMS": {
+				"SENDER": 10,
+				"RECEIVER": 10
+			}
+		},
+		"international": {
+			"MMS": {
+				"SENDER": 10,
+				"RECEIVER": 10
+			},
+			"SMS": {
+				"SENDER": 10,
+				"RECEIVER": 10
+			}
+		}
 	}
 }

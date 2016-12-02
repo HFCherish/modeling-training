@@ -20,6 +20,9 @@ public class Balance {
 
     public Balance() {
         remainedMoney = 0.0;
+        freeCallMinutes = new HashMap<>();
+        calleeChargeUnitPrice = new HashMap<>();
+        callerChargeUnitPrice = new HashMap<>();
         Stream.of(CommunicationRecord.CommunicationType.values()).forEach(type -> {
             freeCallMinutes.put(type, 0);
             callerChargeUnitPrice.put(type, 0.1);

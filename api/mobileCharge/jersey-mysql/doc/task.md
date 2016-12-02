@@ -48,7 +48,7 @@
 	    1. contains communication_type -5: 2
 	    1. contains fee
 	        1. can calculate when free charge -10:
-	        1. can calculate according to communication type (local/internal/international) -15:
+	        1. can calculate according to communication type (local/internal/international) -15: 12
 1. /users/uid/balance:
     1. get 404 (not current user) - 10:
     1. get 200:
