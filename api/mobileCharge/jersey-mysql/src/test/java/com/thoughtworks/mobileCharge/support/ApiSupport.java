@@ -3,6 +3,7 @@ package com.thoughtworks.mobileCharge.support;
 import com.thoughtworks.mobileCharge.api.AuthorizationService;
 import com.thoughtworks.mobileCharge.api.exception.IllegalArgumentExceptionMapper;
 import com.thoughtworks.mobileCharge.api.jersey.*;
+import com.thoughtworks.mobileCharge.api.services.DataAccessRecordQueryService;
 import com.thoughtworks.mobileCharge.api.services.MessageRecordQueryService;
 import com.thoughtworks.mobileCharge.domain.CurrentUserService;
 import com.thoughtworks.mobileCharge.api.services.CallRecordQueryService;
@@ -61,6 +62,7 @@ public class ApiSupport {
     protected UserRepo userRepo = mock(UserRepo.class);
     protected MessageRecordQueryService messageRecordQueryService = mock(MessageRecordQueryService.class);
     protected CallRecordQueryService callRecordQueryService = mock(CallRecordQueryService.class);
+    protected DataAccessRecordQueryService dataAccessRecordQueryService = mock(DataAccessRecordQueryService.class);
     protected CurrentUserService currentUserService = mock(CurrentUserService.class);
 
     @Before
@@ -86,6 +88,7 @@ public class ApiSupport {
                                 bind(currentUserService).to(CurrentUserService.class);
                                 bind(callRecordQueryService).to(CallRecordQueryService.class);
                                 bind(messageRecordQueryService).to(MessageRecordQueryService.class);
+                                bind(dataAccessRecordQueryService).to(DataAccessRecordQueryService.class);
                                 bind(AuthorizationServiceImpl.class).to(AuthorizationService.class);
                             }
                         });

@@ -3,6 +3,7 @@ package com.thoughtworks.mobileCharge.api;
 import com.thoughtworks.mobileCharge.api.beans.DataAccessRequestBean;
 import com.thoughtworks.mobileCharge.api.beans.MessageRequestBean;
 import com.thoughtworks.mobileCharge.api.jersey.Routes;
+import com.thoughtworks.mobileCharge.api.services.DataAccessRecordQueryService;
 import com.thoughtworks.mobileCharge.api.services.MessageRecordQueryService;
 import com.thoughtworks.mobileCharge.domain.Page;
 import com.thoughtworks.mobileCharge.domain.user.DataAccessRecord;
@@ -40,13 +41,13 @@ public class DataAccessesApi {
         return Response.created(routes.dataAccessRecordUrl(user.getId().id(), dataAccessRecord.getId().id())).build();
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Page<MessageRecord> findAll(@DefaultValue("0") @QueryParam("month") int month,
-//                                       @QueryParam("page") int page,
-//                                       @QueryParam("perPage") int perPage,
-//                                       @Context UriInfo uriInfo,
-//                                       @Context MessageRecordQueryService messageRecordQueryService) {
-//        return messageRecordQueryService.findAllOf(user, month).toPage(page, perPage, uriInfo);
-//    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Page<DataAccessRecord> findAll(@DefaultValue("0") @QueryParam("month") int month,
+                                       @QueryParam("page") int page,
+                                       @QueryParam("perPage") int perPage,
+                                       @Context UriInfo uriInfo,
+                                       @Context DataAccessRecordQueryService dataAccessRecordQueryService) {
+        return dataAccessRecordQueryService.findAllOf(user, month).toPage(page, perPage, uriInfo);
+    }
 }

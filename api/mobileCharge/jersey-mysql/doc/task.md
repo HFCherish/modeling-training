@@ -44,7 +44,7 @@
 	16. get 200: - 10:
         1. basic info - 15:
 	    1. can paginate - 5:
-	    1. get according to month - 10:
+	    1. get according to month - 10: 10
 	    1. contains communication_type -5:
 	    1. contains fee
 	        1. can calculate when free charge -10:
