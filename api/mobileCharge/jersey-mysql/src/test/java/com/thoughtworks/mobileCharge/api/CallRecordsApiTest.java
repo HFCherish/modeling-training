@@ -22,6 +22,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 /**
@@ -36,12 +37,12 @@ public class CallRecordsApiTest extends ApiSupport {
 
     @Test
     public void should_201_when_post_calls() {
-        User user = getUser(mock(Balance.class));
+        User user = spy(getUser(mock(Balance.class)));
         when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         CallRecord callRecord = mock(CallRecord.class);
         when(callRecord.getId()).thenReturn(new EntityId("1"));
-        when(callRecordRepo.save(anyObject())).thenReturn(callRecord);
+        when(user.saveCallRecord(anyObject())).thenReturn(callRecord);
 
         Response response = post(callsUrl(user), new HashMap() {
             {
@@ -113,7 +114,7 @@ public class CallRecordsApiTest extends ApiSupport {
         when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         CallRecord callRecord = new CallRecord(new Locale("zh", "CN", "beijing"), user, DateTime.now(), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", beijingLocale()));
-        when(callRecordRepo.findAllOf(eq(user), anyInt())).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord)));
+        when(callRecordQueryService.findAllOf(eq(user), anyInt())).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord)));
 
 
         Response response = get(callsUrl(user));
@@ -138,9 +139,9 @@ public class CallRecordsApiTest extends ApiSupport {
 
         CallRecord callRecord_Aug = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 8, 1, 1, 1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", beijingLocale()));
         CallRecord callRecord_Jul = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 7, 1, 1, 1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", beijingLocale()));
-        when(callRecordRepo.findAllOf(eq(user), eq(7))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord_Jul)));
-        when(callRecordRepo.findAllOf(eq(user), eq(8))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord_Aug)));
-        when(callRecordRepo.findAllOf(eq(user), eq(0))).thenReturn(new PaginatedList<>(2, (page, perPage) -> asList(callRecord_Aug, callRecord_Jul)));
+        when(callRecordQueryService.findAllOf(eq(user), eq(7))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord_Jul)));
+        when(callRecordQueryService.findAllOf(eq(user), eq(8))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord_Aug)));
+        when(callRecordQueryService.findAllOf(eq(user), eq(0))).thenReturn(new PaginatedList<>(2, (page, perPage) -> asList(callRecord_Aug, callRecord_Jul)));
 
 
         Response response = get(callsUrl(user));

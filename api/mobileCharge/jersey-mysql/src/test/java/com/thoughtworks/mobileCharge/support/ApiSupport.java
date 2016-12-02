@@ -1,15 +1,13 @@
 package com.thoughtworks.mobileCharge.support;
 
+import com.thoughtworks.mobileCharge.api.AuthorizationService;
+import com.thoughtworks.mobileCharge.api.exception.IllegalArgumentExceptionMapper;
+import com.thoughtworks.mobileCharge.api.jersey.*;
 import com.thoughtworks.mobileCharge.domain.CurrentUserService;
-import com.thoughtworks.mobileCharge.domain.user.CallRecordRepo;
-import com.thoughtworks.mobileCharge.domain.user.PhoneCardRepo;
+import com.thoughtworks.mobileCharge.api.services.CallRecordQueryService;
 import com.thoughtworks.mobileCharge.domain.user.UserRepo;
 import com.thoughtworks.mobileCharge.infrastructure.services.AuthorizationServiceImpl;
 import com.thoughtworks.mobileCharge.util.Json;
-import com.thoughtworks.mobileCharge.api.AuthorizationService;
-import com.thoughtworks.mobileCharge.api.UsersApi;
-import com.thoughtworks.mobileCharge.api.exception.IllegalArgumentExceptionMapper;
-import com.thoughtworks.mobileCharge.api.jersey.*;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.ServletRegistration;
 import org.glassfish.grizzly.servlet.WebappContext;
@@ -60,8 +58,8 @@ public class ApiSupport {
     protected String token = "";
 
     protected UserRepo userRepo = mock(UserRepo.class);
-    protected PhoneCardRepo phoneCardRepo = mock(PhoneCardRepo.class);
-    protected CallRecordRepo callRecordRepo = mock(CallRecordRepo.class);
+//    protected PhoneCardRepo phoneCardRepo = mock(PhoneCardRepo.class);
+    protected CallRecordQueryService callRecordQueryService = mock(CallRecordQueryService.class);
     protected CurrentUserService currentUserService = mock(CurrentUserService.class);
 
     @Before
@@ -84,9 +82,8 @@ public class ApiSupport {
                             @Override
                             protected void configure() {
                                 bind(userRepo).to(UserRepo.class);
-                                bind(phoneCardRepo).to(PhoneCardRepo.class);
                                 bind(currentUserService).to(CurrentUserService.class);
-                                bind(callRecordRepo).to(CallRecordRepo.class);
+                                bind(callRecordQueryService).to(CallRecordQueryService.class);
                                 bind(AuthorizationServiceImpl.class).to(AuthorizationService.class);
                             }
                         });

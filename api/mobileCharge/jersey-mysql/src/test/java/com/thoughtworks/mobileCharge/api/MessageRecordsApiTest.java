@@ -82,7 +82,7 @@ public class MessageRecordsApiTest extends ApiSupport {
 //        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
 //        when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 //        CallRecord callRecord = new CallRecord(user, getUser(mock(Balance.class)), new Locale("zh", "CN", "beijing"), new Duration(1000), CallRecord.CallType.CALLER);
-//        when(callRecordRepo.findAllOf(eq(user))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord)));
+//        when(callRecordQueryService.findAllOf(eq(user))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord)));
 //
 //
 //        Response response = get(messageRecordsUrl(user));

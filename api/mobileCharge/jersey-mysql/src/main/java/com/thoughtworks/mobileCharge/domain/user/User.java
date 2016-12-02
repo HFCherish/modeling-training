@@ -51,6 +51,10 @@ public class User implements Record {
         return null;
     }
 
+    public CallRecord saveCallRecord(CallRecord callRecord){
+        return null;
+    }
+
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
