@@ -45,7 +45,7 @@
         1. basic info - 15:
 	    1. can paginate - 5:
 	    1. get according to month - 10: 10
-	    1. contains communication_type -5:
+	    1. contains communication_type -5: 2
 	    1. contains fee
 	        1. can calculate when free charge -10:
 	        1. can calculate according to communication type (local/internal/international) -15:
