@@ -6,7 +6,7 @@ mediaType:  application/json
 /users:
   /uid:
     get:
-      description: can get card detail of user
+      description: can get card detail of owner
       responses:
         200:
           body:
@@ -14,10 +14,10 @@ mediaType:  application/json
               example: !include examples/response_200_get_card.json
               schema: !include schemas/response_200_get_card.schema.json
         404:
-          description: current user is not uid
+          description: current owner is not uid
     /calls:
       post:
-        description: user has a new call 
+        description: owner has a new call
         body:
           application/json:
             example: !include examples/request_post_call.json
@@ -28,7 +28,7 @@ mediaType:  application/json
               location:
                 example: "users/uid/calls/callId"
           404:
-            description: current user is not uid
+            description: current owner is not uid
           400:
             description: field incomplete
       get:
@@ -48,10 +48,10 @@ mediaType:  application/json
               application/json:
                 example: !include examples/response_get_call_records.json
           404:
-            description: current user is not uid
+            description: current owner is not uid
     /messages:
       post:
-        description: user send a message
+        description: owner send a message
         body:
           application/json:
             example: !include examples/request_post_message.json
@@ -61,7 +61,7 @@ mediaType:  application/json
               location:
                 example: "users/uid/messages/mid"
           404:
-            description: current user is not uid
+            description: current owner is not uid
           400:
             description: field incomplete
       get:
@@ -81,10 +81,10 @@ mediaType:  application/json
               application/json:
                 example: !include examples/response_get_message_records.json
           404:
-            description: current user is not uid
+            description: current owner is not uid
     /data_accesses:
       post:
-        description: user access a web
+        description: owner access a web
         body:
           application/json:
             example: !include examples/request_post_data_access.json
@@ -94,7 +94,7 @@ mediaType:  application/json
               location:
                 example: "users/uid/data_accesses/daid"
           404:
-            description: current user is not uid
+            description: current owner is not uid
           400:
             description: field incomplete
       get:
@@ -114,7 +114,7 @@ mediaType:  application/json
               application/json:
                 example: !include examples/response_get_data_access_records.json
           404:
-            description: current user is not uid
+            description: current owner is not uid
     /balance:
       get: 
         description: get the remained money and data of card
@@ -124,7 +124,7 @@ mediaType:  application/json
               application/json:
                 example: !include examples/response_get_balance.json
           404:
-            description: current user is not cid
+            description: current owner is not cid
 #     /package_purchases:
 #       post:
 #         description: purchase a package
@@ -151,7 +151,7 @@ mediaType:  application/json
 #               application/json:
 #                 example: !include examples/response_get_package_purchase.json
 #           404:
-#             description: current user is not cid
+#             description: current owner is not cid
 #     /top_ups:
 #       post:
 #         description: top up for the card
@@ -164,7 +164,7 @@ mediaType:  application/json
 #               location:
 #                 example: "users/uid/top_ups/tuid"
 #           400:
-#             description: product not exists / target phone number not supported (not a user in the system)
+#             description: product not exists / target phone number not supported (not a owner in the system)
 #       get:
 #         description: get all top-up records
 #         responses:
@@ -173,7 +173,7 @@ mediaType:  application/json
 #               application/json:
 #                 example: !include examples/response_get_top_ups.json
 #           404:
-#             description: current user is not cid
+#             description: current owner is not cid
 # /products:
 #   get:
 #     description: get all products

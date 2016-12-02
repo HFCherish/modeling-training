@@ -34,9 +34,9 @@
 	    1. get according to month - 10: 18
 	    1. contains communication_type -5: 3
 	    1. contains fee
-	        1. can calculate when free charge -10:
+	        1. can calculate when free charge -10: 
 	        1. can calculate according to communication type (local/internal/international) and send type -15: 
-	        1. can calculate according to communication type (local/internal/international) and receiver type -10:
+	        1. can calculate according to communication type (local/internal/international) and receiver type -10: 27
 13. /users/uid/data_accesses:
 	15. post 400: -10:
 	15. post 404: -5:

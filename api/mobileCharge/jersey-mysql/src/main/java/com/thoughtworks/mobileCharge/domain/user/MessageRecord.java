@@ -19,15 +19,16 @@ import static java.util.Arrays.asList;
 public class MessageRecord extends CommunicationRecord implements Record {
     private final Locale from_locale;
     private final PhoneCard target;
-    private final Type type;
-    private final SendType sendType;
+    protected final Type type;
+    protected final SendType sendType;
     private final Long createdAt;
+    private final double fee;
     private EntityId id;
-    private User user;
+    private User owner;
 
-    public MessageRecord(User user, Locale from_locale, PhoneCard targetCard, Type type, SendType sendType, Long createdAt) {
+    public MessageRecord(User owner, Locale from_locale, PhoneCard targetCard, Type type, SendType sendType, Long createdAt) {
         this.id = new EntityId(IdGenerator.next());
-        this.user = user;
+        this.owner = owner;
         this.from_locale = from_locale;
         this.target = targetCard;
         this.type = type;
@@ -35,6 +36,7 @@ public class MessageRecord extends CommunicationRecord implements Record {
         this.createdAt = createdAt;
 
         this.communicationType = CommunicationType.typeOf(from_locale, targetCard.locale);
+        this.fee = owner.getBalance().charge(this, Balance.ChargeStrategies.messageCharge());
     }
 
     public EntityId getId() {
@@ -51,8 +53,9 @@ public class MessageRecord extends CommunicationRecord implements Record {
             put("from_locale", LocaleFormatter.getCityAndCountry(from_locale));
             put("target", target.toRefJson(routes));
             put("communication_type", communicationType.name());
+            put("fee", fee);
             put("links", asList(
-                    routes.linkMap("self", routes.messageRecordUrl(user.getId().id(), id.id()).getPath())
+                    routes.linkMap("self", routes.messageRecordUrl(owner.getId().id(), id.id()).getPath())
             ));
         }};
     }
@@ -65,4 +68,49 @@ public class MessageRecord extends CommunicationRecord implements Record {
     public enum Type {SMS, MMS}
 
     public enum SendType {SENDER, RECEIVER}
+
+    public static class ChargeBalance {
+        int freeNumbers;
+        double chargePrice;
+
+        public ChargeBalance() {
+        }
+
+        public void addFreeNumber(int increment) {
+            freeNumbers -= increment;
+        }
+    }
+
+    public static class MessageChargeType {
+        CommunicationType communicationType;
+        Type type;
+        SendType sendType;
+
+        public MessageChargeType(CommunicationType communicationType, Type type, SendType sendType) {
+            this.communicationType = communicationType;
+            this.type = type;
+            this.sendType = sendType;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            MessageChargeType that = (MessageChargeType) o;
+
+            if (communicationType != that.communicationType) return false;
+            if (type != that.type) return false;
+            return sendType == that.sendType;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = communicationType != null ? communicationType.hashCode() : 0;
+            result = 31 * result + (type != null ? type.hashCode() : 0);
+            result = 31 * result + (sendType != null ? sendType.hashCode() : 0);
+            return result;
+        }
+    }
 }

@@ -1,6 +1,8 @@
 package com.thoughtworks.mobileCharge.domain.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
@@ -12,15 +14,25 @@ public class Balance {
     private double remainedMoney;
     private HashMap<CallRecord.CommunicationType, Integer> freeCallMinutes;
     private int freeMessages;
-    private HashMap<CallRecord.CommunicationType, Double> callerChargeRates;
-    private HashMap<CallRecord.CommunicationType, Double> calleeChargeRates;
+    private HashMap<CallRecord.CommunicationType, Double> callerChargeUnitPrice;
+    private HashMap<CallRecord.CommunicationType, Double> calleeChargeUnitPrice;
+    private HashMap<MessageRecord.MessageChargeType, MessageRecord.ChargeBalance> messageAccounts;
 
     public Balance() {
         remainedMoney = 0.0;
         Stream.of(CommunicationRecord.CommunicationType.values()).forEach(type -> {
             freeCallMinutes.put(type, 0);
-            callerChargeRates.put(type, 0.1);
+            callerChargeUnitPrice.put(type, 0.1);
         });
+
+        messageAccounts = new HashMap();
+        for(CommunicationRecord.CommunicationType communicationType : CommunicationRecord.CommunicationType.values()) {
+            for(MessageRecord.Type messageType: MessageRecord.Type.values()) {
+                for(MessageRecord.SendType sendType: MessageRecord.SendType.values()) {
+                    messageAccounts.put(new MessageRecord.MessageChargeType(communicationType, messageType, sendType), new MessageRecord.ChargeBalance());
+                }
+            }
+        }
         freeMessages = 0;
     }
 
@@ -32,11 +44,11 @@ public class Balance {
         public static BiFunction<CommunicationRecord, Balance, Double> callCharge() {
             return (record, balance) -> {
                 double charge = 0.0;
-                CallRecord.CommunicationType communicationType = ((CallRecord) record).communicationType;
+                CommunicationRecord.CommunicationType communicationType = record.communicationType;
                 int costMinutes = (int) ((CallRecord) record).duration.getStandardMinutes();
 
                 if (((CallRecord) record).callType.equals(CallRecord.CallType.CALLEE)) {
-                    charge = costMinutes * balance.calleeChargeRates.get(communicationType);
+                    charge = costMinutes * balance.calleeChargeUnitPrice.get(communicationType);
                 }
 
                 else {
@@ -46,7 +58,7 @@ public class Balance {
                         charge = FREE_CHARGE;
                     }
                     else {
-                        charge = (costMinutes - freeMinutes) * balance.callerChargeRates.get(communicationType);
+                        charge = (costMinutes - freeMinutes) * balance.callerChargeUnitPrice.get(communicationType);
                     }
                 }
 
@@ -54,6 +66,26 @@ public class Balance {
 
                 return charge;
             };
+        }
+
+        public static BiFunction<CommunicationRecord, Balance, Double> messageCharge() {
+            return (record, balance) -> {
+                double charge = 0.0;
+
+                MessageRecord.ChargeBalance messageChargeBalance = balance.messageAccounts.get(new MessageRecord.MessageChargeType(record.communicationType,
+                        ((MessageRecord) record).type,
+                        ((MessageRecord) record).sendType));
+                if(messageChargeBalance.freeNumbers > 0) {
+                    messageChargeBalance.addFreeNumber(-1);
+                }
+                else {
+                    charge = messageChargeBalance.chargePrice;
+                    balance.remainedMoney -= charge;
+                }
+
+                return charge;
+            };
+
         }
     }
 }

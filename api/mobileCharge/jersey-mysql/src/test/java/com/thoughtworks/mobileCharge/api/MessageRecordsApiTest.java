@@ -102,7 +102,7 @@ public class MessageRecordsApiTest extends ApiSupport {
         assertThat(messageRecordInfo.get("send_type"), is(MessageRecord.SendType.SENDER.name()));
         assertThat(messageRecordInfo.get("from_locale"), is(LocaleFormatter.getCityAndCountry(beijingLocale())));
         assertThat(messageRecordInfo.get("communication_type"), is(CommunicationRecord.CommunicationType.LOCAL.name()));
-//        assertThat(messageRecordInfo.get("fee"), is(0.0));
+        assertThat(messageRecordInfo.get("fee"), is(0.0));
         assertThat(canFindLink((List) messageRecordInfo.get("links"), "self", messageRecordsUrl(user) + "/" + messageRecord.getId().id()), is(true));
 
     }
