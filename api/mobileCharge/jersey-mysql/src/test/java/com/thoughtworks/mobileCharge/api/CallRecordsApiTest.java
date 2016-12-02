@@ -50,10 +50,7 @@ public class CallRecordsApiTest extends ApiSupport {
                     put("end", new DateTime().getMillis());
                 }});
                 put("from_locale", beijingLocaleMap());
-                put("target", new HashMap() {{
-                    put("phone_number", "12332323212");
-                    put("card_locale", beijingLocaleMap());
-                }});
+                put("target", phoneCardMap());
                 put("call_type", CallRecord.CallType.CALLER);
 
             }
@@ -88,10 +85,7 @@ public class CallRecordsApiTest extends ApiSupport {
                 }});
                 put("from_locale", beijingLocaleMap());
 
-                put("target", new HashMap() {{
-                    put("phone_number", "12332323212");
-                    put("card_locale", beijingLocaleMap());
-                }});
+                put("target", phoneCardMap());
                 put("call_type", CallRecord.CallType.CALLER);
 
             }

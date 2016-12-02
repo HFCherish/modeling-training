@@ -24,4 +24,10 @@ public class TestHelper {
         return new Locale("zh", "CN", "beijing");
     }
 
+    public static HashMap phoneCardMap() {
+        return new HashMap() {{
+            put("phone_number", "12332323212");
+            put("card_locale", beijingLocaleMap());
+        }};
+    }
 }
