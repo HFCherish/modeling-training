@@ -2,13 +2,11 @@
 	{
 		"action": "CLICK",
 		"createdAt": 32423,
-		"website": "tieba.baidu.com",
 		"ad": "ad requirement id1"
 	},
 	{
 		"action": "VIEW",
 		"createdAt": 32423,
-		"website": "jingyan.baidu.com",
 		"ad": "ad requirement id2"
 	}
 ]

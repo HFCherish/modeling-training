@@ -1,6 +1,11 @@
 {
 	"id": "xxx",
-	"website": "tieba.baidu.com",
+	"website": {
+		"id": "xxx",
+		"uri": "tieba.baidu.com",
+		"alexa": 50,
+		"buildDate": 32343234
+	},
 	"places": [
 		{
 			"place": "BANNER | BOTTOM_BANNER",
@@ -15,11 +20,10 @@
 			"rate": 2
 		}
 	],
-	"alexa": 50,
 	"yield": 0.7,
 	"createAt": 324324,
 	"links": [{
 		"rel": "self",
-		"uri": "users/uid/website_contract/wcid"
+		"uri": "users/uid/websites/wid/website_contracts/wcid"
 	}]
 }

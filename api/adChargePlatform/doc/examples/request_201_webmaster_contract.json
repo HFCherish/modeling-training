@@ -1,5 +1,4 @@
 {
-	"website": "tieba.baidu.com",
 	"places": [
 		{
 			"place": "BANNER | BOTTOM_BANNER",
@@ -14,6 +13,5 @@
 			"rate": 2
 		}
 	],
-	"alexa": 50,
 	"yield": 0.7
 }

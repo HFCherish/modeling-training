@@ -99,56 +99,127 @@ mediaType:  application/json
           body:
             application/json:
               example: !include examples/response_200_get_website_places.json
-/users/uid/webmaster_contracts:
-  post:
-    description: webmaster can apply for joining the web with some conditions.
-    body:
-      application/json:
-        example: !include examples/request_201_webmaster_contract.json
-    responses:
-      201:
-        headers:
-          location:
-            example: "users/uid/webmaster_contract/wcid"
-      403:
-        description: current user is not uid
-  /wcid:
-    get:
-      description: webmaster can get some contract detail
-      body:
-        application/json:
-          example: !include examples/response_200_get_website_contract.json
-      responses:
-        200:
-        403:
-          description: current user is not uid
-/users/uid/histories:
+/users/uid/websites:
   get:
-    description: get the click and view histories of website
-    queryParameters:
-      action: 
-        type: string
-        example: "CLICK | VIEW"
-      website:
-        type: string
-        example: "tieba.baidu.com"
-      startDate:
-        type: integer
-      endDate:
-        type: integer
-      ad:
-        type: string
-        description: the ad_requirement id
+    description: webmaster get all the websites in his charge
     responses:
       200:
         body:
           application/json:
-            example: !include examples/response_200_get_histories.json
+            example: !include examples/response_200_get_websites.json
       403:
-        description: current user is not uid or admin
-# /users/uid/ad_release:
-#   post:
-#     description: 
+        description: current user is not uid
+  /wid:
+    /webmaster_contracts:
+      post:
+        description: webmaster can apply for joining the platform with some conditions.
+        body:
+          application/json:
+            example: !include examples/request_201_webmaster_contract.json
+        responses:
+          201:
+            headers:
+              location:
+                example: "users/uid/websites/wid/webmaster_contracts/wcid"
+          403:
+            description: current user is not uid
+      /wcid:
+        get:
+          description: webmaster can get some contract detail
+          body:
+            application/json:
+              example: !include examples/response_200_get_website_contract.json
+          responses:
+            200:
+            403:
+              description: current user is not uid
+    /histories:
+      get:
+        description: get the click and view histories of website
+        queryParameters:
+          action: 
+            type: string
+            example: "CLICK | VIEW"
+          startDate:
+            type: integer
+          endDate:
+            type: integer
+          ad:
+            type: string
+            description: the ad_requirement id
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/response_200_get_histories.json
+          403:
+            description: current user is not uid or admin
+    /ad_releases:
+      post:
+        description: admin releases the ad on the website
+        body:
+          application/json:
+            example: !include examples/request_201_ad_release.json
+        responses:
+          201:
+            headers:
+              location:
+                example: "users/uid/websites/wid/ad_releases/rid/"
+          403:
+            description: not admin
+          400:
+      /rid:
+        get:
+          description: webmaster can the release info of some ad, including revenue until now
+          responses:
+            200:
+              body:
+                application/json:
+                  example: !include examples/response_200_get_ad_release.json
+            403:
+              description: current user is not uid
+            404:
+        /revenue:
+          get:
+            description: admin get the revenue of some ad releasement from startDate to endDate. admin can get the total revenue of an ad release, which is the pure benefit of the platform
+            responses:
+              200:
+                body:
+                  application/json:
+                    example: !include examples/response_200_get_revenue.json
+              403:
+                description: not admin
+        /payment:
+          post:
+            description: admin can pay for the webmaster. This can be done automatically
+            body:
+              application/json:
+                example: !include examples/request_201_payment_for_web_master.json
+            responses:
+              201:
+                headers:
+                  location:
+                    example: "users/uid/websites/wid/ad_releases/rid"
+              403:
+                description: not admin
+              400:
+                description: incomplete input; admin has paid for the specified date 
+        /removal:
+          post:
+            description: admin/webmaster can remove the ad from website
+            body:
+              application/json:
+                example: !include examples/request_201_removal_of_ad.json
+            responses:
+              201:
+                headers:
+                  location:
+                    example: "users/uid/websites/wid/ad_releases/rid"
+              403:
+                description: not admin or webmaster
+              409:
+                description: has been removed
+
 
 
 
