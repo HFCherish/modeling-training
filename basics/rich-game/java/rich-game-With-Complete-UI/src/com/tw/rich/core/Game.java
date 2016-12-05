@@ -44,8 +44,12 @@ public class Game {
     }
 
 
-    public void nextPlayer() {
+    protected void nextPlayer() {
         currentPlayer = players.get((players.indexOf(currentPlayer) + 1) % players.size());
+        if(currentPlayer.isStucked()) {
+            currentPlayer.endTurn();
+        }
+        else currentPlayer.inTurn();
     }
 
     public void inform(Player player) {

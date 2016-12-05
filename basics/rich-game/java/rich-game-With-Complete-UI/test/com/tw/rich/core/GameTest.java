@@ -84,4 +84,17 @@ public class GameTest {
         player2.bankrupt();
         assertThat(game.currentPlayer, is(player3));
     }
+
+    @Test
+    public void should_shift_player_if_next_player_in_hospital_or_prison() {
+        Player player1 = Player.createPlayerWithFund_Wait_turn_State(1000);
+        Player player2 = Player.createPlayerWithFund_Wait_turn_State(1000);
+        Player player3 = Player.createPlayerWithFund_Wait_turn_State(1000);
+
+        Game game = new Game(map, player1, player2, player3);
+
+        player2.stuckFor(1);
+        game.nextPlayer();
+        assertThat(game.currentPlayer, is(player3));
+    }
 }
