@@ -45,7 +45,11 @@ public class GameMap {
     }
 
     public boolean setTool(Tool tool, Place start, int steps) {
-        return false;
+        if(!tool.equals(Tool.BLOCK) && !tool.equals(Tool.BOMB)) return false;
+        int startIndex = places.indexOf(start);
+        int targetIndex = nextIndex(startIndex, steps);
+        places.get(targetIndex).setTool(tool);
+        return true;
     }
 
     public boolean useRobot(Place start) {
