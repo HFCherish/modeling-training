@@ -179,19 +179,19 @@ mediaType:  application/json
             403:
               description: current user is not uid
             404:
-        /revenue:
-          get:
-            description: admin get the revenue of some ad releasement from startDate to endDate. admin can get the total revenue of an ad release, which is the pure benefit of the platform
-            responses:
-              200:
-                body:
-                  application/json:
-                    example: !include examples/response_200_get_revenue.json
-              403:
-                description: not admin
+        # /revenue:
+        #   get:
+        #     description: admin get the revenue of some ad releasement from startDate to endDate. admin can get the total revenue of an ad release, which is the pure benefit of the platform
+        #     responses:
+        #       200:
+        #         body:
+        #           application/json:
+        #             example: !include examples/response_200_get_revenue.json
+        #       403:
+        #         description: not admin
         /payment:
           post:
-            description: admin can pay for the webmaster. This can be done automatically
+            description: admin can pay for the webmaster (from last pay date to now). This can be done automatically
             body:
               application/json:
                 example: !include examples/request_201_payment_for_web_master.json
