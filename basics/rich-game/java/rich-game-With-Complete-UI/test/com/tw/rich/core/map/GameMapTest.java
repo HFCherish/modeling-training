@@ -3,6 +3,7 @@ package com.tw.rich.core.map;
 import com.tw.rich.core.Game;
 import com.tw.rich.core.assistenceItems.Tool;
 import com.tw.rich.core.places.Estate;
+import com.tw.rich.core.places.Hospital;
 import com.tw.rich.core.places.Starting;
 import com.tw.rich.core.player.Player;
 import org.junit.Test;
@@ -22,13 +23,13 @@ public class GameMapTest {
         Starting starting = new Starting();
         Estate estate1 = new Estate(10);
         Estate estate2 = new Estate(10);
-        Estate estate3 = new Estate(10);
-        GameMap map = new GameMap(2, 2, starting, estate1, estate2, estate3);
+        Hospital hospital = new Hospital();
+        GameMap map = new GameMap(2, 2, starting, estate1, estate2, hospital);
 
         assertThat(map.move(starting, 1), is(estate1));
         assertThat(map.move(starting, 5), is(estate1));
-        assertThat(map.move(starting, -1), is(estate3));
-        assertThat(map.move(starting, -5), is(estate3));
+        assertThat(map.move(starting, -1), is(hospital));
+        assertThat(map.move(starting, -5), is(hospital));
     }
 
     @Test
@@ -36,13 +37,13 @@ public class GameMapTest {
         Starting starting = new Starting();
         Estate estate1 = new Estate(10);
         Estate estate2 = new Estate(10);
-        Estate estate3 = new Estate(10);
-        GameMap map = new GameMap(2, 2, starting, estate1, estate2, estate3);
+        Hospital hospital = new Hospital();
+        GameMap map = new GameMap(2, 2, starting, estate1, estate2, hospital);
         estate1.setTool(Tool.BLOCK);
 
         assertThat(map.move(starting, 2), is(estate1));
         assertThat(map.move(starting, 4), is(estate1));
-        assertThat(map.move(starting, -1), is(estate3));
+        assertThat(map.move(starting, -1), is(hospital));
         assertThat(map.move(starting, -5), is(estate1));
     }
 
@@ -51,8 +52,8 @@ public class GameMapTest {
         Starting starting = new Starting();
         Estate estate1 = new Estate(10);
         Estate estate2 = new Estate(10);
-        Estate estate3 = new Estate(10);
-        GameMap map = new GameMap(2, 2, starting, estate1, estate2, estate3);
+        Hospital Hospital = new Hospital();
+        GameMap map = new GameMap(2, 2, starting, estate1, estate2, Hospital);
 
         assertThat(estate2.getTool(), is(nullValue()));
         assertThat(map.setTool(Tool.BLOCK, starting, 2), is(true));
@@ -64,8 +65,8 @@ public class GameMapTest {
         Starting starting = new Starting();
         Estate estate1 = new Estate(10);
         Estate estate2 = new Estate(10);
-        Estate estate3 = new Estate(10);
-        GameMap map = new GameMap(2, 2, starting, estate1, estate2, estate3);
+        Hospital hospital = new Hospital();
+        GameMap map = new GameMap(2, 2, starting, estate1, estate2, hospital);
 
         assertThat(map.setTool(Tool.BLOCK, starting, 14), is(false));
         assertThat(estate2.getTool(), is(nullValue()));
@@ -76,9 +77,9 @@ public class GameMapTest {
         assertThat(map.setTool(Tool.BLOCK, starting, 2), is(false));
         assertThat(estate2.getTool(), is(nullValue()));
 
-        estate3.setTool(Tool.BLOCK);
+        hospital.setTool(Tool.BLOCK);
         assertThat(map.setTool(Tool.BLOCK, starting, 3), is(false));
-        assertThat(estate3.getTool(), is(Tool.BLOCK));
+        assertThat(hospital.getTool(), is(Tool.BLOCK));
     }
 
     @Test
@@ -86,8 +87,8 @@ public class GameMapTest {
         Starting starting = new Starting();
         Estate estate1 = new Estate(10);
         Estate estate2 = new Estate(10);
-        Estate estate3 = new Estate(10);
-        GameMap map = new GameMap(2, 2, starting, estate1, estate2, estate3);
+        Hospital hospital = new Hospital();
+        GameMap map = new GameMap(2, 2, starting, estate1, estate2, hospital);
 
         estate1.setTool(Tool.BLOCK);
         assertThat(estate1.getTool(), is(Tool.BLOCK));

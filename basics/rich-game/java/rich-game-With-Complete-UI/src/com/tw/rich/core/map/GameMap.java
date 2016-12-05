@@ -3,6 +3,7 @@ package com.tw.rich.core.map;
 import com.tw.rich.core.assistenceItems.Tool;
 import com.tw.rich.core.places.Hospital;
 import com.tw.rich.core.places.Place;
+import com.tw.rich.core.places.Starting;
 import com.tw.rich.core.player.Player;
 
 import java.util.ArrayList;
@@ -18,12 +19,16 @@ public class GameMap {
     private final int width;
     private final int height;
     private final List<Place> places;
+    private final Starting starting;
     private List<Player> players;
+    private Hospital hospital;
 
     public GameMap(int width, int height, Place... places) {
         this.width = width;
         this.height = height;
         this.places = asList(places);
+        this.starting = (Starting)this.places.stream().filter(place -> place instanceof Starting).findAny().orElseThrow(() -> new IllegalArgumentException("starting point missed"));
+        this.hospital = (Hospital)this.places.stream().filter(place -> place instanceof Hospital).findAny().orElseThrow(() -> new IllegalArgumentException("hospital missed"));
         players = new ArrayList<>();
     }
 
@@ -45,7 +50,7 @@ public class GameMap {
     }
 
     public Hospital getHospital() {
-        return null;
+        return hospital;
     }
 
     public boolean setTool(Tool tool, Place start, int steps) {
@@ -77,5 +82,9 @@ public class GameMap {
 
     public void initPlayers(Player... players) {
         this.players = asList(players);
+    }
+
+    public Place getStarting() {
+        return starting;
     }
 }

@@ -87,7 +87,14 @@ public class Player {
     }
 
     public void inTurn() {
-        status = Status.WAIT_FOR_TURN;
+        status = Status.WAIT_FORM_COMMAND;
+    }
+
+    public static Player createPlayerWithFund_Wait_turn_State(int initialFund) {
+        Player player = new Player();
+        player.asset = new Asset(initialFund);
+        player.status = Status.WAIT_FOR_TURN;
+        return player;
     }
 
     public enum Status {
