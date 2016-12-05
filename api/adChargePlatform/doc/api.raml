@@ -56,22 +56,100 @@ mediaType:  application/json
             description: current user is not uid
           409:
             description: has paid before
-# /charge_factors:
-#   /charge_mode:
-#     post:
-#       description: ad alliance admin add a new charge mode for advertiser to choose.
-#       body:
-#         application/json:
-#           example: !include examples/request_201_charge_mode.json
-#       responses:
-#         201:
-#           headers:
-#             location:
-#               example: "charge_factors/charge_mode/cmid"
-#         403:
-#           description: current user is not admin
-#         400:
-#   /website_place:
-#     post:
-#       description: ad alliance admin add a new web
+/charge_factors:
+  /charge_modes:
+    post:
+      description: ad alliance admin add a new charge mode for advertiser to choose.
+      body:
+        application/json:
+          example: !include examples/request_201_charge_mode.json
+      responses:
+        201:
+          headers:
+            location:
+              example: "charge_factors/charge_modes"
+        403:
+          description: current user is not admin
+        400:
+    get:
+      description: user can get all charge modes available
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/response_200_get_charge_modes.json
+  /website_places:
+    post:
+      description: ad alliance admin add a new web place for advertiser and webmaster to choose.
+      body:
+        application/json:
+          example: !include examples/request_201_website_place.json
+      responses:
+        201:
+          headers:
+            location:
+              example: "charge_factors/website_places"
+        403:
+          description: current user is not admin
+        400:
+    get:
+      description: user can get all web places available
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/response_200_get_website_places.json
+/users/uid/webmaster_contracts:
+  post:
+    description: webmaster can apply for joining the web with some conditions.
+    body:
+      application/json:
+        example: !include examples/request_201_webmaster_contract.json
+    responses:
+      201:
+        headers:
+          location:
+            example: "users/uid/webmaster_contract/wcid"
+      403:
+        description: current user is not uid
+  /wcid:
+    get:
+      description: webmaster can get some contract detail
+      body:
+        application/json:
+          example: !include examples/response_200_get_website_contract.json
+      responses:
+        200:
+        403:
+          description: current user is not uid
+/users/uid/histories:
+  get:
+    description: get the click and view histories of website
+    queryParameters:
+      action: 
+        type: string
+        example: "CLICK | VIEW"
+      website:
+        type: string
+        example: "tieba.baidu.com"
+      startDate:
+        type: integer
+      endDate:
+        type: integer
+      ad:
+        type: string
+        description: the ad_requirement id
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/response_200_get_histories.json
+      403:
+        description: current user is not uid or admin
+# /users/uid/ad_release:
+#   post:
+#     description: 
+
+
+
 

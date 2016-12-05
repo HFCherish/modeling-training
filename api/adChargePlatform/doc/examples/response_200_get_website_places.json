@@ -1,0 +1,16 @@
+[
+	{
+		"id": "xxx",
+		"position": "BANNER",
+		"description": "charge by the banner of a web page that the ad can be put in",
+		"unitPrice": 0.1,
+		"createdAt": 798789
+	},
+	{
+		"id": "xxx",
+		"position": "SIDEBAR",
+		"description": "charge by the sidebar of a web page that the ad can be put in",
+		"unitPrice": 0.1,
+		"createdAt": 798789
+	}
+]

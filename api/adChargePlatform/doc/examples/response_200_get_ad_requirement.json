@@ -10,14 +10,18 @@
 		},
 		{
 			"id": "item id2",
-			"charge_factor": "factor id, eg. banner_and_homepage_of_tieba.baidu.com_id",
+			"charge_factor": "factor id, eg. banner_and_homepage_id",
 			"quantity": 1	
 		},
 		{
 			"id": "item id3",
-			"charge_factor": "factor id, eg. sidebar_of_tieba.baidu.com_id",
+			"charge_factor": "factor id, eg. sidebar_id",
 			"quantity": 1	
 		}
+	],
+	"websites":[
+		"tieba.baidu.com",
+		"jingyan.baidu.com"
 	],
 	"links": [{
 		"rel": "self",

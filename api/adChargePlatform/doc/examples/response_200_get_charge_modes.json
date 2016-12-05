@@ -1,0 +1,37 @@
+[
+	{
+		"id": "xxx",
+		"type": "CPC",
+		"description": "charge by a click",
+		"unitPrice": 0.01,
+		"createdAt": 798789
+	},
+	{
+		"id": "xxx",
+		"type": "CPM",
+		"description": "charge by a thousand views",
+		"unitPrice": 0.01,
+		"createdAt": 798789
+	},
+	{
+		"id": "xxx",
+		"type": "CPT_DAY",
+		"description": "charge by day",
+		"unitPrice": 3,
+		"createdAt": 798789
+	},
+	{
+		"id": "xxx",
+		"type": "CPT_WEEK",
+		"description": "charge by week",
+		"unitPrice": 10,
+		"createdAt": 798789
+	},
+	{
+		"id": "xxx",
+		"type": "CPT_MONTH",
+		"description": "charge by month",
+		"unitPrice": 35,
+		"createdAt": 798789
+	}
+]

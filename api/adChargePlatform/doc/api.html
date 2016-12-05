@@ -144,7 +144,11 @@
       }
     </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>ad charge API documentation <small>version v1</small></h1><p></p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="users_uid_ad_requirements" class="panel-title">/users/uid/ad_requirements</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_users_uid_ad_requirements"><span class="parent"></span>/users/uid/ad_requirements</a> <span class="methods"><a href="#users_uid_ad_requirements_post"><span class="badge badge_post">post</span></a> <a href="#users_uid_ad_requirements_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_users_uid_ad_requirements" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#users_uid_ad_requirements_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>advertiser can post ad requirements</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#users_uid_ad_requirements_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>advertiser can get all ad requirements</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_uid_ad_requirements_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/users/uid/ad_requirements</h4></div><div class="modal-body"><div class="alert alert-info"><p>advertiser can post ad requirements</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_uid_ad_requirements_post_request" data-toggle="tab">Request</a></li><li><a href="#users_uid_ad_requirements_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_uid_ad_requirements_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
 	"ad_content": "ad_content id",
-	"charge_items": ["itemId", "itemId"]
+	"charge_items": ["itemId", "itemId"],
+	"websites":[
+		"tieba.baidu.com",
+		"jingyan.baidu.com"
+	]
 }</code></pre></div><div class="tab-pane" id="users_uid_ad_requirements_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Headers</h3><ul><li><strong>location</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>users/uid/ad_requirements/adid</pre></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>current user is not uid</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_uid_ad_requirements_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/users/uid/ad_requirements</h4></div><div class="modal-body"><div class="alert alert-info"><p>advertiser can get all ad requirements</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_uid_ad_requirements_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_uid_ad_requirements_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[{
 	"id": "id fo ad requirement",
 	"total_price": 4324,
@@ -166,14 +170,18 @@
 		},
 		{
 			"id": "item id2",
-			"charge_factor": "factor id, eg. banner_and_homepage_of_tieba.baidu.com_id",
+			"charge_factor": "factor id, eg. banner_and_homepage_id",
 			"quantity": 1	
 		},
 		{
 			"id": "item id3",
-			"charge_factor": "factor id, eg. sidebar_of_tieba.baidu.com_id",
+			"charge_factor": "factor id, eg. sidebar_id",
 			"quantity": 1	
 		}
+	],
+	"websites":[
+		"tieba.baidu.com",
+		"jingyan.baidu.com"
 	],
 	"links": [{
 		"rel": "self",
@@ -183,4 +191,118 @@
 	"account": "bankcard id",
 	"password": "xxxx",
 	"price": 4324
-}</code></pre></div><div class="tab-pane" id="users_uid_ad_requirements_adid_payment_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Headers</h3><ul><li><strong>location</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>users/uid/ad_requirements/adid</pre></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>current user is not uid</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>adid not exists;</p><h2>HTTP status code <a href="http://httpstatus.es/409" target="_blank">409</a></h2><p>has paid before</p></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#users_uid_ad_requirements">/users/uid/ad_requirements</a></li></ul></div></div></div></div></body></html>
+}</code></pre></div><div class="tab-pane" id="users_uid_ad_requirements_adid_payment_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Headers</h3><ul><li><strong>location</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>users/uid/ad_requirements/adid</pre></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>current user is not uid</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>adid not exists;</p><h2>HTTP status code <a href="http://httpstatus.es/409" target="_blank">409</a></h2><p>has paid before</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="charge_factors" class="panel-title">/charge_factors</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_charge_factors_charge_modes"><span class="parent">/charge_factors</span>/charge_modes</a> <span class="methods"><a href="#charge_factors_charge_modes_post"><span class="badge badge_post">post</span></a> <a href="#charge_factors_charge_modes_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_charge_factors_charge_modes" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#charge_factors_charge_modes_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>ad alliance admin add a new charge mode for advertiser to choose.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#charge_factors_charge_modes_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>user can get all charge modes available</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="charge_factors_charge_modes_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/charge_factors</span>/charge_modes</h4></div><div class="modal-body"><div class="alert alert-info"><p>ad alliance admin add a new charge mode for advertiser to choose.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#charge_factors_charge_modes_post_request" data-toggle="tab">Request</a></li><li><a href="#charge_factors_charge_modes_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="charge_factors_charge_modes_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+	"type": "CPT | CPC | CPM",
+	"unitPrice": 15,
+	"description": "..."
+}</code></pre></div><div class="tab-pane" id="charge_factors_charge_modes_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Headers</h3><ul><li><strong>location</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>charge_factors/charge_modes</pre></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>current user is not admin</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="charge_factors_charge_modes_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/charge_factors</span>/charge_modes</h4></div><div class="modal-body"><div class="alert alert-info"><p>user can get all charge modes available</p></div><ul class="nav nav-tabs"><li class="active"><a href="#charge_factors_charge_modes_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="charge_factors_charge_modes_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+	{
+		"id": "xxx",
+		"type": "CPC",
+		"description": "charge by a click",
+		"unitPrice": 0.01,
+		"createdAt": 798789
+	},
+	{
+		"id": "xxx",
+		"type": "CPM",
+		"description": "charge by a thousand views",
+		"unitPrice": 0.01,
+		"createdAt": 798789
+	},
+	{
+		"id": "xxx",
+		"type": "CPT_DAY",
+		"description": "charge by day",
+		"unitPrice": 3,
+		"createdAt": 798789
+	},
+	{
+		"id": "xxx",
+		"type": "CPT_WEEK",
+		"description": "charge by week",
+		"unitPrice": 10,
+		"createdAt": 798789
+	},
+	{
+		"id": "xxx",
+		"type": "CPT_MONTH",
+		"description": "charge by month",
+		"unitPrice": 35,
+		"createdAt": 798789
+	}
+]</code></pre></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_charge_factors_website_places"><span class="parent">/charge_factors</span>/website_places</a> <span class="methods"><a href="#charge_factors_website_places_post"><span class="badge badge_post">post</span></a> <a href="#charge_factors_website_places_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_charge_factors_website_places" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#charge_factors_website_places_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>ad alliance admin add a new web place for advertiser and webmaster to choose.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#charge_factors_website_places_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>user can get all web places available</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="charge_factors_website_places_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent">/charge_factors</span>/website_places</h4></div><div class="modal-body"><div class="alert alert-info"><p>ad alliance admin add a new web place for advertiser and webmaster to choose.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#charge_factors_website_places_post_request" data-toggle="tab">Request</a></li><li><a href="#charge_factors_website_places_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="charge_factors_website_places_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+	"position": "BANNER | SIDEBAR | BOTTOM_BANNER",
+	"description": "charge by the position of a web page that the ad can be put in",
+	"unitPrice": 0.1
+}</code></pre></div><div class="tab-pane" id="charge_factors_website_places_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Headers</h3><ul><li><strong>location</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>charge_factors/website_places</pre></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>current user is not admin</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="charge_factors_website_places_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/charge_factors</span>/website_places</h4></div><div class="modal-body"><div class="alert alert-info"><p>user can get all web places available</p></div><ul class="nav nav-tabs"><li class="active"><a href="#charge_factors_website_places_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="charge_factors_website_places_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+	{
+		"id": "xxx",
+		"position": "BANNER",
+		"description": "charge by the banner of a web page that the ad can be put in",
+		"unitPrice": 0.1,
+		"createdAt": 798789
+	},
+	{
+		"id": "xxx",
+		"position": "SIDEBAR",
+		"description": "charge by the sidebar of a web page that the ad can be put in",
+		"unitPrice": 0.1,
+		"createdAt": 798789
+	}
+]</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="users_uid_webmaster_contracts" class="panel-title">/users/uid/webmaster_contracts</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_users_uid_webmaster_contracts"><span class="parent"></span>/users/uid/webmaster_contracts</a> <span class="methods"><a href="#users_uid_webmaster_contracts_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_users_uid_webmaster_contracts" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#users_uid_webmaster_contracts_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>webmaster can apply for joining the web with some conditions.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_uid_webmaster_contracts_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/users/uid/webmaster_contracts</h4></div><div class="modal-body"><div class="alert alert-info"><p>webmaster can apply for joining the web with some conditions.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_uid_webmaster_contracts_post_request" data-toggle="tab">Request</a></li><li><a href="#users_uid_webmaster_contracts_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_uid_webmaster_contracts_post_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+	"website": "tieba.baidu.com",
+	"places": [
+		{
+			"place": "BANNER | BOTTOM_BANNER",
+			"rate": 4
+		},
+		{
+			"place": "BOTTOM_BANNER",
+			"rate": 3
+		},
+		{
+			"place": "SIDEBAR",
+			"rate": 2
+		}
+	],
+	"alexa": 50,
+	"yield": 0.7
+}</code></pre></div><div class="tab-pane" id="users_uid_webmaster_contracts_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><h3>Headers</h3><ul><li><strong>location</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>users/uid/webmaster_contract/wcid</pre></li></ul><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>current user is not uid</p></div></div></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_users_uid_webmaster_contracts_wcid"><span class="parent">/users/uid/webmaster_contracts</span>/wcid</a> <span class="methods"><a href="#users_uid_webmaster_contracts_wcid_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_users_uid_webmaster_contracts_wcid" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#users_uid_webmaster_contracts_wcid_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>webmaster can get some contract detail</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_uid_webmaster_contracts_wcid_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent">/users/uid/webmaster_contracts</span>/wcid</h4></div><div class="modal-body"><div class="alert alert-info"><p>webmaster can get some contract detail</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_uid_webmaster_contracts_wcid_get_request" data-toggle="tab">Request</a></li><li><a href="#users_uid_webmaster_contracts_wcid_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_uid_webmaster_contracts_wcid_get_request"><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+	"id": "xxx",
+	"website": "tieba.baidu.com",
+	"places": [
+		{
+			"place": "BANNER | BOTTOM_BANNER",
+			"rate": 4
+		},
+		{
+			"place": "BOTTOM_BANNER",
+			"rate": 3
+		},
+		{
+			"place": "SIDEBAR",
+			"rate": 2
+		}
+	],
+	"alexa": 50,
+	"yield": 0.7,
+	"createAt": 324324,
+	"links": [{
+		"rel": "self",
+		"uri": "users/uid/website_contract/wcid"
+	}]
+}</code></pre></div><div class="tab-pane" id="users_uid_webmaster_contracts_wcid_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>current user is not uid</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="users_uid_histories" class="panel-title">/users/uid/histories</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_users_uid_histories"><span class="parent"></span>/users/uid/histories</a> <span class="methods"><a href="#users_uid_histories_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_users_uid_histories" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#users_uid_histories_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>get the click and view histories of website</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="users_uid_histories_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/users/uid/histories</h4></div><div class="modal-body"><div class="alert alert-info"><p>get the click and view histories of website</p></div><ul class="nav nav-tabs"><li class="active"><a href="#users_uid_histories_get_request" data-toggle="tab">Request</a></li><li><a href="#users_uid_histories_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="users_uid_histories_get_request"><h3>Query Parameters</h3><ul><li><strong>action</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>CLICK | VIEW</pre></li><li><strong>website</strong>: <em>(string)</em><p><strong>Example</strong>:</p><pre>tieba.baidu.com</pre></li><li><strong>startDate</strong>: <em>(integer)</em></li><li><strong>endDate</strong>: <em>(integer)</em></li><li><strong>ad</strong>: <em>(string)</em><p>the ad_requirement id</p></li></ul></div><div class="tab-pane" id="users_uid_histories_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>[
+	{
+		"action": "CLICK",
+		"createdAt": 32423,
+		"website": "tieba.baidu.com",
+		"ad": "ad requirement id1"
+	},
+	{
+		"action": "VIEW",
+		"createdAt": 32423,
+		"website": "jingyan.baidu.com",
+		"ad": "ad requirement id2"
+	}
+]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>current user is not uid or admin</p></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#users_uid_ad_requirements">/users/uid/ad_requirements</a></li><li><a href="#charge_factors">/charge_factors</a></li><li><a href="#users_uid_webmaster_contracts">/users/uid/webmaster_contracts</a></li><li><a href="#users_uid_histories">/users/uid/histories</a></li></ul></div></div></div></div></body></html>
