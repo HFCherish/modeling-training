@@ -33,6 +33,18 @@ public class GameMapTest {
     }
 
     @Test
+    public void should_able_to_get_starting_and_hospital() {
+        Starting starting = new Starting();
+        Estate estate1 = new Estate(10);
+        Estate estate2 = new Estate(10);
+        Hospital hospital = new Hospital();
+        GameMap map = new GameMap(2, 2, starting, estate1, estate2, hospital);
+
+        assertThat(map.getHospital(), is(hospital));
+        assertThat(map.getStarting(), is(starting));
+    }
+
+    @Test
     public void should_stop_when_move_if_encounter_block_or_bomb() {
         Starting starting = new Starting();
         Estate estate1 = new Estate(10);
