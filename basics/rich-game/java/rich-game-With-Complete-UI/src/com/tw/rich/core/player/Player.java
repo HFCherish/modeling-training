@@ -35,7 +35,7 @@ public class Player {
     public static Player createPlayerWithFund_Game_Command_State(int initialFund, Game game) {
         Player player = new Player();
         player.status = Status.WAIT_FORM_COMMAND;
-        player.game = game;
+        player.joinGame(game);
         player.asset = new Asset(initialFund);
         return player;
     }
@@ -52,6 +52,7 @@ public class Player {
         if(luckyDays > 0)   luckyDays--;
         if(stuckDays > 0)   stuckDays--;
         status = Status.WAIT_FOR_TURN;
+        game.nextPlayer();
     }
 
     public Game getGame() {
@@ -95,6 +96,10 @@ public class Player {
         player.asset = new Asset(initialFund);
         player.status = Status.WAIT_FOR_TURN;
         return player;
+    }
+
+    public void joinGame(Game game) {
+        this.game = game;
     }
 
     public enum Status {

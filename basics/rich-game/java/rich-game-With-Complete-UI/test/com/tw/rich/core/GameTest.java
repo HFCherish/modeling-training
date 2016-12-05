@@ -69,4 +69,17 @@ public class GameTest {
 
         assertThat(game.currentPlayer, is(player2));
     }
+
+    @Test
+    public void should_shift_player_if_current_player_end_turn() {
+        Player player1 = Player.createPlayerWithFund_Wait_turn_State(1000);
+        Player player2 = Player.createPlayerWithFund_Wait_turn_State(1000);
+        Player player3 = Player.createPlayerWithFund_Wait_turn_State(1000);
+
+        Game game = new Game(map, player1, player2, player3);
+
+        player1.endTurn();
+
+        assertThat(game.currentPlayer, is(player2));
+    }
 }

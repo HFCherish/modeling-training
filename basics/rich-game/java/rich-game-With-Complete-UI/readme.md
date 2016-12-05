@@ -66,7 +66,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
 1. 游戏开始后，可以接受玩家输入命令并指定当前玩家执行命令 - 10 : 7
 1. 游戏开始后，可以切换玩家
     1. 可以切换到下一玩家 －5 : 3
-    1. 如果当前玩家end turn，应该切换到下一玩家 － 10 :  
+    1. 如果当前玩家end turn，应该切换到下一玩家 － 10 : 2  
     1. 如果下一玩家bankrupt后，切换到下一玩家 －5 :
     1. 如果下一玩家停留在医院或监狱，切换到下一玩家 －5 : 
 1. 游戏开始（game_start）后，可以结束游戏

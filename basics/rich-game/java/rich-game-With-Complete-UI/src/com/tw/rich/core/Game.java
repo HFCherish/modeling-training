@@ -28,7 +28,9 @@ public class Game {
     private void initAndStart() {
         currentPlayer = players.get(0);
         players.get(0).inTurn();
-        players.stream().forEach(player -> player.moveTo(map.getStarting()));
+        players.stream().forEach(player -> {player.moveTo(map.getStarting());
+            player.joinGame(this);
+        });
         status = Status.START;
     }
 
