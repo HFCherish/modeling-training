@@ -1,0 +1,34 @@
+version: "2"
+services:
+  db:
+    image: tutum/mysql
+    volumes:
+    - /Users/pzzheng/Code/training_in_Oct/training-tasks/api/.local/db:/var/lib/mysql:rw
+    ports:
+    - 3306:3306
+    environment:
+      EXTRA_OPTS: --lower_case_table_names=1
+      MYSQL_DATABASE: data_store
+      MYSQL_PASS: mysql
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_USER: mysql
+      ON_CREATE_DB: data_store
+    expose:
+    - 3306
+  runtime:
+    image: hub.deepi.cn/jersey-mysql-build
+    entrypoint: /bin/sh
+    command: -c 'tail -f /dev/null'
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /Users/pzzheng/Code/training_in_Oct/training-tasks/api:/codebase
+    links:
+    - db
+    ports:
+    - 8088:8088
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      SERVICE_PORT: "8088"
+    expose:
+    - 8088

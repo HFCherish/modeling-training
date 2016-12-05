@@ -1,0 +1,77 @@
+#%RAML 0.8
+title: ad charge
+version: v1
+mediaType:  application/json
+
+/users/uid/ad_requirements:
+  post:
+    description: advertiser can post ad requirements
+    body:
+      application/json:
+        example: !include examples/request_201_ad_requirements.json
+    responses:
+      201:
+        headers:
+          location:
+            example: "users/uid/ad_requirements/adid"
+      400:
+      403:
+        description: current user is not uid
+  get:
+    description: advertiser can get all ad requirements
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/response_200_get_all_ad_requirements.json
+      403:
+        description: current user is not uid
+  /adid:
+    get:
+      description: advertiser can get some ad requirement
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/response_200_get_ad_requirement.json
+        404:
+          description: adid not exists; 
+        403:
+          description: current user is not uid
+    /payment:
+      post:
+        description: advertiser pay for the ad requirement
+        body:
+          application/json:
+            example: !include examples/request_201_payment_for_ad_requirement.json
+        responses:
+          201:
+            headers:
+              location:
+                example: "users/uid/ad_requirements/adid"
+          400:
+          404:
+            description: adid not exists; 
+          403:
+            description: current user is not uid
+          409:
+            description: has paid before
+# /charge_factors:
+#   /charge_mode:
+#     post:
+#       description: ad alliance admin add a new charge mode for advertiser to choose.
+#       body:
+#         application/json:
+#           example: !include examples/request_201_charge_mode.json
+#       responses:
+#         201:
+#           headers:
+#             location:
+#               example: "charge_factors/charge_mode/cmid"
+#         403:
+#           description: current user is not admin
+#         400:
+#   /website_place:
+#     post:
+#       description: ad alliance admin add a new web
+
