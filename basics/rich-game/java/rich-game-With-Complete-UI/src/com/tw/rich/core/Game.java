@@ -40,5 +40,10 @@ public class Game {
         return currentPlayer.execute(command);
     }
 
+
+    public void nextPlayer() {
+        currentPlayer = players.get((players.indexOf(currentPlayer) + 1) % players.size());
+    }
+
     public enum Status {START}
 }

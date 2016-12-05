@@ -56,4 +56,17 @@ public class GameTest {
 
         assertThat(game.execute(command), is(Player.Status.WAIT_FOR_RESPONSE));
     }
+
+    @Test
+    public void should_able_to_shift_player() {
+        Player player1 = Player.createPlayerWithFund_Wait_turn_State(1000);
+        Player player2 = Player.createPlayerWithFund_Wait_turn_State(1000);
+        Player player3 = Player.createPlayerWithFund_Wait_turn_State(1000);
+
+        Game game = new Game(map, player1, player2, player3);
+
+        game.nextPlayer();
+
+        assertThat(game.currentPlayer, is(player2));
+    }
 }
