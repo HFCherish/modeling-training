@@ -14,6 +14,7 @@ public class CommandFactory {
     public static Command GetGift = new GetGift();
     public static Command Query = new SimpleCommand();
     public static Command Help = new SimpleCommand();
+    public static Command Quit = new SimpleCommand();
 
     public static Command Roll(Dice dice) {
         return new Roll(dice);

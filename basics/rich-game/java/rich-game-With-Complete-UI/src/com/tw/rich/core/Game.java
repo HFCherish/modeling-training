@@ -1,6 +1,7 @@
 package com.tw.rich.core;
 
 import com.tw.rich.core.commands.Command;
+import com.tw.rich.core.commands.CommandFactory;
 import com.tw.rich.core.map.GameMap;
 import com.tw.rich.core.player.Player;
 
@@ -40,6 +41,10 @@ public class Game {
     }
 
     public Player.Status execute(Command command) {
+        if(command.equals(CommandFactory.Quit)) {
+            status = Status.END;
+//            System.exit(0);
+        }
         return currentPlayer.execute(command);
     }
 
@@ -65,5 +70,5 @@ public class Game {
 
     }
 
-    public enum Status {START}
+    public enum Status {END, START}
 }
