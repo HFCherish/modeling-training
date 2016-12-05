@@ -60,7 +60,18 @@ public class GameMap {
     }
 
     public boolean useRobot(Place start) {
-        return false;
+        int startIndex = places.indexOf(start);
+        for( int i=0; i<=10 && i<=places.size()/2; i++) {
+            Place nextPlace = places.get(nextIndex(startIndex, i));
+            if(nextPlace.getTool() != null) {
+                nextPlace.setTool(null);
+            }
+            nextPlace = places.get(nextIndex(startIndex, -i));
+            if(nextPlace.getTool() != null) {
+                nextPlace.setTool(null);
+            }
+        }
+        return true;
     }
 
 

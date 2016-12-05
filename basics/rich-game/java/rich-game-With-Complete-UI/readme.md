@@ -57,8 +57,8 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
     1. 经过炸弹或block就停 －10 : : 12 
 1. 可以在map上放block，bomb
     1. 能在指定地点放 －5 : 3
-    1. 只能在前后十步放; 如果有人不能放; 如果有道具不能放 －10 
-1. 可以在map上使用robot清扫前后10步的道具 －5 : 
+    1. 只能在前后十步放; 如果有人不能放; 如果有道具不能放 －10 :13
+1. 可以在map上使用robot清扫前后10步的道具 －5 : 7
 
 ### GAME TASKS
 1. 游戏开始后，初始化玩家和地图. 默认第一个玩家是当前玩家,其余玩家都在等待. 所有玩家都被放到地图的开始位置 －15 : 

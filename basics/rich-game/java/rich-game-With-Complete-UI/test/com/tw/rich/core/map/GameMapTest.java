@@ -80,4 +80,20 @@ public class GameMapTest {
         assertThat(map.setTool(Tool.BLOCK, starting, 3), is(false));
         assertThat(estate3.getTool(), is(Tool.BLOCK));
     }
+
+    @Test
+    public void should_able_to_clean_tools_on_map() {
+        Starting starting = new Starting();
+        Estate estate1 = new Estate(10);
+        Estate estate2 = new Estate(10);
+        Estate estate3 = new Estate(10);
+        GameMap map = new GameMap(2, 2, starting, estate1, estate2, estate3);
+
+        estate1.setTool(Tool.BLOCK);
+        assertThat(estate1.getTool(), is(Tool.BLOCK));
+        assertThat(map.useRobot(starting), is(true));
+        assertThat(estate1.getTool(), is(nullValue()));
+    }
+
+
 }
