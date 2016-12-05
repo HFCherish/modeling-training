@@ -1,5 +1,6 @@
 package com.tw.rich.core;
 
+import com.tw.rich.core.commands.Command;
 import com.tw.rich.core.map.GameMap;
 import com.tw.rich.core.player.Player;
 
@@ -33,6 +34,10 @@ public class Game {
 
     public GameMap getMap() {
         return map;
+    }
+
+    public Player.Status execute(Command command) {
+        return currentPlayer.execute(command);
     }
 
     public enum Status {START}
