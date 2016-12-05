@@ -93,4 +93,12 @@ public class GameTest {
 
         assertThat(game.status, is(Game.Status.END));
     }
+
+    @Test
+    public void should_end_game_if_only_one_player_not_bankrupt() {
+        player1.bankrupt();
+        player2.bankrupt();
+
+        assertThat(game.status, is(Game.Status.END));
+    }
 }

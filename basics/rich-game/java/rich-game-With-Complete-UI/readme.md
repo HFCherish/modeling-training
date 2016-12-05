@@ -71,7 +71,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
     1. 如果下一玩家停留在医院或监狱，切换到下一玩家 －5 : 4 
 1. 游戏开始（game_start）后，可以结束游戏
     1. 如果手动结束游戏，game_end －5 : 5
-    1. player bankrupt后，如果只有一个player没有bankrupt，game_end －10 : 
+    1. player bankrupt后，如果只有一个player没有bankrupt，game_end －10 : 2
 
 ### IO TASKS
 1. 初始化game,依据输入的初始资金和玩家. -15

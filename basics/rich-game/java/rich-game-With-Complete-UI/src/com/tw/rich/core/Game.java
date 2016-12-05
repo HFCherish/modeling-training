@@ -63,6 +63,9 @@ public class Game {
                 nextPlayer();
                 players.remove(player);
                 map.removePlayer(player);
+                if(players.size() == 1) {
+                    status = Status.END;
+                }
             } else if (player.getStatus().equals(Player.Status.WAIT_FOR_TURN)) {
                 nextPlayer();
             }
