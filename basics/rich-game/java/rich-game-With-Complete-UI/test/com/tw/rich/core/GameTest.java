@@ -71,7 +71,7 @@ public class GameTest {
     }
 
     @Test
-    public void should_shift_player_if_current_player_end_turn() {
+    public void should_shift_player_if_current_player_end_turn_or_bankrupt() {
         Player player1 = Player.createPlayerWithFund_Wait_turn_State(1000);
         Player player2 = Player.createPlayerWithFund_Wait_turn_State(1000);
         Player player3 = Player.createPlayerWithFund_Wait_turn_State(1000);
@@ -79,7 +79,9 @@ public class GameTest {
         Game game = new Game(map, player1, player2, player3);
 
         player1.endTurn();
-
         assertThat(game.currentPlayer, is(player2));
+
+        player2.bankrupt();
+        assertThat(game.currentPlayer, is(player3));
     }
 }

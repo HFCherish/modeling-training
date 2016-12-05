@@ -52,7 +52,7 @@ public class Player {
         if(luckyDays > 0)   luckyDays--;
         if(stuckDays > 0)   stuckDays--;
         status = Status.WAIT_FOR_TURN;
-        game.nextPlayer();
+        game.inform(this);
     }
 
     public Game getGame() {
@@ -69,6 +69,7 @@ public class Player {
 
     public void bankrupt() {
         status = Status.BANKRUPT;
+        game.inform(this);
     }
 
     public void getLuckyGod() {

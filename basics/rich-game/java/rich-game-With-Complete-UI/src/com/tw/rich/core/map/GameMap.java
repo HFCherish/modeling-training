@@ -81,10 +81,14 @@ public class GameMap {
 
 
     public void initPlayers(Player... players) {
-        this.players = asList(players);
+        this.players.addAll(asList(players));
     }
 
     public Place getStarting() {
         return starting;
+    }
+
+    public void removePlayer(Player player) {
+        players.remove(player);
     }
 }
