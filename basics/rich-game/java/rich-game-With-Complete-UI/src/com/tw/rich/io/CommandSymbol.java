@@ -19,24 +19,33 @@ public interface CommandSymbol {
     CommandSymbol SELL = (i, game) -> CommandFactory.SellEstate(DefaultMap.getEstateById(i));
     CommandSymbol BLOCK = (i, game) -> CommandFactory.UseTool(Tool.BLOCK, Integer.valueOf(i));
     CommandSymbol BOMB = (i, game) -> CommandFactory.UseTool(Tool.BOMB, Integer.valueOf(i));
+    CommandSymbol SELECTION = (i, game) -> CommandFactory.Selection(Integer.valueOf(i));
+    CommandSymbol Y = (i, game) -> CommandFactory.SayYes;
+    CommandSymbol N = (i, game) -> CommandFactory.SayNo;
+    CommandSymbol F = (i, game) -> CommandFactory.Selection(-1);
 
 
-    static Command convertToCommand(String command, Game game){
+    static Command convertToCommand(String command, Game game) {
         //use reflection
         String[] split = command.trim().toUpperCase().split("\\s+");
         String commandSymbolName = split[0];
         String selection = null;
-        if(split.length>1) {
+        if (split.length > 1) {
             selection = split[1];
         }
 
         try {
             Object commandSymbol = CommandSymbol.class.getDeclaredField(commandSymbolName).get(null);
-            return ((CommandSymbol)commandSymbol).getCommand(selection, game);
+            return ((CommandSymbol) commandSymbol).getCommand(selection, game);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+            try {
+                Integer.valueOf(commandSymbolName);
+                return SELECTION.getCommand(commandSymbolName, game);
+            } catch (NumberFormatException e1) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
