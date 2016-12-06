@@ -1,7 +1,6 @@
 package com.tw.rich.core.map;
 
 import com.tw.rich.core.assistenceItems.Tool;
-import com.tw.rich.core.places.Estate;
 import com.tw.rich.core.places.Hospital;
 import com.tw.rich.core.places.Place;
 import com.tw.rich.core.places.Starting;
@@ -9,6 +8,7 @@ import com.tw.rich.core.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 
@@ -58,11 +58,15 @@ public class GameMap {
         if ((!tool.equals(Tool.BLOCK) && !tool.equals(Tool.BOMB)) || Math.abs(steps) > 10) return false;
 
         Place targetPlace = places.get(nextIndex(places.indexOf(start), steps));
-        if (targetPlace.getTool() != null || players.stream().filter(p -> p.currentPlace().equals(targetPlace)).count() > 0) {
+        if (targetPlace.getTool() != null || playerOn(targetPlace).isPresent()) {
             return false;
         }
         targetPlace.setTool(tool);
         return true;
+    }
+
+    public Optional<Player> playerOn(Place place) {
+        return players.stream().filter(p -> p.currentPlace().equals(place)).findAny();
     }
 
     public boolean useRobot(Place start) {

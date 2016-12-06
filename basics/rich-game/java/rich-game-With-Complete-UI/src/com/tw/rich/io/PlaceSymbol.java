@@ -1,6 +1,7 @@
 package com.tw.rich.io;
 
 import com.tw.rich.core.assistenceItems.Tool;
+import com.tw.rich.core.map.GameMap;
 import com.tw.rich.core.places.Estate;
 import com.tw.rich.core.places.Place;
 
@@ -26,12 +27,16 @@ public interface PlaceSymbol {
 
 
 
-    static String convertToSymbol(Place place){
+    static String convertToSymbol(Place place, GameMap map){
         if(place.getTool() != null) {
             return place.getTool() == Tool.BLOCK ? "#" : "@";
         }
 
+        if(map.playerOn(place).isPresent()) {
+            return map.playerOn(place).get().getIdentity().getSymbol();
+        }
         String placeSymbolName = place.getClass().getSimpleName() + "Symbol";
+
         try {
             Object o = PlaceSymbol.class.getDeclaredField(placeSymbolName).get(null);
             return ((PlaceSymbol)o).getSymbol(place);

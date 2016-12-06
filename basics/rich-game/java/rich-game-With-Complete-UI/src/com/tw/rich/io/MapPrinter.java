@@ -16,19 +16,19 @@ public class MapPrinter {
 
 
         for(int i=0; i<width; i++) {
-            mapString[0][i] = convertToSymbol(map.getPlaces().get(count++));
+            mapString[0][i] = convertToSymbol(map.getPlaces().get(count++), map);
         }
 
         for( int i=1; i<height; i++) {
-            mapString[i][width-1] = convertToSymbol(map.getPlaces().get(count++));
+            mapString[i][width-1] = convertToSymbol(map.getPlaces().get(count++), map);
         }
 
         for(int i=width-2; i>=0; i--) {
-            mapString[height-1][i] = convertToSymbol(map.getPlaces().get(count++));
+            mapString[height-1][i] = convertToSymbol(map.getPlaces().get(count++), map);
         }
 
         for(int i=height-2; i>0; i--) {
-            mapString[i][0] = convertToSymbol(map.getPlaces().get(count++));
+            mapString[i][0] = convertToSymbol(map.getPlaces().get(count++), map);
         }
 
         for( int i=0; i<height; i++ ){
