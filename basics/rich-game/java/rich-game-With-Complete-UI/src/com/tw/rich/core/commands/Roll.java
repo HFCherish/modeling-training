@@ -11,7 +11,6 @@ public class Roll extends Command {
     private Dice dice;
 
     public Roll(Dice dice) {
-
         this.dice = dice;
     }
 

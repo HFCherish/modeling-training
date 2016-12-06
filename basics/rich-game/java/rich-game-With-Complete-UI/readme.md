@@ -93,7 +93,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
         1. convert command with parameter: sell x, sellTool x, block n, bomb n -15: 18
     1. convert response: select gift number, select tool number, select YES, SELECT NO, SELECT F -15 : 8
 
-1. 如果用户有输入, 就可以拿到输入的命令(迭代行为:用户不断有输入)  -15
+1. 如果用户有输入, 就可以拿到输入的命令(迭代行为:用户不断有输入)  -15 : 7
 1. 提示信息
     1. 当前用户输入命令roll
         1. 并且在own estate房前，提示是否升级

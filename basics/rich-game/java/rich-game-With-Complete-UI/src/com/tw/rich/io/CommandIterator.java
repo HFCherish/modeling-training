@@ -16,9 +16,9 @@ public class CommandIterator implements Iterator<Command>{
     Scanner in;
     private final Game game;
 
-    public CommandIterator(InputStream in, Game game) {
+    public CommandIterator(Scanner in, Game game) {
         this.game = game;
-        this.in = new Scanner(in);
+        this.in = in;
     }
 
     @Override

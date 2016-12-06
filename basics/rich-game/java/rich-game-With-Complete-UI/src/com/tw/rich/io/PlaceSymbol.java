@@ -4,6 +4,7 @@ import com.tw.rich.core.assistenceItems.Tool;
 import com.tw.rich.core.map.GameMap;
 import com.tw.rich.core.places.Estate;
 import com.tw.rich.core.places.Place;
+import com.tw.rich.util.ColorCodes;
 
 /**
  * Created by pzzheng on 11/27/16.
@@ -15,7 +16,7 @@ public interface PlaceSymbol {
         if(estate.getOwner() != null) {
             color = estate.getOwner().getIdentity().getColor();
         }
-        return color + String.valueOf(estate.getLevel().ordinal());
+        return color + String.valueOf(estate.getLevel().ordinal()) + ColorCodes.RESET;
     };
     PlaceSymbol HospitalSymbol = (place) -> "H";
     PlaceSymbol StartingSymbol = (place) -> "S";
