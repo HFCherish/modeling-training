@@ -40,8 +40,8 @@ public class CommandFactory {
         return new UpgradeEstate(estate);
     }
 
-    public static Command BuyTool(Tool tool) {
-        return new BuyTool(tool);
+    public static Command Selection(int selection) {
+        return new Selection(selection);
     }
 
     public static Command GetGift(Gift gift) {

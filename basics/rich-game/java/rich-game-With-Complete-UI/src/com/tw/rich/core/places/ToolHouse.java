@@ -35,7 +35,4 @@ public class ToolHouse extends Place {
         return tools.stream().min((a, b) -> a.getValue() - b.getValue()).get();
     }
 
-    public Tool findToolById(String id) {
-        return tools.stream().filter(tool1 -> String.valueOf(tool1.ordinal()+1).equals(id)).findAny().orElse(null);
-    }
 }

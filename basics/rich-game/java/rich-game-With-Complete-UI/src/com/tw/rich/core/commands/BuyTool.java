@@ -8,11 +8,6 @@ import com.tw.rich.core.places.ToolHouse;
  * Created by pzzheng on 11/28/16.
  */
 public class BuyTool extends Command {
-    private Tool tool;
-
-    public BuyTool(Tool tool) {
-        this.tool = tool;
-    }
 
     public BuyTool() {
     }
@@ -24,8 +19,8 @@ public class BuyTool extends Command {
 
     @Override
     public Command respond(Player player, Command response) {
-        if (((BuyTool) response).tool != null) {
-            player.getAsset().buyTool(((BuyTool) response).tool);
+        if (((Selection) response).getSelection() != -1) {
+            player.getAsset().buyTool(Tool.findToolById(((Selection) response).getSelection()));
             if (player.getAsset().getPoints() >= ((ToolHouse) player.currentPlace()).cheapestTool().getValue()) {
                 player.waitForResponse();
                 return this;

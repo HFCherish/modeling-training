@@ -45,8 +45,12 @@ public enum Tool {
 
     int value;
 
-    public static Tool findToolById(String id) {
-        return Arrays.stream(Tool.values()).filter(tool1 -> String.valueOf(tool1.ordinal()+1).equals(id)).findAny().orElse(null);
+    /**
+     * @param id the id in Tool enum, started from 1
+     * @return
+     */
+    public static Tool findToolById(int id) {
+        return Arrays.stream(Tool.values()).filter(tool1 -> tool1.ordinal()+1 == id).findAny().orElse(null);
     }
 
     Tool(int value) {

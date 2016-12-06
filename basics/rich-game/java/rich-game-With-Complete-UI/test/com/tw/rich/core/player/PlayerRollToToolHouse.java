@@ -60,7 +60,7 @@ public class PlayerRollToToolHouse {
         assertThat(player.getStatus(), is(Player.Status.WAIT_FOR_RESPONSE));
         assertThat(player.lastCommand instanceof BuyTool, is(true));
 
-        player.execute(CommandFactory.BuyTool(Tool.BLOCK));
+        player.execute(CommandFactory.Selection(Tool.BLOCK.ordinal() + 1));
 
         assertThat(player.getStatus(), is(Player.Status.WAIT_FOR_RESPONSE));
         assertThat(player.getAsset().getPoints(), is(Tool.ROBOT.getValue()));
@@ -79,7 +79,7 @@ public class PlayerRollToToolHouse {
         assertThat(player.getStatus(), is(Player.Status.WAIT_FOR_RESPONSE));
         assertThat(player.lastCommand instanceof BuyTool, is(true));
 
-        player.execute(CommandFactory.BuyTool(null));
+        player.execute(CommandFactory.Selection(-1));
 
         assertThat(player.getStatus(), is(Player.Status.WAIT_FOR_TURN));
         assertThat(player.getAsset().hasTool(Tool.BLOCK), is(false));

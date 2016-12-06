@@ -50,14 +50,6 @@ public class GameMap {
         return (places.size() + (startIndex + steps) % places.size()) % places.size();
     }
 
-    /**
-     * @param id the absolute id in map, start from 1
-     * @return the estate in that place
-     */
-    public Estate getEstateById(int id) {
-        return (Estate) places.get(id-1);
-    }
-
     public Hospital getHospital() {
         return hospital;
     }

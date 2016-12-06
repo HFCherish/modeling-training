@@ -23,7 +23,7 @@ public class GameFactory {
     }
 
     protected static Game createDefaultGame(int initialFund, String playerIds) {
-        List<Player> players = PlayersFactory.getPlayers(playerIds, initialFund);
-        return new Game(MapFactory.defaultMap(), players.toArray(new Player[players.size()]));
+        List<Player> players = PlayerFactory.getPlayers(playerIds, initialFund);
+        return new Game(DefaultMap.getMap(), players.toArray(new Player[players.size()]));
     }
 }

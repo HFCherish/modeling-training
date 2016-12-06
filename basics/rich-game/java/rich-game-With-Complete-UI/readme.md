@@ -90,7 +90,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
     1. convert command with parameter: sell x, sellTool x, block n, bomb n
         1. can find tool by Id - 15: 14
         1. can find estate by Id, the place in map -15: 5
-        1. convert command with parameter: sell x, sellTool x, block n, bomb n -15:
+        1. convert command with parameter: sell x, sellTool x, block n, bomb n -15: 18
     1. convert response: select gift number, select tool number, select YES, SELECT NO, SELECT F -15
 
 1. 如果用户有输入, 就可以拿到输入的命令(迭代行为:用户不断有输入)  -15
