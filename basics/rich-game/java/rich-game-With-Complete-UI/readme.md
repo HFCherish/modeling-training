@@ -82,7 +82,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
 2. 显示map(多态行为: 不同类型的place显示不同的符号)
     1. 显示地标 -15 
     1. 不同级别的地产显示不同的数字 -5 : 25
-    1. 如果有炸弹,显示*; 如果有block,显示@ -5 : 2
+    1. 如果有炸弹,显示@; 如果有block,显示# -5 : 2
     1. 如果地产卖给玩家,显示玩家颜色 - 15 : 7 
 1. 将用户输入转化为命令 (多态行为: 不同的用户输入转为不同的command) -15
 1. 如果用户有输入, 就可以拿到输入的命令(迭代行为:用户不断有输入)  -15

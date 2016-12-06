@@ -28,7 +28,7 @@ public interface PlaceSymbol {
 
     static String convertToSymbol(Place place){
         if(place.getTool() != null) {
-            return place.getTool() == Tool.BLOCK ? "@" : "*";
+            return place.getTool() == Tool.BLOCK ? "#" : "@";
         }
 
         String placeSymbolName = place.getClass().getSimpleName() + "Symbol";

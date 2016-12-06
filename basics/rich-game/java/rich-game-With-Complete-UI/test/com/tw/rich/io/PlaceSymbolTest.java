@@ -28,7 +28,7 @@ public class PlaceSymbolTest {
         assertThat(PlaceSymbol.convertToSymbol(new Hospital()), is("H"));
 
         estate.setTool(Tool.BLOCK);
-        assertThat(PlaceSymbol.convertToSymbol(estate), is("@"));
+        assertThat(PlaceSymbol.convertToSymbol(estate), is("#"));
     }
 
     @Test
