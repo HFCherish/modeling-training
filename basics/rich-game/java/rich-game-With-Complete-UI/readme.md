@@ -97,7 +97,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
 1. 提示信息
     1. 当前用户输入命令roll
         1. 到达地方显示:您来到了xxx地方(COME_TO) - 15 : 20
-        1. 并且在own estate房前，提示是否升级(IF_UPGRADE) -10 : 
+        1. 并且在own estate房前，提示是否升级(IF_UPGRADE) -10 : 7
         1. 在empty estate房前，提示是否购买(IF_BUY_ESTATE) -10: 
         1. 在toolhouse房前，提示选择购买工具(TO_BUY_TOOL) -5:
         1. 在gifthouse房前，提示选择礼品(TO_SELECT_GIFT) -5:

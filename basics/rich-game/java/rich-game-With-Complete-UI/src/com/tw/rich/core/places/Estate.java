@@ -1,5 +1,6 @@
 package com.tw.rich.core.places;
 
+import com.tw.rich.core.messages.Message;
 import com.tw.rich.core.player.Player;
 import com.tw.rich.core.commands.Command;
 import com.tw.rich.core.commands.CommandFactory;
@@ -73,6 +74,7 @@ public class Estate extends Place {
                     player.endTurn();
                     return null;
                 }
+                player.addMessage(Message.IF_UPGRADE);
                 player.waitForResponse();
                 return CommandFactory.BuyEstate(estate);
             }

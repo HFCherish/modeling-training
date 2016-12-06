@@ -130,6 +130,10 @@ public class Player {
         return identity;
     }
 
+    public void addMessage(Message message) {
+        messages.add(message);
+    }
+
     public enum Status {
         WAIT_FOR_TURN {
             @Override
