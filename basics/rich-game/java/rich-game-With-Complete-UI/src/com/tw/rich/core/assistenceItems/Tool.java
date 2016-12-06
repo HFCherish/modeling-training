@@ -1,5 +1,6 @@
 package com.tw.rich.core.assistenceItems;
 
+import com.tw.rich.core.messages.Message;
 import com.tw.rich.core.player.Player;
 import com.tw.rich.core.commands.Command;
 import com.tw.rich.core.places.Hospital;
@@ -13,6 +14,7 @@ public enum Tool {
     BLOCK(50) {
         @Override
         public Command encounter(Player player) {
+            player.addMessage(Message.STOP_AT_BLOCK);
             return player.currentPlace().comeHere(player);
         }
 
@@ -23,6 +25,7 @@ public enum Tool {
     }, BOMB(50) {
         @Override
         public Command encounter(Player player) {
+            player.addMessage(Message.ENCOUNTER_BOMB);
             player.stuckFor(Hospital.HOSPITAL_DAYS);
             return player.getGame().getMap().getHospital().comeHere(player);
         }

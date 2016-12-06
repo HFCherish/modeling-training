@@ -1,6 +1,7 @@
 package com.tw.rich.core.player;
 
 import com.tw.rich.core.Game;
+import com.tw.rich.core.Reportable;
 import com.tw.rich.core.map.GameMap;
 import com.tw.rich.core.assistenceItems.Tool;
 import com.tw.rich.core.commands.CommandFactory;
@@ -77,10 +78,10 @@ public class NonTerminalCommandTest {
     public void should_able_to_query_and_help() {
         Player player = Player.createPlayerWithFund_Game_Command_State(0, game);
 
-        player.execute(CommandFactory.Query);
+        player.execute(CommandFactory.Query(mock(Reportable.class)));
         assertThat(player.getStatus(), is(Player.Status.WAIT_FORM_COMMAND));
 
-        player.execute(CommandFactory.Help);
+        player.execute(CommandFactory.Help(mock(Reportable.class)));
         assertThat(player.getStatus(), is(Player.Status.WAIT_FORM_COMMAND));
     }
 

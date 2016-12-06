@@ -13,10 +13,12 @@ public interface PlaceSymbol {
     PlaceSymbol EstateSymbol = (place) -> {
         Estate estate = (Estate) place;
         String color = "";
+        String reset = "";
         if(estate.getOwner() != null) {
             color = estate.getOwner().getIdentity().getColor();
+            reset = ColorCodes.RESET;
         }
-        return color + String.valueOf(estate.getLevel().ordinal()) + ColorCodes.RESET;
+        return color + String.valueOf(estate.getLevel().ordinal()) + reset;
     };
     PlaceSymbol HospitalSymbol = (place) -> "H";
     PlaceSymbol StartingSymbol = (place) -> "S";

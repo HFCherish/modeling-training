@@ -98,22 +98,22 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
     1. 当前用户输入命令roll
         1. 到达地方显示:您来到了xxx地方(COME_TO) - 15 : 20
         1. 并且在own estate房前，提示是否升级(IF_UPGRADE) -10 : 7
-        1. 在empty estate房前，提示是否购买(IF_BUY_ESTATE) -10: 
-        1. 在toolhouse房前，提示选择购买工具(TO_BUY_TOOL) -5:
+        1. 在empty estate房前，提示是否购买(IF_BUY_ESTATE) -10: 2 
+        1. 在toolhouse房前，提示选择购买工具(TO_BUY_TOOL) -5: 5
         1. 在gifthouse房前，提示选择礼品(TO_SELECT_GIFT) -5:
         1. 在other estate前，
             1. 如果需要交过路费，提示应该交过路费(TO_CHARGE_TOLL) - 5:
             1. 如果破产,提示破产(BANKRUPT) - 5 : 
             1. 如果有福神，提示“福神附身，免过路费”(GOD_POSSESSION) - 5:
-            1. 如果房主在医院或监狱，提示“。。。免过路费”(FREE_FOR_OWNER_STUCK) - 5:
-        1. 在prison，提示“监狱待2天”(STUCK_IN_PRISON) - 5:
-        1. 在block前, 提示“遇到block停止”(STOP_AT_BLOCK) -5:
+            1. 如果房主在医院或监狱，提示“。。。免过路费”(FREE_FOR_OWNER_STUCK) - 5: 10
+        1. 在prison，提示“监狱待2天”(STUCK_IN_PRISON) - 5: 1
+        1. 在block前, 提示“遇到block停止”(STOP_AT_BLOCK) -5: 
         1. 在bomb, 提示“遇到bomb，进医院3天“(ENCOUNTER_BOMB) -5:
-        1. 在矿地, 提示”获得点数“(GET_MINERAL_POINT) - 5:
+        1. 在矿地, 提示”获得点数“(GET_MINERAL_POINT) - 5: 3
     1. 如果切换玩家时被跳过:
         1. 待在监狱, 提示"还要在监狱待xx天, 本轮跳过"(SKIP_TURN_IN_PRISON) - 10:
-        1. 待在医院, 提示"还要在医院待xx天, 本轮跳过"(SKIP_TURN_IN_HOSPITAL) - 10:
-    1. 如果游戏结束, 有胜者, 提示"恭喜xxx获胜"(WIN) -10:
-1. 当前用户输入命令query，显示当前玩家的资产信息 - 15 : 
-1. 当前用户输入命令help，显示help信息 - 15 : 
+        1. 待在医院, 提示"还要在医院待xx天, 本轮跳过"(SKIP_TURN_IN_HOSPITAL) - 10: 7
+    1. 如果游戏结束, 有胜者, 提示"恭喜xxx获胜"(WIN) -10: 5
+1. 当前用户输入命令query，显示当前玩家的资产信息 - 15 : 5 
+1. 当前用户输入命令help，显示help信息 - 15 : 3
     

@@ -85,6 +85,7 @@ public class Player {
     }
 
     public void bankrupt() {
+        messages.add(Message.BANKRUPT);
         status = Status.BANKRUPT;
         game.inform(this);
     }

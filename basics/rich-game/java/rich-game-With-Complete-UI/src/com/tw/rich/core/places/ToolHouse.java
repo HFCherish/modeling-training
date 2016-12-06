@@ -1,5 +1,6 @@
 package com.tw.rich.core.places;
 
+import com.tw.rich.core.messages.Message;
 import com.tw.rich.core.player.Player;
 import com.tw.rich.core.assistenceItems.Tool;
 import com.tw.rich.core.commands.Command;
@@ -23,6 +24,7 @@ public class ToolHouse extends Place {
     @Override
     public Command comeHere(Player player) {
         player.moveTo(this);
+        player.addMessage(Message.TO_BUY_TOOL);
         if(player.getAsset().getPoints() >= cheapestTool().getValue()) {
             player.waitForResponse();
             return CommandFactory.BuyTool;

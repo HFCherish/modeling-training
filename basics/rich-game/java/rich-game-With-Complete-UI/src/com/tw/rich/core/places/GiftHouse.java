@@ -1,5 +1,6 @@
 package com.tw.rich.core.places;
 
+import com.tw.rich.core.messages.Message;
 import com.tw.rich.core.player.Player;
 import com.tw.rich.core.assistenceItems.Gift;
 import com.tw.rich.core.commands.Command;
@@ -23,6 +24,7 @@ public class GiftHouse extends Place {
     @Override
     public Command comeHere(Player player) {
         player.moveTo(this);
+        player.addMessage(Message.TO_SELECT_GIFT);
         player.waitForResponse();
         return CommandFactory.GetGift;
     }

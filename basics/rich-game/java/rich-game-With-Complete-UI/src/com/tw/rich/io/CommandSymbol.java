@@ -6,13 +6,15 @@ import com.tw.rich.core.assistenceItems.Tool;
 import com.tw.rich.core.commands.Command;
 import com.tw.rich.core.commands.CommandFactory;
 
+import static com.tw.rich.io.DefaultReport.getReport;
+
 /**
  * Created by pzzheng on 11/27/16.
  */
 public interface CommandSymbol {
     CommandSymbol ROLL = (i, game) -> CommandFactory.Roll(SimpleDice.get());
-    CommandSymbol QUERY = (i, game) -> CommandFactory.Query;
-    CommandSymbol HELP = (i, game) -> CommandFactory.Help;
+    CommandSymbol QUERY = (i, game) -> CommandFactory.Query(getReport());
+    CommandSymbol HELP = (i, game) -> CommandFactory.Help(getReport());
     CommandSymbol QUIT = (i, game) -> CommandFactory.Quit;
     CommandSymbol ROBOT = (i, game) -> CommandFactory.UseTool(Tool.ROBOT, 0);
     CommandSymbol SELLTOOL = (i, game) -> CommandFactory.SellTool(Tool.findToolById(Integer.valueOf(i)));

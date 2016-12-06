@@ -1,5 +1,6 @@
 package com.tw.rich.core.places;
 
+import com.tw.rich.core.messages.Message;
 import com.tw.rich.core.player.Player;
 import com.tw.rich.core.commands.Command;
 
@@ -13,6 +14,7 @@ public class Prison extends Place {
     @Override
     public Command comeHere(Player player) {
         player.moveTo(this);
+        player.addMessage(Message.STUCK_IN_PRISON);
         player.stuckFor(PRISON_DAYS);
         player.endTurn();
         return null;

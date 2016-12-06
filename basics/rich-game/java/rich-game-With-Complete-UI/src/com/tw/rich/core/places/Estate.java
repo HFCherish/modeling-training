@@ -74,7 +74,7 @@ public class Estate extends Place {
                     player.endTurn();
                     return null;
                 }
-                player.addMessage(Message.IF_UPGRADE);
+                player.addMessage(Message.IF_BUY_ESTATE);
                 player.waitForResponse();
                 return CommandFactory.BuyEstate(estate);
             }
@@ -82,11 +82,17 @@ public class Estate extends Place {
             @Override
             Command comeHere(Player player, Estate estate) {
                 int charge = estate.emptyPrice * (estate.level.ordinal() + 1) / 2;
-                if(!player.isLucky() && !estate.owner.isStucked()) {
+                if(player.isLucky()) {
+                    player.addMessage(Message.GOD_POSSESSION);
+                }else if (estate.owner.isStucked()) {
+                    player.addMessage(Message.FREE_FOR_OWNER_STUCK);
+                }
+                else {
                     if(player.getAsset().getFunds() < charge) {
                         player.bankrupt();
                         return null;
                     }
+                    player.addMessage(Message.TO_CHARGE_TOLL);
                     player.getAsset().addFunds(-charge);
                     estate.owner.getAsset().addFunds(charge);
                 }
@@ -100,6 +106,7 @@ public class Estate extends Place {
                     player.endTurn();
                     return null;
                 }
+                player.addMessage(Message.IF_UPGRADE);
                 player.waitForResponse();
                 return CommandFactory.UpgradeEstate(estate);
             }

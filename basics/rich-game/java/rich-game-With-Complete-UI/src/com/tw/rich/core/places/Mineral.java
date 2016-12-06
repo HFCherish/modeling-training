@@ -1,5 +1,6 @@
 package com.tw.rich.core.places;
 
+import com.tw.rich.core.messages.Message;
 import com.tw.rich.core.player.Player;
 import com.tw.rich.core.commands.Command;
 
@@ -16,6 +17,7 @@ public class Mineral extends Place {
     @Override
     public Command comeHere(Player player) {
         player.moveTo(this);
+        player.addMessage(Message.GET_MINERAL_POINT);
         player.getAsset().addPoints(points);
         player.endTurn();
         return null;
