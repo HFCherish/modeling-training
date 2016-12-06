@@ -33,7 +33,19 @@ public class GameMapTest {
     }
 
     @Test
-    public void should_able_to_get_starting_and_hospital_and_toolHouse() {
+    public void should_get_estate_by_id() {
+        Starting starting = new Starting();
+        Estate estate1 = new Estate(10);
+        Estate estate2 = new Estate(10);
+        Hospital hospital = new Hospital();
+        GameMap map = new GameMap(2, 2, starting, estate1, estate2, hospital);
+
+        assertThat(map.getEstateById(3), is(estate2));
+
+    }
+
+    @Test
+    public void should_able_to_get_starting_and_hospital() {
         Starting starting = new Starting();
         Estate estate1 = new Estate(10);
         Estate estate2 = new Estate(10);

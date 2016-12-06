@@ -2,6 +2,7 @@ package com.tw.rich.core.player;
 
 
 import com.tw.rich.core.Game;
+import com.tw.rich.core.Identity;
 import com.tw.rich.core.assistenceItems.Gift;
 import com.tw.rich.core.commands.Command;
 import com.tw.rich.core.places.Place;
@@ -17,7 +18,7 @@ public class Player {
     private Asset asset;
     private int luckyDays;
     private int stuckDays;
-    private PlayerIdentity identity;
+    private Identity identity;
 
     public Status execute(Command command) {
         if (status.equals(Status.WAIT_FORM_COMMAND) || status.equals(Status.WAIT_FOR_RESPONSE)) {
@@ -104,13 +105,13 @@ public class Player {
         this.game = game;
     }
 
-    public static Player createWithIdentityAndFund_WaitTurn(PlayerIdentity playerIdentity, int initialFund) {
+    public static Player createWithIdentityAndFund_WaitTurn(Identity identity, int initialFund) {
         Player player = createPlayerWithFund_Wait_turn_State(initialFund);
-        player.identity = playerIdentity;
+        player.identity = identity;
         return player;
     }
 
-    public PlayerIdentity getIdentity() {
+    public Identity getIdentity() {
         return identity;
     }
 

@@ -4,6 +4,8 @@ import com.tw.rich.core.player.Player;
 import com.tw.rich.core.commands.Command;
 import com.tw.rich.core.places.Hospital;
 
+import java.util.Arrays;
+
 /**
  * Created by pzzheng on 11/27/16.
  */
@@ -43,12 +45,12 @@ public enum Tool {
 
     int value;
 
-    Tool(int value) {
-        this.value = value;
+    public static Tool findToolById(String id) {
+        return Arrays.stream(Tool.values()).filter(tool1 -> String.valueOf(tool1.ordinal()+1).equals(id)).findAny().orElse(null);
     }
 
-    public String getId() {
-        return String.valueOf(ordinal() + 1);
+    Tool(int value) {
+        this.value = value;
     }
 
     public abstract Command encounter(Player player);
