@@ -1,5 +1,6 @@
 package com.tw.rich.io;
 
+import com.tw.rich.core.assistenceItems.Tool;
 import com.tw.rich.core.places.Estate;
 import com.tw.rich.core.places.Place;
 
@@ -19,6 +20,10 @@ public interface PlaceSymbol {
 
 
     static String convertToSymbol(Place place){
+        if(place.getTool() != null) {
+            return place.getTool() == Tool.BLOCK ? "@" : "*";
+        }
+
         String placeSymbolName = place.getClass().getSimpleName() + "Symbol";
         try {
             Object o = PlaceSymbol.class.getDeclaredField(placeSymbolName).get(null);
