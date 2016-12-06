@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 public class PlayersFactory {
     private static HashMap<String, PlayerIdentity> allPlayerIdentities = new HashMap(){{
         put("1", new PlayerIdentity("1", "钱夫人", ColorCodes.RED));
-        put("2", new PlayerIdentity("1", "钱夫人", ColorCodes.GREEN));
-        put("3", new PlayerIdentity("1", "钱夫人", ColorCodes.BLUE));
-        put("4", new PlayerIdentity("1", "钱夫人", ColorCodes.YELLOW));
+        put("2", new PlayerIdentity("2", "钱夫人", ColorCodes.GREEN));
+        put("3", new PlayerIdentity("3", "钱夫人", ColorCodes.BLUE));
+        put("4", new PlayerIdentity("4", "钱夫人", ColorCodes.YELLOW));
     }};
 
     public static List<Player> getPlayers(String playerIds, int initialFund) {

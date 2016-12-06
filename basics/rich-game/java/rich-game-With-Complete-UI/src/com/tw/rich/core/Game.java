@@ -61,6 +61,10 @@ public class Game {
         //            System.exit(0);
     }
 
+    public Player currentPlayer() {
+        return currentPlayer;
+    }
+
     public void inform(Player player) {
         if(currentPlayer.equals(player)) {
             if (player.getStatus().equals(Player.Status.BANKRUPT)) {
