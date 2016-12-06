@@ -4,6 +4,9 @@ import com.tw.rich.core.assistenceItems.Tool;
 import com.tw.rich.core.places.Estate;
 import com.tw.rich.core.places.Hospital;
 import com.tw.rich.core.places.Place;
+import com.tw.rich.core.player.Player;
+import com.tw.rich.core.player.PlayerIdentity;
+import com.tw.rich.util.ColorCodes;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -26,5 +29,12 @@ public class PlaceSymbolTest {
 
         estate.setTool(Tool.BLOCK);
         assertThat(PlaceSymbol.convertToSymbol(estate), is("@"));
+    }
+
+    @Test
+    public void should_show_right_color_for_estate() {
+        Estate estate = new Estate(1000);
+        estate.sellTo(Player.createWithIdentityAndFund_WaitTurn(new PlayerIdentity("1", "test", ColorCodes.BLUE), 1000));
+        System.out.println(PlaceSymbol.convertToSymbol(estate));
     }
 }

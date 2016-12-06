@@ -53,6 +53,10 @@ public class Estate extends Place {
         return level;
     }
 
+    public Player getOwner() {
+        return owner;
+    }
+
     public void empty() {
         owner = null;
     }

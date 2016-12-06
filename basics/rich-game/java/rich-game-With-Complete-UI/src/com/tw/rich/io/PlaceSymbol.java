@@ -8,7 +8,14 @@ import com.tw.rich.core.places.Place;
  * Created by pzzheng on 11/27/16.
  */
 public interface PlaceSymbol {
-    PlaceSymbol EstateSymbol = (place) -> String.valueOf(((Estate)place).getLevel().ordinal());
+    PlaceSymbol EstateSymbol = (place) -> {
+        Estate estate = (Estate) place;
+        String color = "";
+        if(estate.getOwner() != null) {
+            color = estate.getOwner().getIdentity().getColor();
+        }
+        return color + String.valueOf(estate.getLevel().ordinal());
+    };
     PlaceSymbol HospitalSymbol = (place) -> "H";
     PlaceSymbol StartingSymbol = (place) -> "S";
     PlaceSymbol ToolHouseSymbol = (place) -> "T";
