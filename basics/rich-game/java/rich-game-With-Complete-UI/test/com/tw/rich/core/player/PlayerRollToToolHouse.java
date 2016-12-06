@@ -30,7 +30,7 @@ public class PlayerRollToToolHouse {
     @Before
     public void setUp() {
         dice = () -> 1;
-        toolHouse = new ToolHouse(Tool.BLOCK, Tool.ROBOT, Tool.BOMB);
+        toolHouse = new ToolHouse();
         game = mock(Game.class);
         map = mock(GameMap.class);
         when(map.move(any(), anyInt())).thenReturn(toolHouse);

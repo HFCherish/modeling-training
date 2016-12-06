@@ -79,7 +79,6 @@ public class GameMap {
         return true;
     }
 
-
     public List<Place> getPlaces() {
         return places;
     }

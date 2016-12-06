@@ -47,6 +47,10 @@ public enum Tool {
         this.value = value;
     }
 
+    public String getId() {
+        return String.valueOf(ordinal() + 1);
+    }
+
     public abstract Command encounter(Player player);
 
     public int getValue() {

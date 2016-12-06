@@ -15,8 +15,8 @@ import static java.util.Arrays.asList;
 public class ToolHouse extends Place {
     private final List<Tool> tools;
 
-    public ToolHouse(Tool... tools) {
-        this.tools = asList(tools);
+    public ToolHouse() {
+        this.tools = asList(Tool.values());
     }
 
     @Override
@@ -32,5 +32,9 @@ public class ToolHouse extends Place {
 
     public Tool cheapestTool() {
         return tools.stream().min((a, b) -> a.getValue() - b.getValue()).get();
+    }
+
+    public Tool findToolById(String id) {
+        return tools.stream().filter(tool1 -> tool1.getId().equals(id)).findAny().orElse(null);
     }
 }

@@ -33,7 +33,7 @@ public class GameMapTest {
     }
 
     @Test
-    public void should_able_to_get_starting_and_hospital() {
+    public void should_able_to_get_starting_and_hospital_and_toolHouse() {
         Starting starting = new Starting();
         Estate estate1 = new Estate(10);
         Estate estate2 = new Estate(10);
