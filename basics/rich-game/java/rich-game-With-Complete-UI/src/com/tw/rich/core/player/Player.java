@@ -5,7 +5,11 @@ import com.tw.rich.core.Game;
 import com.tw.rich.core.Identity;
 import com.tw.rich.core.assistenceItems.Gift;
 import com.tw.rich.core.commands.Command;
+import com.tw.rich.core.messages.Message;
 import com.tw.rich.core.places.Place;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by pzzheng on 11/27/16.
@@ -19,6 +23,7 @@ public class Player {
     private int luckyDays;
     private int stuckDays;
     private Identity identity;
+    private List<Message> messages;
 
     public Status execute(Command command) {
         if (status.equals(Status.WAIT_FORM_COMMAND) || status.equals(Status.WAIT_FOR_RESPONSE)) {
@@ -27,7 +32,16 @@ public class Player {
         return status;
     }
 
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void resetMessage() {
+        messages = new ArrayList<>();
+    }
+
     private Player() {
+        messages = new ArrayList();
     }
 
     public Asset getAsset() {
@@ -66,6 +80,7 @@ public class Player {
     }
 
     public void moveTo(Place place) {
+        messages.add(Message.COME_TO);
         currentPlace = place;
     }
 
