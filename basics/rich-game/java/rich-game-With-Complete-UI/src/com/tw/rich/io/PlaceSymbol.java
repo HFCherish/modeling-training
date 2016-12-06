@@ -28,13 +28,14 @@ public interface PlaceSymbol {
 
 
     static String convertToSymbol(Place place, GameMap map){
+        if(map.playerOn(place).isPresent()) {
+            return map.playerOn(place).get().getIdentity().getSymbol();
+        }
+
         if(place.getTool() != null) {
             return place.getTool() == Tool.BLOCK ? "#" : "@";
         }
 
-        if(map.playerOn(place).isPresent()) {
-            return map.playerOn(place).get().getIdentity().getSymbol();
-        }
         String placeSymbolName = place.getClass().getSimpleName() + "Symbol";
 
         try {
@@ -48,5 +49,5 @@ public interface PlaceSymbol {
         return null;
     }
 
-    abstract String getSymbol(Place place);
+    String getSymbol(Place place);
 }

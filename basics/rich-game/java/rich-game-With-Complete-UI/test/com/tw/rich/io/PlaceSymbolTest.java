@@ -24,8 +24,6 @@ public class PlaceSymbolTest {
     @Test
     public void should_convert_to_symbol() {
         Place estate = new Estate(1000);
-//        System.out.println(estate.getClass());
-//        System.out.println(((Estate)estate).getLevel().ordinal());
 
         ((Estate) estate).upgrade();
         assertThat(PlaceSymbol.convertToSymbol(estate, map), is("1"));
@@ -45,6 +43,7 @@ public class PlaceSymbolTest {
     @Test
     public void should_player_symbol_at_players_current_place() {
         Estate estate = new Estate(1000);
+        estate.setTool(Tool.BLOCK);
         Player player = createWithIdentityAndFund_WaitTurn(new Identity("1", "test", ColorCodes.BLUE, "T"), 1000);
         player.moveTo(estate);
         map.initPlayers(player);
