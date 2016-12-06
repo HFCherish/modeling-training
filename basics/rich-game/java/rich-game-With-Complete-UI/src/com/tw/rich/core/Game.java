@@ -42,8 +42,7 @@ public class Game {
 
     public Player.Status execute(Command command) {
         if(command.equals(CommandFactory.Quit)) {
-            status = Status.END;
-//            System.exit(0);
+            endGame();
         }
         return currentPlayer.execute(command);
     }
@@ -57,6 +56,11 @@ public class Game {
         else currentPlayer.inTurn();
     }
 
+    void endGame() {
+        status = Status.END;
+        //            System.exit(0);
+    }
+
     public void inform(Player player) {
         if(currentPlayer.equals(player)) {
             if (player.getStatus().equals(Player.Status.BANKRUPT)) {
@@ -64,7 +68,7 @@ public class Game {
                 players.remove(player);
                 map.removePlayer(player);
                 if(players.size() == 1) {
-                    status = Status.END;
+                    endGame();
                 }
             } else if (player.getStatus().equals(Player.Status.WAIT_FOR_TURN)) {
                 nextPlayer();
