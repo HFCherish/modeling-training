@@ -80,6 +80,19 @@ public class GameMap {
     }
 
 
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public int getWidth() {
+
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public void initPlayers(Player... players) {
         this.players.addAll(asList(players));
     }

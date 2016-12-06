@@ -80,7 +80,7 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
     1. 为玩家设定颜色 -10: 20
     1. 依据玩家和地图创建游戏 -15: 15
 2. 显示map(多态行为: 不同类型的place显示不同的符号)
-    1. 显示地标 -15
+    1. 显示地标 -15 : 25
     1. 如果有炸弹,显示*; 如果有block,显示@ -5
     1. 如果有玩家,显示玩家颜色 - 15
     1. 不同级别的地产显示不同的数字 -5
