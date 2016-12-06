@@ -76,8 +76,8 @@ Feature: use polymorphism to implement, especially for ui comparing to rich-java
 ### IO TASKS
 1. 初始化game,依据输入的初始资金和玩家.
     1. 创建默认的map - 10: 12
-    1. 根据玩家身份信息创建玩家 - 15:
-    1. 为玩家设定颜色 -10:
+    1. 根据玩家身份信息创建玩家 - 15: 
+    1. 为玩家设定颜色 -10: 20
     1. 依据玩家和地图创建游戏 -15:
 2. 显示map(多态行为: 不同类型的place显示不同的符号)
     1. 显示地标 -15

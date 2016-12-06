@@ -17,6 +17,7 @@ public class Player {
     private Asset asset;
     private int luckyDays;
     private int stuckDays;
+    private PlayerIdentity identity;
 
     public Status execute(Command command) {
         if (status.equals(Status.WAIT_FORM_COMMAND) || status.equals(Status.WAIT_FOR_RESPONSE)) {
@@ -101,6 +102,16 @@ public class Player {
 
     public void joinGame(Game game) {
         this.game = game;
+    }
+
+    public static Player createWithIdentityAndFund_WaitTurn(PlayerIdentity playerIdentity, int initialFund) {
+        Player player = createPlayerWithFund_Wait_turn_State(initialFund);
+        player.identity = playerIdentity;
+        return player;
+    }
+
+    public PlayerIdentity getIdentity() {
+        return identity;
     }
 
     public enum Status {
