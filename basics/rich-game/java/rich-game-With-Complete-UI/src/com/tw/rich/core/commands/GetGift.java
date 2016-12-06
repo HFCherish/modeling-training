@@ -7,11 +7,6 @@ import com.tw.rich.core.assistenceItems.Gift;
  * Created by pzzheng on 11/28/16.
  */
 public class GetGift extends Command {
-    private Gift gift;
-
-    public GetGift(Gift gift) {
-        this.gift = gift;
-    }
 
     public GetGift() {
     }
@@ -23,8 +18,9 @@ public class GetGift extends Command {
 
     @Override
     public Command respond(Player player, Command response) {
-        if(((GetGift)response).gift != null) {
-            ((GetGift)response).gift.getThis(player);
+        Gift selectGift = Gift.findGiftById(((Selection) response).getSelection());
+        if (selectGift != null) {
+            selectGift.getThis(player);
         }
         player.endTurn();
         return null;

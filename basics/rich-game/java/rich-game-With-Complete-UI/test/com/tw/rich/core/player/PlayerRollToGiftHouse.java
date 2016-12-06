@@ -47,7 +47,7 @@ public class PlayerRollToGiftHouse {
         assertThat(player.getStatus(), is(Player.Status.WAIT_FOR_RESPONSE));
         assertThat(player.lastCommand instanceof GetGift, is(true));
 
-        player.execute(CommandFactory.GetGift(Gift.FUND_CARD));
+        player.execute(CommandFactory.Selection(Gift.FUND_CARD.ordinal() + 1));
 
         assertThat(player.getStatus(), is(Player.Status.WAIT_FOR_TURN));
         assertThat(player.getAsset().getFunds(), is(Gift.FUND_CARD.getValue()));
@@ -63,7 +63,7 @@ public class PlayerRollToGiftHouse {
         assertThat(player.getStatus(), is(Player.Status.WAIT_FOR_RESPONSE));
         assertThat(player.lastCommand instanceof GetGift, is(true));
 
-        player.execute(CommandFactory.GetGift(Gift.POINT_CARD));
+        player.execute(CommandFactory.Selection(Gift.POINT_CARD.ordinal() + 1));
 
         assertThat(player.getStatus(), is(Player.Status.WAIT_FOR_TURN));
         assertThat(player.getAsset().getPoints(), is(Gift.POINT_CARD.getValue()));
@@ -79,7 +79,7 @@ public class PlayerRollToGiftHouse {
         assertThat(player.getStatus(), is(Player.Status.WAIT_FOR_RESPONSE));
         assertThat(player.lastCommand instanceof GetGift, is(true));
 
-        player.execute(CommandFactory.GetGift(Gift.LUCKY_GOD));
+        player.execute(CommandFactory.Selection(Gift.LUCKY_GOD.ordinal() + 1));
 
         assertThat(player.getStatus(), is(Player.Status.WAIT_FOR_TURN));
         assertThat(player.isLucky(), is(true));

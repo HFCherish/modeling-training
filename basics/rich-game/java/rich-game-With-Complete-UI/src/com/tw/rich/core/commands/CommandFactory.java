@@ -44,7 +44,4 @@ public class CommandFactory {
         return new Selection(selection);
     }
 
-    public static Command GetGift(Gift gift) {
-        return new GetGift(gift);
-    }
 }

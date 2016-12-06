@@ -2,6 +2,8 @@ package com.tw.rich.core.assistenceItems;
 
 import com.tw.rich.core.player.Player;
 
+import java.util.Arrays;
+
 /**
  * Created by pzzheng on 11/27/16.
  */
@@ -26,6 +28,14 @@ public enum Gift {
 
     Gift(int value) {
         this.value = value;
+    }
+
+    /**
+     * @param id the id in Tool enum, started from 1
+     * @return
+     */
+    public static Gift findGiftById(int id) {
+        return Arrays.stream(Gift.values()).filter(gift -> gift.ordinal()+1 == id).findAny().orElse(null);
     }
 
     public abstract void getThis(Player player);
