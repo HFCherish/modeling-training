@@ -1,7 +1,5 @@
 package com.thoughtworks.mobileCharge.api.validators;
 
-import com.thoughtworks.mobileCharge.domain.Existent;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,10 +25,6 @@ public class Validators {
 
     public static Validator fieldNotEmpty(String field, String message) {
         return info -> info.getOrDefault(field, "").toString().isEmpty() ? Optional.of(message) : Optional.empty();
-    }
-
-    public static Validator objectExists(String field, String message, Existent existent) {
-        return info -> existent.findBy(info.get(field).toString()).isPresent() ? Optional.empty() : Optional.of(message);
     }
 
     public static Validator all(Validator... validators) {

@@ -1,3 +1,4 @@
+# api
 1. /users/uid
 	3. get 404 not exists - 10 : 15
 	3. get 404 current user is not uid- 10 : 18
@@ -56,16 +57,16 @@
         1. contains right remained data info - 15: 4
         1. contains right remained call minutes info - 15: 3
         1. contains right remained messages info - 15: 17
-        
-<!--18. /users/uid/package_purchases:-->
-	<!--19. post 201 -10:-->
-	<!--20. post 400 -15:-->
-	<!--21. get 404 -5:-->
-	<!--22. get 200 - 15:-->
-<!--23. /users/uid/top_ups:-->
-	<!--19. post 201 -10:-->
-	<!--20. post 400 -15:-->
-	<!--21. get 404 -5:-->
-	<!--22. get 200 - 15:-->
-<!--23. /products:-->
-	<!--24. get 200 -15:--> 
+
+
+
+# infrastructure
+1. modify gradle to contains mongo rather than jersey, write a simple test to see mongo is ok to use:
+    1. configuration: gradle, database configuration -10: 
+    1. can save to mongocollection with a simple test object (contains an id and a name) - 15:
+    1. can get from mongocollection -5:
+1. find user by id
+	2. contains right basic info - 15:
+	3. contains right phone card info -15:
+	4. contains right balance info -15:
+5. user.saveCallRecord

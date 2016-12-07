@@ -35,7 +35,7 @@ public class CallRecordsApiTest extends ApiSupport {
     @Test
     public void should_201_when_post_calls() {
         User user = spy(getUser(mock(Balance.class)));
-        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
+        when(userRepo.findById(eq(user.getId().id()))).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         CallRecord callRecord = mock(CallRecord.class);
         when(callRecord.getId()).thenReturn(new EntityId("1"));
@@ -62,7 +62,7 @@ public class CallRecordsApiTest extends ApiSupport {
     @Test
     public void should_400_when_post_calls_with_empty_input() {
         User user = getUser(mock(Balance.class));
-        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
+        when(userRepo.findById(eq(user.getId().id()))).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
         Response response = post(callsUrl(user), new HashMap());
@@ -72,7 +72,7 @@ public class CallRecordsApiTest extends ApiSupport {
     @Test
     public void should_400_when_post_calls_durantion_end_missed() {
         User user = getUser(mock(Balance.class));
-        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
+        when(userRepo.findById(eq(user.getId().id()))).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
         Response response = post(callsUrl(user), new HashMap() {
@@ -97,7 +97,7 @@ public class CallRecordsApiTest extends ApiSupport {
     public void should_404_when_post_call_record_to_other_card() {
         User user = getUser(mock(Balance.class));
         User currentUser = getUser(mock(Balance.class));
-        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(currentUser));
 
         Response response = post(callsUrl(user), new HashMap());
@@ -108,7 +108,7 @@ public class CallRecordsApiTest extends ApiSupport {
     @Test
     public void should_200_when_get_all_call_records() {
         User user = getUser(mock(Balance.class));
-        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         CallRecord callRecord = new CallRecord(new Locale("zh", "CN", "beijing"), user, DateTime.now(), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", beijingLocale()));
         when(callRecordQueryService.findAllOf(eq(user), anyInt())).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord)));
@@ -131,7 +131,7 @@ public class CallRecordsApiTest extends ApiSupport {
     @Test
     public void should_get_all_call_records_by_month() {
         User user = getUser(mock(Balance.class));
-        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
         CallRecord callRecord_Aug = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 8, 1, 1, 1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", beijingLocale()));

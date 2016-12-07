@@ -41,8 +41,8 @@ public class DataAccessRecordsApiTest extends ApiSupport {
     @Test
     public void should_400_when_post_data_access_record_if_input_incomplete() {
         User user = getUser(mock(Balance.class));
-        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
-        when(userRepo.findBy(eq("1"))).thenReturn(Optional.empty());
+        when(userRepo.findById(eq(user.getId().id()))).thenReturn(Optional.of(user));
+        when(userRepo.findById(eq("1"))).thenReturn(Optional.empty());
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
         Response response = post(dataAccessRecordsUrl(user), new HashMap());
@@ -53,7 +53,7 @@ public class DataAccessRecordsApiTest extends ApiSupport {
     @Test
     public void should_201_when_post_data_access_record() {
         User user = spy(getUser(mock(Balance.class)));
-        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
+        when(userRepo.findById(eq(user.getId().id()))).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         DataAccessRecord dataAccessRecord = mock(DataAccessRecord.class);
         when(dataAccessRecord.getId()).thenReturn(new EntityId("1"));
@@ -69,7 +69,7 @@ public class DataAccessRecordsApiTest extends ApiSupport {
     public void should_404_when_post_data_access_record_to_other_card() {
         User user = getUser(mock(Balance.class));
         User currentUser = getUser(mock(Balance.class));
-        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(currentUser));
 
         Response response = post(dataAccessRecordsUrl(user), TestHelper.dataAccessRecordMap());
@@ -81,7 +81,7 @@ public class DataAccessRecordsApiTest extends ApiSupport {
     @Test
     public void should_200_when_get_all_call_records() {
         User user = getUser(mock(Balance.class));
-        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         DataAccessRecord dataAccessRecord = new DataAccessRecord(user,
                 beijingLocale(),

@@ -39,8 +39,8 @@ public class MessageRecordsApiTest extends ApiSupport {
     @Test
     public void should_400_when_post_message_record_if_input_incomplete() {
         User user = getUser(mock(Balance.class));
-        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
-        when(userRepo.findBy(eq("1"))).thenReturn(Optional.empty());
+        when(userRepo.findById(eq(user.getId().id()))).thenReturn(Optional.of(user));
+        when(userRepo.findById(eq("1"))).thenReturn(Optional.empty());
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
         Response response = post(messageRecordsUrl(user), new HashMap());
@@ -51,7 +51,7 @@ public class MessageRecordsApiTest extends ApiSupport {
     @Test
     public void should_201_when_post_messages() {
         User user = spy(getUser(mock(Balance.class)));
-        when(userRepo.findBy(eq(user.getId().id()))).thenReturn(Optional.of(user));
+        when(userRepo.findById(eq(user.getId().id()))).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         MessageRecord messageRecord = mock(MessageRecord.class);
         when(messageRecord.getId()).thenReturn(new EntityId("1"));
@@ -67,7 +67,7 @@ public class MessageRecordsApiTest extends ApiSupport {
     public void should_404_when_post_message_record_to_other_card() {
         User user = getUser(mock(Balance.class));
         User currentUser = getUser(mock(Balance.class));
-        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(currentUser));
 
         Response response = post(messageRecordsUrl(user), TestHelper.messageRecordMap());
@@ -79,7 +79,7 @@ public class MessageRecordsApiTest extends ApiSupport {
     @Test
     public void should_200_when_get_all_call_records() {
         User user = getUser(mock(Balance.class));
-        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         MessageRecord messageRecord = new MessageRecord(user,
                 beijingLocale(),

@@ -28,7 +28,7 @@ public class UserApiTest extends ApiSupport{
 
     @Test
     public void should_404_when_get_card_and_card_not_exists() {
-        when(userRepo.findBy(anyString())).thenReturn(Optional.empty());
+        when(userRepo.findById(anyString())).thenReturn(Optional.empty());
         Response response = get("users/1");
         assertThat(response.getStatus(), is(404));
     }
@@ -37,7 +37,7 @@ public class UserApiTest extends ApiSupport{
     public void should_404_when_get_card_and_current_user_is_not_uid() {
         User user = TestHelper.getUser(mock(Balance.class));
         User otherUser = TestHelper.getUser(mock(Balance.class));
-        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(otherUser));
         Response response = get("users/"+ user.getId().id());
         assertThat(response.getStatus(), is(404));
@@ -46,7 +46,7 @@ public class UserApiTest extends ApiSupport{
     @Test
     public void should_200_when_get_card() {
         User user = TestHelper.getUser(mock(Balance.class));
-        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
         Response response = get("users/"+ user.getId().id());
@@ -61,7 +61,7 @@ public class UserApiTest extends ApiSupport{
     public void should_404_when_get_balance_and_current_user_is_not_uid() {
         User user = TestHelper.getUser(new Balance());
         User otherUser = TestHelper.getUser(mock(Balance.class));
-        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(otherUser));
 
         Response response = get("users/"+ user.getId().id() + "/balance");
@@ -72,7 +72,7 @@ public class UserApiTest extends ApiSupport{
     @Test
     public void should_200_when_get_balance_and_current_user_is_not_uid() {
         User user = TestHelper.getUser(new Balance());
-        when(userRepo.findBy(anyString())).thenReturn(Optional.of(user));
+        when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
         Response response = get("users/"+ user.getId().id() + "/balance");
