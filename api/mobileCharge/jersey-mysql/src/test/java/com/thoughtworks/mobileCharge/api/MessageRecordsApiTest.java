@@ -3,7 +3,7 @@ package com.thoughtworks.mobileCharge.api;
 import com.thoughtworks.mobileCharge.domain.EntityId;
 import com.thoughtworks.mobileCharge.domain.PaginatedList;
 import com.thoughtworks.mobileCharge.domain.user.*;
-import com.thoughtworks.mobileCharge.support.ApiSupport;
+import com.thoughtworks.mobileCharge.support.ApiSupportWithMock;
 import com.thoughtworks.mobileCharge.support.ApiTestRunner;
 import com.thoughtworks.mobileCharge.support.TestHelper;
 import com.thoughtworks.mobileCharge.util.LocaleFormatter;
@@ -30,7 +30,7 @@ import static org.mockito.Mockito.when;
  * Created by pzzheng on 11/29/16.
  */
 @RunWith(ApiTestRunner.class)
-public class MessageRecordsApiTest extends ApiSupport {
+public class MessageRecordsApiTest extends ApiSupportWithMock {
 
     public String messageRecordsUrl(User user) {
         return "users/" + user.getId().id() + "/messages";

@@ -1,8 +1,6 @@
 package com.thoughtworks.mobileCharge.support;
 
 import com.thoughtworks.mobileCharge.api.jersey.CORSResponseFilter;
-import com.thoughtworks.mobileCharge.api.jersey.OpenSessionInViewRequestFilter;
-import com.thoughtworks.mobileCharge.api.jersey.OpenSessionInViewResponseFilter;
 import com.thoughtworks.mobileCharge.api.jersey.RoutesFeature;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.filter.LoggingFilter;
@@ -15,8 +13,8 @@ public class ApiForTest extends ResourceConfig {
         register(RoutesFeature.class);
         register(LoggingFilter.class);
         register(CORSResponseFilter.class);
-        register(OpenSessionInViewRequestFilter.class);
-        register(OpenSessionInViewResponseFilter.class);
+//        register(OpenSessionInViewRequestFilter.class);
+//        register(OpenSessionInViewResponseFilter.class);
         register(new AbstractBinder() {
             @Override
             protected void configure() {

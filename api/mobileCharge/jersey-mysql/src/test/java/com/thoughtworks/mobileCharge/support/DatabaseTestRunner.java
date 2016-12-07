@@ -1,7 +1,7 @@
 package com.thoughtworks.mobileCharge.support;
 
 import com.google.inject.AbstractModule;
-import org.apache.ibatis.session.SqlSessionManager;
+import org.jongo.Jongo;
 import org.junit.rules.TestRule;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
@@ -13,8 +13,10 @@ import java.util.List;
 import static java.util.Arrays.asList;
 
 public class DatabaseTestRunner extends InjectBasedRunner {
+//    @Inject
+//    private SqlSessionManager sqlSessionManager;
     @Inject
-    private SqlSessionManager sqlSessionManager;
+    Jongo jongo;
 
     public DatabaseTestRunner(final Class<?> clazz) throws InitializationError {
         super(clazz);
@@ -32,15 +34,16 @@ public class DatabaseTestRunner extends InjectBasedRunner {
     private final TestRule rollbackSessionManager = (base, description) -> new Statement() {
         @Override
         public void evaluate() throws Throwable {
-            sqlSessionManager.startManagedSession();
+//            sqlSessionManager.startManagedSession();
             try {
                 base.evaluate();
             } finally {
-                try {
-                    sqlSessionManager.rollback(true);
-                } finally {
-                    sqlSessionManager.close();
-                }
+//                try {
+////                    sqlSessionManager.rollback(true);
+//                } finally {
+////                    sqlSessionManager.close();
+//                }
+//                jongo.getCollection("users").remove();
             }
         }
     };

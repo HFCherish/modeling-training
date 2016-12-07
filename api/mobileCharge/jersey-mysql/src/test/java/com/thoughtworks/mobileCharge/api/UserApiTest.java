@@ -2,7 +2,7 @@ package com.thoughtworks.mobileCharge.api;
 
 import com.thoughtworks.mobileCharge.domain.user.Balance;
 import com.thoughtworks.mobileCharge.domain.user.User;
-import com.thoughtworks.mobileCharge.support.ApiSupport;
+import com.thoughtworks.mobileCharge.support.ApiSupportWithMock;
 import com.thoughtworks.mobileCharge.support.ApiTestRunner;
 import com.thoughtworks.mobileCharge.support.TestHelper;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
  * Created by pzzheng on 11/29/16.
  */
 @RunWith(ApiTestRunner.class)
-public class UserApiTest extends ApiSupport{
+public class UserApiTest extends ApiSupportWithMock {
 
     @Test
     public void should_404_when_get_card_and_card_not_exists() {

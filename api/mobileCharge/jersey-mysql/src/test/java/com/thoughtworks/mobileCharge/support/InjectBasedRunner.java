@@ -25,7 +25,6 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Properties;
 
 import static com.google.inject.Guice.createInjector;
 import static java.util.Arrays.asList;
@@ -61,28 +60,28 @@ public abstract class InjectBasedRunner extends BlockJUnit4ClassRunner {
     }
 
     private List<AbstractModule> getAbstractModules() {
-        Properties properties = new Properties();
-        String dbname = System.getenv().getOrDefault("DB_ON_CREATE_DB", "data_store");
-        String host = System.getenv().getOrDefault("DB_HOST", "localhost");
-        String port = System.getenv().getOrDefault("DB_PORT", "3306");
-        String username = System.getenv().getOrDefault("DB_MYSQL_USER", "mysql");
-        String password = System.getenv().getOrDefault("DB_MYSQL_PASS", "mysql");
-        String connectURL = String.format(
-                "jdbc:mysql://%s:%s/%s?user=%s&password=%s&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull",
-                host,
-                port,
-                dbname,
-                username,
-                password
-        );
-        properties.setProperty("db.url", connectURL);
+//        Properties properties = new Properties();
+//        String dbname = System.getenv().getOrDefault("DB_ON_CREATE_DB", "data_store");
+//        String host = System.getenv().getOrDefault("DB_HOST", "localhost");
+//        String port = System.getenv().getOrDefault("DB_PORT", "3306");
+//        String username = System.getenv().getOrDefault("DB_MYSQL_USER", "mysql");
+//        String password = System.getenv().getOrDefault("DB_MYSQL_PASS", "mysql");
+//        String connectURL = String.format(
+//                "jdbc:mysql://%s:%s/%s?user=%s&password=%s&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull",
+//                host,
+//                port,
+//                dbname,
+//                username,
+//                password
+//        );
+//        properties.setProperty("db.url", connectURL);
         List<AbstractModule> modules = new ArrayList<>(asList(new AbstractModule[]{
-                new AbstractModule() {
-                    @Override
-                    protected void configure() {
-                    }
-                },
-                new Models("development", properties),
+//                new AbstractModule() {
+//                    @Override
+//                    protected void configure() {
+//                    }
+//                },
+                new Models("development"),
                 new AbstractModule() {
                     @Override
                     protected void configure() {
@@ -90,18 +89,18 @@ public abstract class InjectBasedRunner extends BlockJUnit4ClassRunner {
                         bind(ServiceLocator.class).toInstance(locator);
 
                         bind(javax.ws.rs.core.Application.class).toProvider(ApplicationProvider.class);
+                        bind(ApiSupportWithMock.ClientConfigurator.class).toInstance(config -> {
+                            config.register(JacksonFeature.class);
+                        });
+//                        bind(ApiSupportWithMock.SetUp.class).toInstance(() -> {
+//
+//                        });
                         bind(ApiSupport.ClientConfigurator.class).toInstance(config -> {
                             config.register(JacksonFeature.class);
                         });
-                        bind(ApiSupport.SetUp.class).toInstance(() -> {
-
-                        });
-                        bind(ApiSupportNonMock.ClientConfigurator.class).toInstance(config -> {
-                            config.register(JacksonFeature.class);
-                        });
-                        bind(ApiSupportNonMock.SetUp.class).toInstance(() -> {
-
-                        });
+//                        bind(ApiSupport.SetUp.class).toInstance(() -> {
+//
+//                        });
                         bind(EncryptionService.class).to(DefaultEncryptionService.class);
                     }
                 }}));

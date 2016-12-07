@@ -1,19 +1,9 @@
 package com.thoughtworks.mobileCharge.support;
 
-import com.thoughtworks.mobileCharge.api.AuthorizationService;
-import com.thoughtworks.mobileCharge.api.exception.IllegalArgumentExceptionMapper;
-import com.thoughtworks.mobileCharge.api.jersey.*;
-import com.thoughtworks.mobileCharge.api.services.DataAccessRecordQueryService;
-import com.thoughtworks.mobileCharge.api.services.MessageRecordQueryService;
-import com.thoughtworks.mobileCharge.domain.CurrentUserService;
-import com.thoughtworks.mobileCharge.api.services.CallRecordQueryService;
-import com.thoughtworks.mobileCharge.domain.user.UserRepo;
-import com.thoughtworks.mobileCharge.infrastructure.services.AuthorizationServiceImpl;
 import com.thoughtworks.mobileCharge.util.Json;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.servlet.ServletRegistration;
 import org.glassfish.grizzly.servlet.WebappContext;
-import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -51,19 +41,17 @@ public class ApiSupport {
     @Inject
     ClientConfigurator clientConfigurator;
 
-    @Inject
-    SetUp setUp;
+//    @Inject
+//    SetUp setUp;
 
     @Inject
     @Named("server_uri")
     private String serverUri;
     protected String token = "";
 
-    protected UserRepo userRepo = mock(UserRepo.class);
-    protected MessageRecordQueryService messageRecordQueryService = mock(MessageRecordQueryService.class);
-    protected CallRecordQueryService callRecordQueryService = mock(CallRecordQueryService.class);
-    protected DataAccessRecordQueryService dataAccessRecordQueryService = mock(DataAccessRecordQueryService.class);
-    protected CurrentUserService currentUserService = mock(CurrentUserService.class);
+//    protected UserRepo userRepo = mock(UserRepo.class);
+//    protected CallRecordQueryService callRecordQueryService = mock(CallRecordQueryService.class);
+//    protected CurrentUserService currentUserService = mock(CurrentUserService.class);
 
     @Before
     public void setUp() throws Exception {
@@ -72,26 +60,26 @@ public class ApiSupport {
         test = new JerseyTest() {
             @Override
             protected Application configure() {
-                application = new ResourceConfig()
-                        .packages("com.thoughtworks.mobileCharge.api")
-                        .register(RecordListWriter.class)
-                        .register(RecordWriter.class)
-                        .register(PageToJson.class)
-                        .register(RoutesFeature.class)
-                        .register(LoggingFilter.class)
-                        .register(CORSResponseFilter.class)
-                        .register(IllegalArgumentExceptionMapper.class)
-                        .register(new AbstractBinder() {
-                            @Override
-                            protected void configure() {
-                                bind(userRepo).to(UserRepo.class);
-                                bind(currentUserService).to(CurrentUserService.class);
-                                bind(callRecordQueryService).to(CallRecordQueryService.class);
-                                bind(messageRecordQueryService).to(MessageRecordQueryService.class);
-                                bind(dataAccessRecordQueryService).to(DataAccessRecordQueryService.class);
-                                bind(AuthorizationServiceImpl.class).to(AuthorizationService.class);
-                            }
-                        });
+//                application = new ResourceConfig()
+//                        .packages("com.thoughtworks.mobileCharge.api")
+//                        .register(RecordListWriter.class)
+//                        .register(RecordWriter.class)
+//                        .register(PageToJson.class)
+//                        .register(RoutesFeature.class)
+//                        .register(LoggingFilter.class)
+//                        .register(CORSResponseFilter.class)
+//                        .register(OpenSessionInViewRequestFilter.class)
+//                        .register(OpenSessionInViewResponseFilter.class)
+//                        .register(IllegalArgumentExceptionMapper.class)
+//                        .register(new AbstractBinder() {
+//                            @Override
+//                            protected void configure() {
+//                                bind(userRepo).to(UserRepo.class);
+//                                bind(currentUserService).to(CurrentUserService.class);
+//                                bind(callRecordQueryService).to(CallRecordQueryService.class);
+//                                bind(AuthorizationServiceImpl.class).to(AuthorizationService.class);
+//                            }
+//                        });
                 return application;
             }
 
@@ -113,7 +101,7 @@ public class ApiSupport {
         };
 
         test.setUp();
-        setUp.before();
+//        setUp.before();
     }
 
     @After
@@ -238,7 +226,7 @@ public class ApiSupport {
         return false;
     }
 
-    public static interface SetUp {
-        public void before() throws IOException;
-    }
+//    public static interface SetUp {
+//        public void before() throws IOException;
+//    }
 }

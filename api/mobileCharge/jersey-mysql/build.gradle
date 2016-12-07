@@ -3,30 +3,30 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.flywaydb:flyway-gradle-plugin:3.0"
-        classpath 'mysql:mysql-connector-java:5.1.34'
+//        classpath "org.flywaydb:flyway-gradle-plugin:3.0"
+//        classpath 'mysql:mysql-connector-java:5.1.34'
     }
 }
 
 apply plugin: 'application'
 apply plugin: 'java'
-apply plugin: 'flyway'
+//apply plugin: 'flyway'
 apply plugin: 'idea'
 
-def currentEnv = System.getenv()
+//def currentEnv = System.getenv()
 
 mainClassName = "com.thoughtworks.mobileCharge.MainServer"
 
-flyway {
-    driver = 'com.mysql.jdbc.Driver'
-    url = String.format(
-            "jdbc:mysql://%s:%s/%s?user=%s&password=%s&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull",
-            currentEnv.getOrDefault("DB_HOST", "localhost"),
-            currentEnv.getOrDefault("DB_PORT", 3306),
-            currentEnv.getOrDefault("DB_ON_CREATE_DB", "data_store"),
-            currentEnv.getOrDefault("DB_MYSQL_USER", "mysql"),
-            currentEnv.getOrDefault("DB_MYSQL_PASS", "mysql"))
-}
+//flyway {
+//    driver = 'com.mysql.jdbc.Driver'
+//    url = String.format(
+//            "jdbc:mysql://%s:%s/%s?user=%s&password=%s&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull",
+//            currentEnv.getOrDefault("DB_HOST", "localhost"),
+//            currentEnv.getOrDefault("DB_PORT", 3306),
+//            currentEnv.getOrDefault("DB_ON_CREATE_DB", "data_store"),
+//            currentEnv.getOrDefault("DB_MYSQL_USER", "mysql"),
+//            currentEnv.getOrDefault("DB_MYSQL_PASS", "mysql"))
+//}
 
 repositories {
     jcenter()
@@ -54,8 +54,8 @@ ext {
     hamcrest = '1.3'
     slf4j = '1.7.13'
     guava = '18.0'
-    mybatis = '3.3.0'
-    mybatis_guice = '3.7'
+//    mybatis = '3.3.0'
+//    mybatis_guice = '3.7'
     guice_bridge = '2.4.0-b09'
     jackson_joda = '2.4.0'
 }
@@ -63,15 +63,16 @@ ext {
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 dependencies {
-//    compile "org.jongo:jongo:1.3.0"
+    compile "org.jongo:jongo:1.3.0"
+    compile "org.mongodb:mongo-java-driver:2.12.2"
     compile "org.slf4j:slf4j-api:$slf4j"
     compile "org.slf4j:jcl-over-slf4j:$slf4j"
     compile "org.slf4j:slf4j-log4j12:$slf4j"
     compile files("lib/jbcrypt.jar")
 
-    compile "org.mybatis:mybatis:$mybatis"
+//    compile "org.mybatis:mybatis:$mybatis"
     compile "org.glassfish.hk2:guice-bridge:$guice_bridge"
-    compile "org.mybatis:mybatis-guice:$mybatis_guice"
+//    compile "org.mybatis:mybatis-guice:$mybatis_guice"
 
     compile "org.glassfish.jersey.core:jersey-server:$jersey"
     compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jersey"
@@ -99,7 +100,7 @@ dependencies {
     itestCompile "org.glassfish.jersey.core:jersey-server:$jersey"
     itestCompile "org.glassfish.jersey.media:jersey-media-json-jackson:$jersey"
 
-    runtime 'mysql:mysql-connector-java:5.1.34'
+//    runtime 'mysql:mysql-connector-java:5.1.34'
 
     testCompile "junit:junit:$junit"
     testCompile "org.hamcrest:hamcrest-all:$hamcrest"
@@ -109,71 +110,71 @@ dependencies {
     testCompile "org.glassfish.jersey.test-framework.providers:jersey-test-framework-provider-grizzly2:$jersey"
 }
 
-task standaloneJar(type: Jar, dependsOn: jar) {
-    baseName = "app"
-    classifier = "standalone"
-    version = ""
+//task standaloneJar(type: Jar, dependsOn: jar) {
+//    baseName = "app"
+//    classifier = "standalone"
+//    version = ""
+//
+//    from files(sourceSets.main.output.classesDir)
+//    from files(sourceSets.main.output.resourcesDir)
+//
+//    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+//
+//    exclude("META-INF/*.SF")
+//    exclude("META-INF/*.DSA")
+//    exclude("META-INF/*.RSA")
+//    exclude("META-INF/*.RSA")
+//    exclude("META-INF/*.RSA")
+//    manifest {
+//        attributes 'Main-Class': "$main"
+//    }
+//}
 
-    from files(sourceSets.main.output.classesDir)
-    from files(sourceSets.main.output.resourcesDir)
+//task itestJar(type: Jar, dependsOn: jar) {
+//    baseName = "verify"
+//    classifier = "standalone"
+//    version = ""
+//
+//    from files(sourceSets.itest.output.classesDir)
+//    from files(sourceSets.itest.output.resourcesDir)
+//
+//    from configurations.itestCompile.asFileTree.files.collect { zipTree(it) }
+//
+//    exclude("META-INF/*.SF")
+//    exclude("META-INF/*.DSA")
+//    exclude("META-INF/*.RSA")
+//    exclude("META-INF/*.RSA")
+//    exclude("META-INF/*.RSA")
+//    manifest {
+//        attributes 'Main-Class': 'specs.Main'
+//    }
+//}
 
-    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+//task itest(type: Exec) {
+//    def _env = [:]
+//    _env << System.getenv();
+//    environment = _env
+//    commandLine 'java', '-jar', "build/libs/verify-standalone.jar"
+//}
 
-    exclude("META-INF/*.SF")
-    exclude("META-INF/*.DSA")
-    exclude("META-INF/*.RSA")
-    exclude("META-INF/*.RSA")
-    exclude("META-INF/*.RSA")
-    manifest {
-        attributes 'Main-Class': "$main"
-    }
-}
+//itest.dependsOn itestJar
 
-task itestJar(type: Jar, dependsOn: jar) {
-    baseName = "verify"
-    classifier = "standalone"
-    version = ""
+//itestJar.dependsOn itestClasses
 
-    from files(sourceSets.itest.output.classesDir)
-    from files(sourceSets.itest.output.resourcesDir)
+//task integrationTest(type: Test) {
+//    testClassesDir = sourceSets.itest.output.classesDir
+//    classpath = sourceSets.itest.runtimeClasspath
+//}
 
-    from configurations.itestCompile.asFileTree.files.collect { zipTree(it) }
-
-    exclude("META-INF/*.SF")
-    exclude("META-INF/*.DSA")
-    exclude("META-INF/*.RSA")
-    exclude("META-INF/*.RSA")
-    exclude("META-INF/*.RSA")
-    manifest {
-        attributes 'Main-Class': 'specs.Main'
-    }
-}
-
-task itest(type: Exec) {
-    def _env = [:]
-    _env << System.getenv();
-    environment = _env
-    commandLine 'java', '-jar', "build/libs/verify-standalone.jar"
-}
-
-itest.dependsOn itestJar
-
-itestJar.dependsOn itestClasses
-
-task integrationTest(type: Test) {
-    testClassesDir = sourceSets.itest.output.classesDir
-    classpath = sourceSets.itest.runtimeClasspath
-}
-
-task initDataInDB(){
-    doFirst {
-        flyway {
-            locations = ['classpath:db/init']
-            initOnMigrate = true
-            table = 'schema_version_for_data'
-        }
-    }
-    doLast {
-        tasks.flywayMigrate.execute()
-    }
-}
+//task initDataInDB(){
+//    doFirst {
+//        flyway {
+//            locations = ['classpath:db/init']
+//            initOnMigrate = true
+//            table = 'schema_version_for_data'
+//        }
+//    }
+//    doLast {
+//        tasks.flywayMigrate.execute()
+//    }
+//}

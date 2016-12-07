@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.thoughtworks.mobileCharge.infrastructure.mybatis.mappers.UserMapper">
-    <insert id="save">
-        INSERT INTO users (id, name, email, role, password)
-        VALUES (#{owner.userId.id}, #{owner.name}, #{owner.email}, #{owner.role},  #{owner.password})
-    </insert>
+<!--<?xml version="1.0" encoding="UTF-8" ?>-->
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >-->
+<!--<mapper namespace="com.thoughtworks.mobileCharge.infrastructure.mybatis.mappers.UserMapper">-->
+    <!--<insert id="save">-->
+        <!--INSERT INTO users (id, name, email, role, password)-->
+        <!--VALUES (#{owner.userId.id}, #{owner.name}, #{owner.email}, #{owner.role},  #{owner.password})-->
+    <!--</insert>-->
 
-    <select id="ofId" resultMap="records.owner">
-        SELECT
-          <include refid="columns.owner"/>
-        FROM users U
-        WHERE U.id = #{id}
-    </select>
-    <select id="findByUserName" resultMap="records.owner">
-        SELECT
-        <include refid="columns.owner"/>
-        FROM users U
-        WHERE U.name = #{userName}
-    </select>
-</mapper>
+    <!--<select id="ofId" resultMap="records.owner">-->
+        <!--SELECT-->
+          <!--<include refid="columns.owner"/>-->
+        <!--FROM users U-->
+        <!--WHERE U.id = #{id}-->
+    <!--</select>-->
+    <!--<select id="findByUserName" resultMap="records.owner">-->
+        <!--SELECT-->
+        <!--<include refid="columns.owner"/>-->
+        <!--FROM users U-->
+        <!--WHERE U.name = #{userName}-->
+    <!--</select>-->
+<!--</mapper>-->

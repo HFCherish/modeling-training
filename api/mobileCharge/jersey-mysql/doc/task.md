@@ -62,7 +62,7 @@
 
 # infrastructure
 1. modify gradle to contains mongo rather than jersey, write a simple test to see mongo is ok to use:
-    1. configuration: gradle, database configuration -10: 
+    1. configuration: gradle, database configuration -10: 35 
     1. can save to mongocollection with a simple test object (contains an id and a name) - 15:
     1. can get from mongocollection -5:
 1. find user by id

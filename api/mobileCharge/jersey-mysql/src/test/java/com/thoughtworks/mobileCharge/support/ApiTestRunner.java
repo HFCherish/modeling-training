@@ -1,8 +1,7 @@
 package com.thoughtworks.mobileCharge.support;
 
 import com.google.inject.AbstractModule;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionManager;
+import org.jongo.Jongo;
 import org.junit.rules.TestRule;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
@@ -11,15 +10,15 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class ApiTestRunner extends InjectBasedRunner {
+//    @Inject
+//    private SqlSessionFactory sqlSessionFactory;
+//
+//    @Inject
+//    private SqlSessionManager sqlSessionManager;
     @Inject
-    private SqlSessionFactory sqlSessionFactory;
-
-    @Inject
-    private SqlSessionManager sqlSessionManager;
+    Jongo jongo;
 
     public ApiTestRunner(Class<?> klass) throws InitializationError {
         super(klass);
@@ -31,6 +30,7 @@ public class ApiTestRunner extends InjectBasedRunner {
             try {
                 base.evaluate();
             } finally {
+//                jongo.getCollection("users").remove();
 //                SqlSession sqlSession = sqlSessionFactory.openSession();
 //                Connection connection = sqlSession.getConnection();
 //                java.sql.Statement statement = connection.createStatement();
@@ -51,50 +51,50 @@ public class ApiTestRunner extends InjectBasedRunner {
 
             @Override
             protected void configure() {
-                bind(TransactionManager.class).toInstance(new TransactionManager() {
-                    @Override
-                    public <T> void commit(T parameter, Consumer<T> consumer) {
-                        sqlSessionManager.startManagedSession();
-                        try {
-                            consumer.accept(parameter);
-                            sqlSessionManager.commit();
-                        } catch (Exception e) {
-                            sqlSessionManager.rollback();
-                            throw e;
-                        } finally {
-                            sqlSessionManager.close();
-                        }
-                    }
-
-                    @Override
-                    public <T> T commit(Supplier<T> consumer) {
-                        sqlSessionManager.startManagedSession();
-                        try {
-                            T result = consumer.get();
-                            sqlSessionManager.commit();
-                            return result;
-                        } catch (Exception e) {
-                            sqlSessionManager.rollback();
-                            throw e;
-                        } finally {
-                            sqlSessionManager.close();
-                        }
-                    }
-
-                    @Override
-                    public <T> void commit(Consumer<T> consumer) {
-                        sqlSessionManager.startManagedSession();
-                        try {
-                            consumer.accept(null);
-                            sqlSessionManager.commit();
-                        } catch (Exception e) {
-                            sqlSessionManager.rollback();
-                            throw e;
-                        } finally {
-                            sqlSessionManager.close();
-                        }
-                    }
-                });
+//                bind(TransactionManager.class).toInstance(new TransactionManager() {
+//                    @Override
+//                    public <T> void commit(T parameter, Consumer<T> consumer) {
+//                        sqlSessionManager.startManagedSession();
+//                        try {
+//                            consumer.accept(parameter);
+//                            sqlSessionManager.commit();
+//                        } catch (Exception e) {
+//                            sqlSessionManager.rollback();
+//                            throw e;
+//                        } finally {
+//                            sqlSessionManager.close();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public <T> T commit(Supplier<T> consumer) {
+//                        sqlSessionManager.startManagedSession();
+//                        try {
+//                            T result = consumer.get();
+//                            sqlSessionManager.commit();
+//                            return result;
+//                        } catch (Exception e) {
+//                            sqlSessionManager.rollback();
+//                            throw e;
+//                        } finally {
+//                            sqlSessionManager.close();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public <T> void commit(Consumer<T> consumer) {
+//                        sqlSessionManager.startManagedSession();
+//                        try {
+//                            consumer.accept(null);
+//                            sqlSessionManager.commit();
+//                        } catch (Exception e) {
+//                            sqlSessionManager.rollback();
+//                            throw e;
+//                        } finally {
+//                            sqlSessionManager.close();
+//                        }
+//                    }
+//                });
             }
         });
     }

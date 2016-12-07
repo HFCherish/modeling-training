@@ -20,27 +20,27 @@ import static org.jvnet.hk2.guice.bridge.api.GuiceBridge.getGuiceBridge;
 public class Api extends ResourceConfig {
     @Inject
     public Api(ServiceLocator locator) throws Exception {
-        Properties properties = new Properties();
-        String dbname = System.getenv().getOrDefault("DB_ON_CREATE_DB", "data_store");
-        String host = System.getenv().getOrDefault("DB_HOST", "localhost");
-        String port = System.getenv().getOrDefault("DB_PORT", "3306");
-        String username = System.getenv().getOrDefault("DB_MYSQL_USER", "mysql");
-        String password = System.getenv().getOrDefault("DB_MYSQL_PASS", "mysql");
-        String connectURL = String.format(
-                "jdbc:mysql://%s:%s/%s?user=%s&password=%s&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull",
-                host,
-                port,
-                dbname,
-                username,
-                password
-        );
-        String redistHost = System.getenv().getOrDefault("REDIS_HOST", "127.0.0.1");
-        String redisPort = System.getenv().getOrDefault("REDIS_PORT", "6379");
-        final String redisURL = String.format("%s:%s", redistHost, redisPort);
+//        Properties properties = new Properties();
+//        String dbname = System.getenv().getOrDefault("MONGODB_DATABASE", "mongodb_store");
+//        String host = System.getenv().getOrDefault("MONGODB_HOST", "localhost");
+//        String port = System.getenv().getOrDefault("MONGODB_PORT", "27017");
+//        String username = System.getenv().getOrDefault("MONGODB_USER", "admin");
+//        String password = System.getenv().getOrDefault("MONGODB_PASS", "mypass");
+//        String connectURL = String.format(
+//                "mongodb://%s:%s@%s:%s/%s",
+//                username,
+//                password,
+//                host,
+//                port,
+//                dbname
+//        );
+//        String redistHost = System.getenv().getOrDefault("REDIS_HOST", "127.0.0.1");
+//        String redisPort = System.getenv().getOrDefault("REDIS_PORT", "6379");
+//        final String redisURL = String.format("%s:%s", redistHost, redisPort);
+//
+//        properties.setProperty("db.url", connectURL);
 
-        properties.setProperty("db.url", connectURL);
-
-        bridge(locator, Guice.createInjector(new Models("development", properties), new AbstractModule() {
+        bridge(locator, Guice.createInjector(new Models("development"), new AbstractModule() {
             @Override
             protected void configure() {
                 bind(ServiceLocator.class).toInstance(locator);
@@ -52,8 +52,8 @@ public class Api extends ResourceConfig {
         register(RoutesFeature.class);
         register(LoggingFilter.class);
         register(CORSResponseFilter.class);
-        register(OpenSessionInViewRequestFilter.class);
-        register(OpenSessionInViewResponseFilter.class);
+//        register(OpenSessionInViewRequestFilter.class);
+//        register(OpenSessionInViewResponseFilter.class);
         register(new AbstractBinder() {
             @Override
             protected void configure() {
