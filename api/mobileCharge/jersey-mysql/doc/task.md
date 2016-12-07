@@ -64,7 +64,12 @@
 1. modify gradle to contains mongo rather than jersey, write a simple test to see mongo is ok to use:
     1. configuration: gradle, database configuration -10: 35 
     1. can save to mongocollection with a simple test object (contains an id and a name) - 15:
-    1. can get from mongocollection -5:
+        1. save code :24
+        1. install mongodb and run it :16
+        1. stuck at connection failure :52 (reason: the java mongodb-driver version is in consistent with local installed mongodb server version, and authentication schema between the two is different.)
+        1. fix unmarshall bug (orm) :7 (reason: need a non-parameter constructor)
+        1. fix assertion error :2 (reason: should rollback after each running)
+    1. can get from mongocollection -5: 2
 1. find user by id
 	2. contains right basic info - 15:
 	3. contains right phone card info -15:

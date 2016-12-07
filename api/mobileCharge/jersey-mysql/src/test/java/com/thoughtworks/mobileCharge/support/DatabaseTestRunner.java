@@ -43,7 +43,7 @@ public class DatabaseTestRunner extends InjectBasedRunner {
 //                } finally {
 ////                    sqlSessionManager.close();
 //                }
-//                jongo.getCollection("users").remove();
+                jongo.getCollection("tests").remove();
             }
         }
     };

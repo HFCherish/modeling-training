@@ -4,6 +4,10 @@ import com.google.inject.AbstractModule;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.thoughtworks.mobileCharge.domain.test.TestRepo;
+import com.thoughtworks.mobileCharge.infrastructure.mappers.MyTestMapper;
+import com.thoughtworks.mobileCharge.infrastructure.mongo.MyTestDB;
+import com.thoughtworks.mobileCharge.infrastructure.repositories.TestRepoImpl;
 import org.jongo.Jongo;
 
 import java.net.UnknownHostException;
@@ -42,7 +46,7 @@ public class Models extends AbstractModule {
     protected void configure() {
 //        bindPersistence();
         String dbname = System.getenv().getOrDefault("MONGODB_DATABASE", "mongodb_store");
-        String host = System.getenv().getOrDefault("MONGODB_HOST", "localhost");
+        String host = System.getenv().getOrDefault("MONGODB_HOST", "127.0.0.1");
         String port = System.getenv().getOrDefault("MONGODB_PORT", "27017");
         String username = System.getenv().getOrDefault("MONGODB_USER", "admin");
         String password = System.getenv().getOrDefault("MONGODB_PASS", "mypass");
@@ -64,7 +68,8 @@ public class Models extends AbstractModule {
         DB db = mongoClient.getDB(dbname);
         Jongo jongo = new Jongo(db);
         bind(Jongo.class).toInstance(jongo);
-
+        bind(TestRepo.class).to(TestRepoImpl.class);
+        bind(MyTestMapper.class).to(MyTestDB.class);
     }
 
 //    private void bindPersistence() {
