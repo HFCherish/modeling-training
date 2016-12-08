@@ -70,6 +70,12 @@
         1. fix unmarshall bug (orm) :7 (reason: need a non-parameter constructor)
         1. fix assertion error :2 (reason: should rollback after each running)
     1. can get from mongocollection -5: 2
+    1. use latest version of mongo-driver, and discard jongo (not support latest mongo-driver)
+        1. study mongo-driver 3.4.0 usage (crud, orm) -60: 100
+        2. modify the simple test to use mongo-driver 3.4.0
+            1. save -15:
+            2. get (implement orm by self)-15: 20
+            2. get (try to do orm using code registry)-20:
 1. find user by id
 	2. contains right basic info - 15:
 	3. contains right phone card info -15:

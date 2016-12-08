@@ -1,7 +1,7 @@
 package com.thoughtworks.mobileCharge.support;
 
 import com.google.inject.AbstractModule;
-import org.jongo.Jongo;
+import com.mongodb.client.MongoDatabase;
 import org.junit.rules.TestRule;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
@@ -16,7 +16,7 @@ public class DatabaseTestRunner extends InjectBasedRunner {
 //    @Inject
 //    private SqlSessionManager sqlSessionManager;
     @Inject
-    Jongo jongo;
+    MongoDatabase db;
 
     public DatabaseTestRunner(final Class<?> clazz) throws InitializationError {
         super(clazz);
@@ -43,7 +43,7 @@ public class DatabaseTestRunner extends InjectBasedRunner {
 //                } finally {
 ////                    sqlSessionManager.close();
 //                }
-                jongo.getCollection("tests").remove();
+                db.getCollection("tests").drop();
             }
         }
     };

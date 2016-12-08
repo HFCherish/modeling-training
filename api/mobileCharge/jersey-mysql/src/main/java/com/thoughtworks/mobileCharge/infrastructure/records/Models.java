@@ -1,16 +1,14 @@
 package com.thoughtworks.mobileCharge.infrastructure.records;
 
 import com.google.inject.AbstractModule;
-import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoDatabase;
 import com.thoughtworks.mobileCharge.domain.test.TestRepo;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.MyTestMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mongo.MyTestDB;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.TestRepoImpl;
-import org.jongo.Jongo;
 
-import java.net.UnknownHostException;
 import java.util.Properties;
 
 public class Models extends AbstractModule {
@@ -60,14 +58,11 @@ public class Models extends AbstractModule {
         );
 
         MongoClient mongoClient = null;
-        try {
-            mongoClient = new MongoClient(new MongoClientURI(connectURL));
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        DB db = mongoClient.getDB(dbname);
-        Jongo jongo = new Jongo(db);
-        bind(Jongo.class).toInstance(jongo);
+        mongoClient = new MongoClient(new MongoClientURI(connectURL));
+        MongoDatabase db = mongoClient.getDatabase(dbname);
+        bind(MongoDatabase.class).toInstance(db);
+//        Jongo jongo = new Jongo(db);
+//        bind(Jongo.class).toInstance(jongo);
         bind(TestRepo.class).to(TestRepoImpl.class);
         bind(MyTestMapper.class).to(MyTestDB.class);
     }
