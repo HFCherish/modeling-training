@@ -2,12 +2,22 @@ package com.thoughtworks.mobileCharge.infrastructure.records;
 
 import com.google.inject.AbstractModule;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
+import com.thoughtworks.mobileCharge.domain.test.MyTestCodecRepo;
 import com.thoughtworks.mobileCharge.domain.test.TestRepo;
+import com.thoughtworks.mobileCharge.infrastructure.mappers.MyTestCodecMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.MyTestMapper;
+import com.thoughtworks.mobileCharge.infrastructure.mongo.MyTestCodecDB;
 import com.thoughtworks.mobileCharge.infrastructure.mongo.MyTestDB;
+import com.thoughtworks.mobileCharge.infrastructure.mongo.codecs.MyTestCodec;
+import com.thoughtworks.mobileCharge.infrastructure.repositories.MyTestCodecCodecRepoImpl;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.TestRepoImpl;
+import org.bson.Document;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
 
 import java.util.Properties;
 
@@ -56,15 +66,19 @@ public class Models extends AbstractModule {
                 port,
                 dbname
         );
+        CodecRegistry codecRegistry = CodecRegistries.fromRegistries(MongoClient.getDefaultCodecRegistry(),
+                CodecRegistries.fromCodecs(new MyTestCodec(MongoClient.getDefaultCodecRegistry().get(Document.class))));
+        MongoClientOptions.Builder builder = MongoClientOptions.builder().codecRegistry(codecRegistry);
 
         MongoClient mongoClient = null;
-        mongoClient = new MongoClient(new MongoClientURI(connectURL));
+        mongoClient = new MongoClient(new MongoClientURI(connectURL, builder));
+//        mongoClient = new MongoClient(new MongoClientURI(connectURL), options);
         MongoDatabase db = mongoClient.getDatabase(dbname);
         bind(MongoDatabase.class).toInstance(db);
-//        Jongo jongo = new Jongo(db);
-//        bind(Jongo.class).toInstance(jongo);
         bind(TestRepo.class).to(TestRepoImpl.class);
         bind(MyTestMapper.class).to(MyTestDB.class);
+        bind(MyTestCodecRepo.class).to(MyTestCodecCodecRepoImpl.class);
+        bind(MyTestCodecMapper.class).to(MyTestCodecDB.class);
     }
 
 //    private void bindPersistence() {
