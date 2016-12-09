@@ -1,6 +1,7 @@
 package com.thoughtworks.mobileCharge.domain.user;
 
 import com.thoughtworks.mobileCharge.api.services.CallRecordQueryService;
+import com.thoughtworks.mobileCharge.domain.ChargeType;
 import com.thoughtworks.mobileCharge.domain.PaginatedList;
 import com.thoughtworks.mobileCharge.support.DatabaseTestRunner;
 import org.joda.time.DateTime;
@@ -59,6 +60,22 @@ public class UserTest {
         assertThat(saved.communicationType, is(toSave.communicationType));
         assertThat(saved.sendType, is(toSave.sendType));
         assertThat(saved.targetCard.phoneNumber, is(toSave.targetCard.phoneNumber));
+        assertThat(saved.ownerId, is(user.getId()));
+    }
+
+    @Test
+    public void should_save_and_get_that_data_access_record() {
+        DataAccessRecord toSave = getDataAccessRecord(user, new DateTime());
+
+        DataAccessRecord saved = user.saveDataAccess(toSave);
+        assertThat(saved.getId(), is(toSave.getId()));
+        assertThat(saved.chargeType, is(toSave.chargeType));
+        assertThat(saved.webType, is(toSave.webType));
+        assertThat(saved.createdAt, is(toSave.createdAt));
+        assertThat(saved.communicationType, is(toSave.communicationType));
+        assertThat(saved.data, is(toSave.data));
+        assertThat(saved.targetConsumer, is(toSave.targetConsumer));
+        assertThat(saved.fromLocale, is(toSave.fromLocale));
         assertThat(saved.ownerId, is(user.getId()));
     }
 }

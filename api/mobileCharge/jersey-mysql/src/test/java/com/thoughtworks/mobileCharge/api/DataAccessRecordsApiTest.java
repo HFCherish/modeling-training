@@ -57,7 +57,7 @@ public class DataAccessRecordsApiTest extends ApiSupportWithMock {
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         DataAccessRecord dataAccessRecord = mock(DataAccessRecord.class);
         when(dataAccessRecord.getId()).thenReturn(new EntityId("1"));
-        when(user.saveDataAccess(anyObject())).thenReturn(dataAccessRecord);
+        doReturn(dataAccessRecord).when(user).saveDataAccess(anyObject());
 
         Response response = post(dataAccessRecordsUrl(user), dataAccessRecordMap());
 

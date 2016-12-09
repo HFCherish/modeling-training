@@ -97,10 +97,8 @@
 1. user can get all message records -5:
     1. can get by month - 10: 11
 1. user save database access record
-    1. save to db and can get that one with right id - 15:
-    1. can get with right details -15:
-1. user can get all data access records -5:
-    1. can get by month - 10:
+    1. save to db and can get that one with right id and right details- 20: 18
+1. user can get all data access records and by month -10:
 1. refactor to extract account object -15:
 1. get balance with right money and account info -15:
 

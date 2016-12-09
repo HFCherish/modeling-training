@@ -2,8 +2,8 @@ package com.thoughtworks.mobileCharge.domain.user;
 
 import com.thoughtworks.mobileCharge.domain.EntityId;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.CallRecordMapper;
+import com.thoughtworks.mobileCharge.infrastructure.mappers.DataAccessRecordMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.MessageRecordMapper;
-import com.thoughtworks.mobileCharge.infrastructure.mappers.UserMapper;
 import com.thoughtworks.mobileCharge.infrastructure.records.Record;
 import com.thoughtworks.mobileCharge.infrastructure.util.SafetyInjector;
 import com.thoughtworks.mobileCharge.util.IdGenerator;
@@ -12,10 +12,8 @@ import org.bson.Document;
 
 import javax.inject.Inject;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
-import static com.thoughtworks.mobileCharge.util.LocaleFormatter.getCityAndCountry;
 import static java.util.Arrays.asList;
 
 /**
@@ -32,6 +30,9 @@ public class User implements Record {
 
     @Inject
     MessageRecordMapper messageRecordMapper;
+
+    @Inject
+    DataAccessRecordMapper dataAccessRecordMapper;
 
     public User(String idCard, Balance balance, PhoneCard phoneCard) {
         this.id = new EntityId(IdGenerator.next());
@@ -102,7 +103,7 @@ public class User implements Record {
         return toRefJson(routes);
     }
 
-    public DataAccessRecord saveDataAccess(DataAccessRecord record) {
-        return null;
+    public DataAccessRecord saveDataAccess(DataAccessRecord newDataAccess) {
+        return dataAccessRecordMapper.saveDataAccessRecord(newDataAccess);
     }
 }

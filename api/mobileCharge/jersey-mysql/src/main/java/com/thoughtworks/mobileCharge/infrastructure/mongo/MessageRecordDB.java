@@ -26,7 +26,7 @@ public class MessageRecordDB implements MessageRecordMapper {
 
     @Inject
     public MessageRecordDB(MongoDatabase db) {
-        messageRecords = db.getCollection("call_records");
+        messageRecords = db.getCollection("message_records");
     }
 
     @Override

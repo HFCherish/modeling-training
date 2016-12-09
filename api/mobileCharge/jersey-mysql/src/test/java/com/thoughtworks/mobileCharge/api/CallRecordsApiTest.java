@@ -38,7 +38,7 @@ public class CallRecordsApiTest extends ApiSupportWithMock {
         CallRecord callRecord = mock(CallRecord.class);
         when(callRecord.getId()).thenReturn(new EntityId("1"));
         doReturn(callRecord).when(user).saveCallRecord(anyObject());
-//        when(user.saveCallRecord(callRecord)).thenReturn(callRecord);
+//        when(user.saveDataAccessRecord(callRecord)).thenReturn(callRecord);
 
         Response response = post(callsUrl(user), new HashMap() {
             {

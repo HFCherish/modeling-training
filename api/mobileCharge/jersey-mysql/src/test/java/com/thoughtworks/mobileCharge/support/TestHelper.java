@@ -42,6 +42,15 @@ public class TestHelper {
                 MessageRecord.SendType.SENDER,
                 start.getMillis());
     }
+    public static DataAccessRecord getDataAccessRecord(User owner, DateTime start) {
+        return new DataAccessRecord(owner,
+                beijingLocale(),
+                "music.163.com",
+                DataAccessRecord.WebType.G4,
+                ChargeType.FREE,
+                1024l,
+                start.getMillis());
+    }
 
     public static PhoneCard getPhoneCard(Locale locale) {
         StringBuilder phoneNumber = new StringBuilder("1");
