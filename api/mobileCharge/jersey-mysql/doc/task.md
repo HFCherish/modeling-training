@@ -86,7 +86,8 @@
         1. stuck at spy failure. :5 reason: should use doReturn rather than when..then.. to stub methods
         1. typo mistake
     1. can get with right duration, start, locale, call type, targetcard info - 15: 3
-    1. can get with right owner id - 10:
+    1. can get with right owner id - 10: 5
+        1. refactor to use owner id rather than owner in call record object :3
 1. user.getCallRecords
     1. can get all call records -10:
     1. can get by month - 15:

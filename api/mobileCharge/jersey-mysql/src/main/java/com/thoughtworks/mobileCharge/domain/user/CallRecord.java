@@ -77,7 +77,7 @@ public class CallRecord extends CommunicationRecord implements Record {
                 .append("from_locale", LocaleFormatter.toDocument(callRecord.from_locale))
                 .append("duration", callRecord.duration.getMillis())
                 .append("start", callRecord.start.getMillis())
-                .append("owner", callRecord.ownerId)
+                .append("owner", callRecord.ownerId.id())
                 .append("call_type", callRecord.callType.name())
                 .append("target_card", PhoneCard.toDocument(callRecord.targetCard))
                 .append("communication_type", callRecord.communicationType.name())
@@ -91,7 +91,7 @@ public class CallRecord extends CommunicationRecord implements Record {
         callRecord.duration = new Duration(document.getLong("duration"));
         callRecord.targetCard = PhoneCard.buildFromDocument((Document)document.get("target_card"));
         callRecord.start = new DateTime(document.getLong("start"));
-//        callRecord.owner = new O
+        callRecord.ownerId = new EntityId(document.getString("owner"));
         callRecord.callType = CallType.valueOf(document.getString("call_type"));
         callRecord.communicationType = CommunicationType.valueOf(document.getString("communication_type"));
         callRecord.fee = document.getDouble("fee");
