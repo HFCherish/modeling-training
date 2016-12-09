@@ -1,11 +1,15 @@
 package com.thoughtworks.mobileCharge.domain.user;
 
 import com.thoughtworks.mobileCharge.domain.EntityId;
+import com.thoughtworks.mobileCharge.infrastructure.mappers.CallRecordMapper;
+import com.thoughtworks.mobileCharge.infrastructure.mappers.UserMapper;
 import com.thoughtworks.mobileCharge.infrastructure.records.Record;
+import com.thoughtworks.mobileCharge.infrastructure.util.SafetyInjector;
 import com.thoughtworks.mobileCharge.util.IdGenerator;
 import com.thoughtworks.mobileCharge.api.jersey.Routes;
 import org.bson.Document;
 
+import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -22,6 +26,9 @@ public class User implements Record {
     private Balance balance;
     protected PhoneCard phoneCard;
 
+    @Inject
+    CallRecordMapper callRecordMapper;
+
     public User(String idCard, Balance balance, PhoneCard phoneCard) {
         this.id = new EntityId(IdGenerator.next());
         this.idCard = idCard;
@@ -33,10 +40,10 @@ public class User implements Record {
 
     public static User buildFromDocument(Document document) {
         if(document.isEmpty())  return null;
-        User user = new User();
+        User user = SafetyInjector.injectMembers(new User());
         user.id = new EntityId(document.get("_id").toString());
-        user.idCard = document.get("idCard").toString();
-        user.balance = Balance.buildFromDocument((Document)(document.get("balance")));
+        user.idCard = document.getString("idCard");
+//        user.balance = Balance.buildFromDocument((Document)(document.get("balance")));
         user.phoneCard = PhoneCard.buildFromDocument((Document)(document.get("phoneCard")));
         return user;
     }
@@ -66,7 +73,7 @@ public class User implements Record {
     }
 
     public CallRecord saveCallRecord(CallRecord callRecord) {
-        return null;
+        return callRecordMapper.saveCallRecord(callRecord);
     }
 
     @Override

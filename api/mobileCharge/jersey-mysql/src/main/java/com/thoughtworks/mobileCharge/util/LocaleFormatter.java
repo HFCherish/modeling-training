@@ -16,4 +16,10 @@ public class LocaleFormatter {
         if (document.isEmpty()) return null;
         return new Locale(document.getString("language"), document.getString("country"), document.getString("city"));
     }
+
+    public static Document toDocument(Locale from_locale) {
+        return new Document("language", from_locale.getLanguage())
+                .append("country", from_locale.getCountry())
+                .append("city", from_locale.getVariant());
+    }
 }

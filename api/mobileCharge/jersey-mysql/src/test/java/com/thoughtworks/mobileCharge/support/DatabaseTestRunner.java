@@ -44,6 +44,7 @@ public class DatabaseTestRunner extends InjectBasedRunner {
 ////                    sqlSessionManager.close();
 //                }
                 db.getCollection("tests").drop();
+                db.getCollection("call_records").drop();
             }
         }
     };

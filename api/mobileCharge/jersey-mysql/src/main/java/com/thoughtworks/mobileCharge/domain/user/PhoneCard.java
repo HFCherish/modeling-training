@@ -46,4 +46,9 @@ public class PhoneCard implements Record{
         phoneCard.phoneNumber = document.getString("phoneNumber");
         return phoneCard;
     }
+
+    public static Document toDocument(PhoneCard phoneCard) {
+        return new Document("phoneNumber", phoneCard.phoneNumber)
+                .append("locale", LocaleFormatter.toDocument(phoneCard.locale));
+    }
 }

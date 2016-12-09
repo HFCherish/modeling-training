@@ -1,6 +1,7 @@
 package com.thoughtworks.mobileCharge.infrastructure.records;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Injector;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
@@ -9,9 +10,11 @@ import com.mongodb.client.MongoDatabase;
 import com.thoughtworks.mobileCharge.domain.test.MyTestCodecRepo;
 import com.thoughtworks.mobileCharge.domain.test.TestRepo;
 import com.thoughtworks.mobileCharge.domain.user.UserRepo;
+import com.thoughtworks.mobileCharge.infrastructure.mappers.CallRecordMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.MyTestCodecMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.MyTestMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.UserMapper;
+import com.thoughtworks.mobileCharge.infrastructure.mongo.CallRecordDB;
 import com.thoughtworks.mobileCharge.infrastructure.mongo.MyTestCodecDB;
 import com.thoughtworks.mobileCharge.infrastructure.mongo.MyTestDB;
 import com.thoughtworks.mobileCharge.infrastructure.mongo.UserDB;
@@ -19,6 +22,7 @@ import com.thoughtworks.mobileCharge.infrastructure.mongo.codecs.MyTestCodec;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.MyTestCodecCodecRepoImpl;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.TestRepoImpl;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.UserRepoImpl;
+import com.thoughtworks.mobileCharge.infrastructure.util.SafetyInjector;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
@@ -78,6 +82,7 @@ public class Models extends AbstractModule {
         MongoClient mongoClient = new MongoClient(new MongoClientURI(connectURL));
         MongoDatabase db = mongoClient.getDatabase(dbname).withCodecRegistry(codecRegistry);
         bind(MongoDatabase.class).toInstance(db);
+        requestStaticInjection(SafetyInjector.class);
 
         bind(TestRepo.class).to(TestRepoImpl.class);
         bind(MyTestMapper.class).to(MyTestDB.class);
@@ -86,6 +91,7 @@ public class Models extends AbstractModule {
 
         bind(UserRepo.class).to(UserRepoImpl.class);
         bind(UserMapper.class).to(UserDB.class);
+        bind(CallRecordMapper.class).to(CallRecordDB.class);
     }
 
 //    private void bindPersistence() {

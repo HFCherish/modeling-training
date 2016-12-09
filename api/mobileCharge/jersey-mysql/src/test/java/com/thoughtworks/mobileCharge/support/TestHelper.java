@@ -2,6 +2,7 @@ package com.thoughtworks.mobileCharge.support;
 
 import com.thoughtworks.mobileCharge.domain.ChargeType;
 import com.thoughtworks.mobileCharge.domain.user.*;
+import com.thoughtworks.mobileCharge.infrastructure.util.SafetyInjector;
 import org.joda.time.DateTime;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import static org.mockito.Mockito.*;
 
 public class TestHelper {
     public static User getUser(Balance balance) {
-        return new User("410111222233445566", balance, new PhoneCard("13241667788", new Locale("zh", "CN", "beijing")));
+        return SafetyInjector.injectMembers(new User("410111222233445566", balance, new PhoneCard("13241667788", new Locale("zh", "CN", "beijing"))));
     }
 
     public static HashMap<String, Object> beijingLocaleMap() {

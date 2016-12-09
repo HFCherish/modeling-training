@@ -81,5 +81,26 @@
 	2. contains right basic info - 15: 17
 	3. contains right phone card info -15 : 8 
 	    1. contains right locale info -5: 7
-	4. contains right balance info -15:
 5. user.saveCallRecord
+    1. save to db and can get that one with right id -15: 53
+        1. stuck at spy failure. :5 reason: should use doReturn rather than when..then.. to stub methods
+        1. typo mistake
+    1. can get with right duration, start, locale, call type, targetcard info - 15: 3
+    1. can get with right owner id - 10:
+1. user.getCallRecords
+    1. can get all call records -10:
+    1. can get by month - 15:
+1. user.save message record
+    1. save to db and can get that one with right id -15:
+    1. can get with right duration, start, locale, type, send type ,target card.., owner id info - 20:
+1. user can get all message records -5:
+    1. can get by month - 10:
+1. user save database access record
+    1. save to db and can get that one with right id - 15:
+    1. can get with right details -15:
+1. user can get all data access records -5:
+    1. can get by month - 10:
+1. refactor to extract account object -15:
+1. get balance with right money and account info -15:
+
+1. when save and get records, contains right fee info -15:

@@ -18,7 +18,7 @@ import static java.util.Arrays.asList;
  */
 public class MessageRecord extends CommunicationRecord implements Record {
     private final Locale from_locale;
-    private final PhoneCard target;
+    private final PhoneCard targetCard;
     protected final Type type;
     protected final SendType sendType;
     private final Long createdAt;
@@ -26,11 +26,10 @@ public class MessageRecord extends CommunicationRecord implements Record {
     private User owner;
 
     public MessageRecord(User owner, Locale from_locale, PhoneCard targetCard, Type type, SendType sendType, Long createdAt) {
-        super();
         this.id = new EntityId(IdGenerator.next());
         this.owner = owner;
         this.from_locale = from_locale;
-        this.target = targetCard;
+        this.targetCard = targetCard;
         this.type = type;
         this.sendType = sendType;
         this.createdAt = createdAt;
@@ -51,7 +50,7 @@ public class MessageRecord extends CommunicationRecord implements Record {
             put("send_type", sendType.name());
             put("createdAt", new DateTime(createdAt));
             put("from_locale", LocaleFormatter.getCityAndCountry(from_locale));
-            put("target", target.toRefJson(routes));
+            put("targetCard", targetCard.toRefJson(routes));
             put("communication_type", communicationType.name());
             put("fee", fee);
             put("links", asList(

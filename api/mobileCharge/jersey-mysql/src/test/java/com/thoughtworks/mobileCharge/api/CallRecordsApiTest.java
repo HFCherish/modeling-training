@@ -18,9 +18,7 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by pzzheng on 11/29/16.
@@ -39,7 +37,8 @@ public class CallRecordsApiTest extends ApiSupportWithMock {
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         CallRecord callRecord = mock(CallRecord.class);
         when(callRecord.getId()).thenReturn(new EntityId("1"));
-        when(user.saveCallRecord(anyObject())).thenReturn(callRecord);
+        doReturn(callRecord).when(user).saveCallRecord(anyObject());
+//        when(user.saveCallRecord(callRecord)).thenReturn(callRecord);
 
         Response response = post(callsUrl(user), new HashMap() {
             {
@@ -50,7 +49,6 @@ public class CallRecordsApiTest extends ApiSupportWithMock {
                 put("from_locale", beijingLocaleMap());
                 put("target", phoneCardMap());
                 put("call_type", CallRecord.CallType.CALLER);
-
             }
 
         });
