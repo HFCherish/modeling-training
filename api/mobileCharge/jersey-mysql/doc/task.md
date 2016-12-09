@@ -89,7 +89,7 @@
     1. can get with right owner id - 10: 5
         1. refactor to use owner id rather than owner in call record object :3
 1. user.getCallRecords
-    1. can get all call records -10:
+    1. can get all call records -10: 14
     1. can get by month - 15:
 1. user.save message record
     1. save to db and can get that one with right id -15:
