@@ -4,6 +4,7 @@ import com.thoughtworks.mobileCharge.domain.EntityId;
 import com.thoughtworks.mobileCharge.infrastructure.records.Record;
 import com.thoughtworks.mobileCharge.util.IdGenerator;
 import com.thoughtworks.mobileCharge.api.jersey.Routes;
+import org.bson.Document;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -16,8 +17,8 @@ import static java.util.Arrays.asList;
  * Created by pzzheng on 11/29/16.
  */
 public class User implements Record {
-    private final String idCard;
-    private final EntityId id;
+    protected String idCard;
+    protected EntityId id;
     private Balance balance;
     protected PhoneCard phoneCard;
 
@@ -27,6 +28,18 @@ public class User implements Record {
         this.balance = balance;
         this.phoneCard = phoneCard;
     }
+
+    private User() {}
+
+    public static User buildFromDocument(Document document) {
+        User user = new User();
+        user.id = new EntityId(document.get("_id").toString());
+        user.idCard = document.get("idCard").toString();
+        user.balance = Balance.buildFromDocument((Document)(document.get("balance")));
+        user.phoneCard = PhoneCard.buildFromDocument((Document)(document.get("phoneCard")));
+        return user;
+    }
+
 
     public EntityId getId() {
         return id;
@@ -47,11 +60,11 @@ public class User implements Record {
         return balance;
     }
 
-    public MessageRecord saveMessage(MessageRecord record){
+    public MessageRecord saveMessage(MessageRecord record) {
         return null;
     }
 
-    public CallRecord saveCallRecord(CallRecord callRecord){
+    public CallRecord saveCallRecord(CallRecord callRecord) {
         return null;
     }
 
@@ -62,12 +75,12 @@ public class User implements Record {
 
     @Override
     public Map<String, Object> toRefJson(Routes routes) {
-        return new HashMap(){{
+        return new HashMap() {{
             put("id", id.id());
             put("phone_card", phoneCard.toRefJson(routes));
             put("ID_Card", idCard);
             put("links", asList(
-                routes.linkMap("self", routes.userUrl(id.id()).getPath())
+                    routes.linkMap("self", routes.userUrl(id.id()).getPath())
             ));
         }};
     }

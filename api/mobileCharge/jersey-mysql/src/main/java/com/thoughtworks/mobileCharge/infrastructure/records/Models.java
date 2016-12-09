@@ -8,13 +8,17 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 import com.thoughtworks.mobileCharge.domain.test.MyTestCodecRepo;
 import com.thoughtworks.mobileCharge.domain.test.TestRepo;
+import com.thoughtworks.mobileCharge.domain.user.UserRepo;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.MyTestCodecMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.MyTestMapper;
+import com.thoughtworks.mobileCharge.infrastructure.mappers.UserMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mongo.MyTestCodecDB;
 import com.thoughtworks.mobileCharge.infrastructure.mongo.MyTestDB;
+import com.thoughtworks.mobileCharge.infrastructure.mongo.UserDB;
 import com.thoughtworks.mobileCharge.infrastructure.mongo.codecs.MyTestCodec;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.MyTestCodecCodecRepoImpl;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.TestRepoImpl;
+import com.thoughtworks.mobileCharge.infrastructure.repositories.UserRepoImpl;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
@@ -68,17 +72,20 @@ public class Models extends AbstractModule {
         );
         CodecRegistry codecRegistry = CodecRegistries.fromRegistries(MongoClient.getDefaultCodecRegistry(),
                 CodecRegistries.fromCodecs(new MyTestCodec(MongoClient.getDefaultCodecRegistry().get(Document.class))));
-        MongoClientOptions.Builder builder = MongoClientOptions.builder().codecRegistry(codecRegistry);
+//        MongoClientOptions.Builder builder = MongoClientOptions.builder().codecRegistry(codecRegistry);
 
-        MongoClient mongoClient = null;
-        mongoClient = new MongoClient(new MongoClientURI(connectURL, builder));
-//        mongoClient = new MongoClient(new MongoClientURI(connectURL), options);
-        MongoDatabase db = mongoClient.getDatabase(dbname);
+//        mongoClient = new MongoClient(new MongoClientURI(connectURL, builder));
+        MongoClient mongoClient = new MongoClient(new MongoClientURI(connectURL));
+        MongoDatabase db = mongoClient.getDatabase(dbname).withCodecRegistry(codecRegistry);
         bind(MongoDatabase.class).toInstance(db);
+
         bind(TestRepo.class).to(TestRepoImpl.class);
         bind(MyTestMapper.class).to(MyTestDB.class);
         bind(MyTestCodecRepo.class).to(MyTestCodecCodecRepoImpl.class);
         bind(MyTestCodecMapper.class).to(MyTestCodecDB.class);
+
+        bind(UserRepo.class).to(UserRepoImpl.class);
+        bind(UserMapper.class).to(UserDB.class);
     }
 
 //    private void bindPersistence() {

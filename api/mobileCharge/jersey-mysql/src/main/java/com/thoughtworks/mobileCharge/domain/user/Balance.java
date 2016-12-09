@@ -3,6 +3,7 @@ package com.thoughtworks.mobileCharge.domain.user;
 import com.thoughtworks.mobileCharge.api.jersey.Routes;
 import com.thoughtworks.mobileCharge.domain.ChargeType;
 import com.thoughtworks.mobileCharge.infrastructure.records.Record;
+import org.bson.Document;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -95,6 +96,10 @@ public class Balance implements Record {
     @Override
     public Map<String, Object> toJson(Routes routes) {
         return toRefJson(routes);
+    }
+
+    public static Balance buildFromDocument(Document document) {
+        return null;
     }
 
     public static class ChargeStrategies {
