@@ -90,7 +90,7 @@
         1. refactor to use owner id rather than owner in call record object :3
 1. user.getCallRecords
     1. can get all call records -10: 14
-    1. can get by month - 15:
+    1. can get by month - 15: 16
 1. user.save message record
     1. save to db and can get that one with right id -15:
     1. can get with right duration, start, locale, type, send type ,target card.., owner id info - 20:

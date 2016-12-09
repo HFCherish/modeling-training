@@ -4,6 +4,7 @@ import com.thoughtworks.mobileCharge.domain.ChargeType;
 import com.thoughtworks.mobileCharge.domain.user.*;
 import com.thoughtworks.mobileCharge.infrastructure.util.SafetyInjector;
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -22,6 +23,16 @@ public class TestHelper {
             put("country", "CN");
             put("language", "zh");
         }};
+    }
+
+    public static CallRecord getCallRecord(User owner, DateTime start) {
+        PhoneCard targetCard = new PhoneCard("12313131231", beijingLocale());
+        return new CallRecord(beijingLocale(),
+                owner,
+                start,
+                new Duration(60),
+                CallRecord.CallType.CALLER,
+                targetCard);
     }
 
     public static Locale beijingLocale() {
