@@ -9,4 +9,5 @@ import com.thoughtworks.mobileCharge.domain.user.User;
  */
 public interface DataAccessRecordQueryService {
     PaginatedList<DataAccessRecord> findAllOf(User user, int month);
+
 }

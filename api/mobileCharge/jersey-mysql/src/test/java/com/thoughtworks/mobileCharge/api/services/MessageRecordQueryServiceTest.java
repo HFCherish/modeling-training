@@ -43,7 +43,7 @@ public class MessageRecordQueryServiceTest {
     }
 
     @Test
-    public void should_get_all_call_records_by_month() {
+    public void should_get_all_message_records_by_month() {
         user.saveMessage(getMessageRecord(user, new DateTime(2016, 1,1,1,1)));
         user.saveMessage(getMessageRecord(user, new DateTime(2016, 2,1,1,1)));
 

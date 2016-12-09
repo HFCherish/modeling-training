@@ -98,7 +98,7 @@
     1. can get by month - 10: 11
 1. user save database access record
     1. save to db and can get that one with right id and right details- 20: 18
-1. user can get all data access records and by month -10:
+1. user can get all data access records and by month -10: 7
 1. refactor to extract account object -15:
 1. get balance with right money and account info -15:
 
