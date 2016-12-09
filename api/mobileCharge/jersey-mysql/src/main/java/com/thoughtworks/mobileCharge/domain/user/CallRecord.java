@@ -87,9 +87,9 @@ public class CallRecord extends CommunicationRecord implements Record {
     public static CallRecord buildFromDocument(Document document) {
         CallRecord callRecord = new CallRecord();
         callRecord.id = new EntityId(document.getString("_id"));
-        callRecord.from_locale = LocaleFormatter.buildFromDocument((Document)document.get("from_locale"));
+        callRecord.from_locale = LocaleFormatter.buildFromDocument((Document) document.get("from_locale"));
         callRecord.duration = new Duration(document.getLong("duration"));
-        callRecord.targetCard = PhoneCard.buildFromDocument((Document)document.get("target_card"));
+        callRecord.targetCard = PhoneCard.buildFromDocument((Document) document.get("target_card"));
         callRecord.start = new DateTime(document.getLong("start"));
         callRecord.ownerId = new EntityId(document.getString("owner"));
         callRecord.callType = CallType.valueOf(document.getString("call_type"));
@@ -102,32 +102,4 @@ public class CallRecord extends CommunicationRecord implements Record {
         CALLER, CALLEE
     }
 
-    public static class CallChargeType {
-        CommunicationType communicationType;
-        CallType callType;
-
-        public CallChargeType(CommunicationType communicationType, CallType callType) {
-            this.communicationType = communicationType;
-            this.callType = callType;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            CallChargeType that = (CallChargeType) o;
-
-            if (communicationType != that.communicationType) return false;
-            return callType == that.callType;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = communicationType != null ? communicationType.hashCode() : 0;
-            result = 31 * result + (callType != null ? callType.hashCode() : 0);
-            return result;
-        }
-    }
 }

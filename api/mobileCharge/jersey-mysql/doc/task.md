@@ -99,7 +99,9 @@
 1. user save database access record
     1. save to db and can get that one with right id and right details- 20: 18
 1. user can get all data access records and by month -10: 7
-1. refactor to extract account object -15:
+1. refactor to extract account object
+    1. extract charge type -5: 2
+    1. replace messageChargeType & callChargeType & dataAccessChargeType with charge type -20: 12 
 1. get balance with right money and account info -15:
 
 1. when save and get records, contains right fee info -15:

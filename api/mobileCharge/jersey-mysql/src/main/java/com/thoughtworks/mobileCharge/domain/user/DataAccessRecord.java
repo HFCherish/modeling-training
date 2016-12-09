@@ -105,27 +105,4 @@ public class DataAccessRecord extends CommunicationRecord implements Record {
 
     public enum WebType {G4, G3, G2 }
 
-    public static class DataAccessChargeType {
-        CommunicationType communicationType;
-
-        public DataAccessChargeType(CommunicationType communicationType) {
-            this.communicationType = communicationType;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            DataAccessChargeType that = (DataAccessChargeType) o;
-
-            return communicationType == that.communicationType;
-
-        }
-
-        @Override
-        public int hashCode() {
-            return communicationType != null ? communicationType.hashCode() : 0;
-        }
-    }
 }

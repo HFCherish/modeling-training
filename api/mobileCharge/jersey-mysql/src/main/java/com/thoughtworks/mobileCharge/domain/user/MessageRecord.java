@@ -1,13 +1,12 @@
 package com.thoughtworks.mobileCharge.domain.user;
 
 import com.thoughtworks.mobileCharge.api.jersey.Routes;
-import com.thoughtworks.mobileCharge.domain.EntityId;
+import com.thoughtworks.mobileCharge.domain.*;
 import com.thoughtworks.mobileCharge.infrastructure.records.Record;
 import com.thoughtworks.mobileCharge.util.IdGenerator;
 import com.thoughtworks.mobileCharge.util.LocaleFormatter;
 import org.bson.Document;
 import org.joda.time.DateTime;
-import org.joda.time.Duration;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -85,8 +84,8 @@ public class MessageRecord extends CommunicationRecord implements Record {
     public static MessageRecord buildFromDocument(Document document) {
         MessageRecord messageRecord = new MessageRecord();
         messageRecord.id = new EntityId(document.getString("_id"));
-        messageRecord.from_locale = LocaleFormatter.buildFromDocument((Document)document.get("from_locale"));
-        messageRecord.targetCard = PhoneCard.buildFromDocument((Document)document.get("target_card"));
+        messageRecord.from_locale = LocaleFormatter.buildFromDocument((Document) document.get("from_locale"));
+        messageRecord.targetCard = PhoneCard.buildFromDocument((Document) document.get("target_card"));
         messageRecord.createdAt = document.getLong("createdAt");
         messageRecord.ownerId = new EntityId(document.getString("owner"));
         messageRecord.type = Type.valueOf(document.getString("type"));
@@ -101,36 +100,4 @@ public class MessageRecord extends CommunicationRecord implements Record {
 
     public enum SendType {SENDER, RECEIVER}
 
-    public static class MessageChargeType {
-        CommunicationType communicationType;
-        Type type;
-        SendType sendType;
-
-        public MessageChargeType(CommunicationType communicationType, Type type, SendType sendType) {
-            this.communicationType = communicationType;
-            this.type = type;
-            this.sendType = sendType;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            MessageChargeType that = (MessageChargeType) o;
-
-            if (communicationType != that.communicationType) return false;
-            if (type != that.type) return false;
-            return sendType == that.sendType;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = communicationType != null ? communicationType.hashCode() : 0;
-            result = 31 * result + (type != null ? type.hashCode() : 0);
-            result = 31 * result + (sendType != null ? sendType.hashCode() : 0);
-            return result;
-        }
-    }
 }
