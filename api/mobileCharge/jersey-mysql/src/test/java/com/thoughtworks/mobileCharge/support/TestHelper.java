@@ -9,12 +9,11 @@ import org.joda.time.Duration;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import static org.mockito.Mockito.*;
+import java.util.Random;
 
 public class TestHelper {
     public static User getUser(Balance balance) {
-        return SafetyInjector.injectMembers(new User("410111222233445566", balance, new PhoneCard("13241667788", new Locale("zh", "CN", "beijing"))));
+        return SafetyInjector.injectMembers(new User("410111222233445566", balance, getPhoneCard(beijingLocale())));
     }
 
     public static HashMap<String, Object> beijingLocaleMap() {
@@ -26,13 +25,32 @@ public class TestHelper {
     }
 
     public static CallRecord getCallRecord(User owner, DateTime start) {
-        PhoneCard targetCard = new PhoneCard("12313131231", beijingLocale());
+        PhoneCard targetCard = getPhoneCard(beijingLocale());
         return new CallRecord(beijingLocale(),
                 owner,
                 start,
                 new Duration(60),
                 CallRecord.CallType.CALLER,
                 targetCard);
+    }
+
+    public static CallRecord getMessageRecord(User owner, DateTime start) {
+        PhoneCard targetCard = getPhoneCard(beijingLocale());
+        return new CallRecord(beijingLocale(),
+                owner,
+                start,
+                new Duration(60),
+                CallRecord.CallType.CALLER,
+                targetCard);
+    }
+
+    public static PhoneCard getPhoneCard(Locale locale) {
+        StringBuilder phoneNumber = new StringBuilder("1");
+        Random random = new Random();
+        for(int i=1; i<11; i++ ) {
+            phoneNumber.append(random.nextInt(10) + "");
+        }
+        return new PhoneCard(phoneNumber.toString(), locale);
     }
 
     public static Locale beijingLocale() {

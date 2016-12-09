@@ -2,6 +2,7 @@ package com.thoughtworks.mobileCharge.domain.user;
 
 import com.thoughtworks.mobileCharge.domain.EntityId;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.CallRecordMapper;
+import com.thoughtworks.mobileCharge.infrastructure.mappers.MessageRecordMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.UserMapper;
 import com.thoughtworks.mobileCharge.infrastructure.records.Record;
 import com.thoughtworks.mobileCharge.infrastructure.util.SafetyInjector;
@@ -28,6 +29,9 @@ public class User implements Record {
 
     @Inject
     CallRecordMapper callRecordMapper;
+
+    @Inject
+    MessageRecordMapper messageRecordMapper;
 
     public User(String idCard, Balance balance, PhoneCard phoneCard) {
         this.id = new EntityId(IdGenerator.next());
@@ -68,12 +72,12 @@ public class User implements Record {
         return balance;
     }
 
-    public MessageRecord saveMessage(MessageRecord record) {
-        return null;
+    public MessageRecord saveMessage(MessageRecord newMessage) {
+        return messageRecordMapper.saveMessage(newMessage);
     }
 
-    public CallRecord saveCallRecord(CallRecord callRecord) {
-        return callRecordMapper.saveCallRecord(callRecord);
+    public CallRecord saveCallRecord(CallRecord newCall) {
+        return callRecordMapper.saveCallRecord(newCall);
     }
 
     @Override

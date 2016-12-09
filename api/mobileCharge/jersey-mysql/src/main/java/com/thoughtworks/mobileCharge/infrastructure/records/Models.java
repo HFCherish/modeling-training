@@ -11,14 +11,8 @@ import com.thoughtworks.mobileCharge.api.services.CallRecordQueryService;
 import com.thoughtworks.mobileCharge.domain.test.MyTestCodecRepo;
 import com.thoughtworks.mobileCharge.domain.test.TestRepo;
 import com.thoughtworks.mobileCharge.domain.user.UserRepo;
-import com.thoughtworks.mobileCharge.infrastructure.mappers.CallRecordMapper;
-import com.thoughtworks.mobileCharge.infrastructure.mappers.MyTestCodecMapper;
-import com.thoughtworks.mobileCharge.infrastructure.mappers.MyTestMapper;
-import com.thoughtworks.mobileCharge.infrastructure.mappers.UserMapper;
-import com.thoughtworks.mobileCharge.infrastructure.mongo.CallRecordDB;
-import com.thoughtworks.mobileCharge.infrastructure.mongo.MyTestCodecDB;
-import com.thoughtworks.mobileCharge.infrastructure.mongo.MyTestDB;
-import com.thoughtworks.mobileCharge.infrastructure.mongo.UserDB;
+import com.thoughtworks.mobileCharge.infrastructure.mappers.*;
+import com.thoughtworks.mobileCharge.infrastructure.mongo.*;
 import com.thoughtworks.mobileCharge.infrastructure.mongo.codecs.MyTestCodec;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.MyTestCodecCodecRepoImpl;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.TestRepoImpl;
@@ -95,6 +89,7 @@ public class Models extends AbstractModule {
         bind(UserMapper.class).to(UserDB.class);
         bind(CallRecordMapper.class).to(CallRecordDB.class);
         bind(CallRecordQueryService.class).to(CallRecordQueryServicesImpl.class);
+        bind(MessageRecordMapper.class).to(MessageRecordDB.class);
 
     }
 

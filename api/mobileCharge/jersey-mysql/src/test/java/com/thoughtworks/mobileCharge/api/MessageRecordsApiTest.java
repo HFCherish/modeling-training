@@ -22,9 +22,7 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by pzzheng on 11/29/16.
@@ -55,7 +53,7 @@ public class MessageRecordsApiTest extends ApiSupportWithMock {
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         MessageRecord messageRecord = mock(MessageRecord.class);
         when(messageRecord.getId()).thenReturn(new EntityId("1"));
-        when(user.saveMessage(anyObject())).thenReturn(messageRecord);
+        doReturn(messageRecord).when(user).saveMessage(anyObject());
 
         Response response = post(messageRecordsUrl(user), messageRecordMap());
 
