@@ -13,6 +13,7 @@ public class LocaleFormatter {
     }
 
     public static Locale buildFromDocument(Document document) {
-        return null;
+        if (document.isEmpty()) return null;
+        return new Locale(document.getString("language"), document.getString("country"), document.getString("city"));
     }
 }
