@@ -43,7 +43,7 @@ public class DataAccessRecord extends CommunicationRecord implements Record {
         this.createdAt = createdAt;
 
         this.communicationType = CommunicationType.typeOf(fromLocale, owner.phoneCard.locale);
-//        this.fee = owner.getBalance().charge(this, Balance.ChargeStrategies.dataAccessCharge());
+        this.fee = owner.getBalance().charge(this, Balance.ChargeStrategies.dataAccessCharge());
     }
 
     public EntityId getId() {

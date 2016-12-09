@@ -39,7 +39,7 @@ public class MessageRecord extends CommunicationRecord implements Record {
         this.createdAt = createdAt;
 
         this.communicationType = CommunicationType.typeOf(from_locale, targetCard.locale);
-//        this.fee = owner.getBalance().charge(this, Balance.ChargeStrategies.messageCharge());
+        this.fee = owner.getBalance().charge(this, Balance.ChargeStrategies.messageCharge());
     }
 
     public EntityId getId() {
@@ -50,7 +50,7 @@ public class MessageRecord extends CommunicationRecord implements Record {
     public Map<String, Object> toRefJson(Routes routes) {
         return new HashMap() {{
             put("id", id.id());
-            put("messageType", type.name());
+            put("type", type.name());
             put("send_type", sendType.name());
             put("createdAt", new DateTime(createdAt));
             put("from_locale", LocaleFormatter.getCityAndCountry(from_locale));

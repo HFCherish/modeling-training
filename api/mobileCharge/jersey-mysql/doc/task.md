@@ -106,4 +106,4 @@
     1. right money info -15: 16
     1. right account info -15: 30
 
-1. when save and get records, contains right fee info -15:
+1. when save and get records, contains right fee info -5: 1

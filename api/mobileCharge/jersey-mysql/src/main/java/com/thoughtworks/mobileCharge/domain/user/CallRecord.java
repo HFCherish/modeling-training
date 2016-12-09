@@ -43,7 +43,7 @@ public class CallRecord extends CommunicationRecord implements Record {
         this.callType = callType;
         this.targetCard = targetCard;
         this.communicationType = CommunicationType.typeOf(from_locale, targetCard.locale);
-//        this.fee = owner.getBalance().charge(this, Balance.ChargeStrategies.callCharge());
+        this.fee = owner.getBalance().charge(this, Balance.ChargeStrategies.callCharge());
     }
 
     public EntityId getId() {
