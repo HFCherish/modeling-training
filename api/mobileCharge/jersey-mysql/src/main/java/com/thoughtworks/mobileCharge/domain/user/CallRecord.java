@@ -26,7 +26,7 @@ public class CallRecord extends CommunicationRecord implements Record {
     protected Duration duration;
     private EntityId id;
     DateTime start;
-    User owner;
+    EntityId ownerId;
     protected CallType callType;
 
     PhoneCard targetCard;
@@ -37,7 +37,7 @@ public class CallRecord extends CommunicationRecord implements Record {
     public CallRecord(Locale from_locale, User owner, DateTime start, Duration duration, CallType callType, PhoneCard targetCard) {
         this.id = new EntityId(IdGenerator.next());
         this.from_locale = from_locale;
-        this.owner = owner;
+        this.ownerId = owner.id;
         this.start = start;
         this.duration = duration;
         this.callType = callType;
@@ -62,7 +62,7 @@ public class CallRecord extends CommunicationRecord implements Record {
             put("communication_type", communicationType.name());
             put("fee", fee);
             put("links", asList(
-                    routes.linkMap("self", routes.callRecordsUrl(owner.getId().id(), id.id()).getPath())
+                    routes.linkMap("self", routes.callRecordsUrl(ownerId.id(), id.id()).getPath())
             ));
         }};
     }
@@ -77,7 +77,7 @@ public class CallRecord extends CommunicationRecord implements Record {
                 .append("from_locale", LocaleFormatter.toDocument(callRecord.from_locale))
                 .append("duration", callRecord.duration.getMillis())
                 .append("start", callRecord.start.getMillis())
-                .append("owner", callRecord.owner.getId().id())
+                .append("owner", callRecord.ownerId)
                 .append("call_type", callRecord.callType.name())
                 .append("target_card", PhoneCard.toDocument(callRecord.targetCard))
                 .append("communication_type", callRecord.communicationType.name())
