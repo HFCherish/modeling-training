@@ -25,14 +25,14 @@ public class MessageRecord extends CommunicationRecord implements Record {
     protected SendType sendType;
     protected Long createdAt;
     protected EntityId id;
-    protected User owner;
+    protected EntityId ownerId;
 
     private MessageRecord() {
     }
 
     public MessageRecord(User owner, Locale from_locale, PhoneCard targetCard, Type type, SendType sendType, Long createdAt) {
         this.id = new EntityId(IdGenerator.next());
-        this.owner = owner;
+        this.ownerId = owner.getId();
         this.from_locale = from_locale;
         this.targetCard = targetCard;
         this.type = type;
@@ -59,7 +59,7 @@ public class MessageRecord extends CommunicationRecord implements Record {
             put("communication_type", communicationType.name());
             put("fee", fee);
             put("links", asList(
-                    routes.linkMap("self", routes.messageRecordUrl(owner.getId().id(), id.id()).getPath())
+                    routes.linkMap("self", routes.messageRecordUrl(ownerId.id(), id.id()).getPath())
             ));
         }};
     }
@@ -73,7 +73,7 @@ public class MessageRecord extends CommunicationRecord implements Record {
         return new Document("_id", newMessage.getId().id())
                 .append("from_locale", LocaleFormatter.toDocument(newMessage.from_locale))
                 .append("createdAt", newMessage.createdAt)
-//                .append("owner", newMessage.ownerId.id())
+                .append("owner", newMessage.ownerId.id())
                 .append("type", newMessage.type.name())
                 .append("send_type", newMessage.sendType.name())
                 .append("target_card", PhoneCard.toDocument(newMessage.targetCard))
@@ -88,7 +88,7 @@ public class MessageRecord extends CommunicationRecord implements Record {
         messageRecord.from_locale = LocaleFormatter.buildFromDocument((Document)document.get("from_locale"));
         messageRecord.targetCard = PhoneCard.buildFromDocument((Document)document.get("target_card"));
         messageRecord.createdAt = document.getLong("createdAt");
-//        messageRecord.ownerId = new EntityId(document.getString("owner"));
+        messageRecord.ownerId = new EntityId(document.getString("owner"));
         messageRecord.type = Type.valueOf(document.getString("type"));
         messageRecord.sendType = SendType.valueOf(document.getString("send_type"));
         messageRecord.communicationType = CommunicationType.valueOf(document.getString("communication_type"));

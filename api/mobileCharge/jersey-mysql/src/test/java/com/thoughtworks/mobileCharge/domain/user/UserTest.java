@@ -66,6 +66,6 @@ public class UserTest {
         assertThat(saved.communicationType, is(toSave.communicationType));
         assertThat(saved.sendType, is(toSave.sendType));
         assertThat(saved.targetCard.phoneNumber, is(toSave.targetCard.phoneNumber));
-//        assertThat(saved.ownerId, is(user.getId()));
+        assertThat(saved.ownerId, is(user.getId()));
     }
 }
