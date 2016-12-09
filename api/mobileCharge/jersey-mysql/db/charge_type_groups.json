@@ -1,0 +1,17 @@
+[
+  {
+    "_id": "368d978e-9bbe-4312-b68f-30b334efdcde",
+    "communication_type": "LOCAL"
+  },
+  {
+    "_id": "368d978e-9bbe-4312-b68f-30b334efdcdf",
+    "communication_type": "LOCAL",
+    "call_type": "CALLER"
+  },
+  {
+    "_id": "368d978e-9bbe-4312-b68f-30b334efdccf",
+    "communication_type": "LOCAL",
+    "send_type": "SENDER",
+    "message_type": "MMS"
+  }
+]

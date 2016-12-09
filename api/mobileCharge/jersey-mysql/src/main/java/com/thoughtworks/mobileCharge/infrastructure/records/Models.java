@@ -97,6 +97,7 @@ public class Models extends AbstractModule {
         bind(MessageRecordQueryService.class).to(MessageRecordQueryServiceImpl.class);
         bind(DataAccessRecordMapper.class).to(DataAccessRecordDB.class);
         bind(DataAccessRecordQueryService.class).to(DataAccessRecordQueryServiceImpl.class);
+        bind(ChargeTypeGroupMapper.class).to(ChargeTypeGroupDB.class);
 
     }
 

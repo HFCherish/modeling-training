@@ -84,6 +84,6 @@ public class UserTest {
     public void should_get_user_balance() {
         Balance balance = user.getBalance();
         assertThat(balance.remainMoney > 0, is(true));
-//        assertThat(balance.accounts.isEmpty(), is(false));
+        assertThat(balance.accounts.isEmpty(), is(false));
     }
 }

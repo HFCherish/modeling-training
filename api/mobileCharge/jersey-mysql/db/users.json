@@ -3,7 +3,16 @@
     "_id": "368d978e-9bbe-4312-b68f-30b334efdcdc",
     "idCard": "430891100910100910",
     "balance": {
-      "remain_money": 34.2
+      "remain_money": 34.2,
+      "accounts": [
+        {
+          "charge_type_group": "368d978e-9bbe-4312-b68f-30b334efdcde",
+          "charge_balance": {
+            "free_number": 32,
+            "unit_price": 0.1
+          }
+        }
+      ]
     },
     "phoneCard": {
       "phoneNumber": "13245678901",
@@ -18,7 +27,17 @@
     "_id": "d1400a08-af4b-4113-8705-718016128861",
     "idCard": "430891100910100911",
     "balance": {
-      "remain_money": 34.2
+      "remain_money": 34.2,
+      "accounts": [
+        {
+          "charge_type_group": "368d978e-9bbe-4312-b68f-30b334efdcde",
+          "charge_balance": {
+            "free_number": 32,
+            "unit_price": 0.1
+          }
+        }
+      ]
+
     },
     "phoneCard": {
       "phoneNumber": "13245678907",

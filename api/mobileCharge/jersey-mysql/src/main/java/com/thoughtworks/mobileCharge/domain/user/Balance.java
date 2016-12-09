@@ -2,11 +2,16 @@ package com.thoughtworks.mobileCharge.domain.user;
 
 import com.thoughtworks.mobileCharge.api.jersey.Routes;
 import com.thoughtworks.mobileCharge.domain.ChargeType;
+import com.thoughtworks.mobileCharge.infrastructure.mappers.ChargeTypeGroupMapper;
 import com.thoughtworks.mobileCharge.infrastructure.records.Record;
+import com.thoughtworks.mobileCharge.infrastructure.util.SafetyInjector;
 import org.bson.Document;
 
+import javax.inject.Inject;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
@@ -16,20 +21,19 @@ import java.util.stream.Stream;
 public class Balance implements Record {
     protected double remainMoney;
     protected HashMap<ChargeTypeGroup, ChargeBalance> accounts;
-
+    @Inject
+    ChargeTypeGroupMapper chargeTypeGroupMapper;
 
     public Balance() {
         remainMoney = 0.0;
 
         accounts = new HashMap<>();
-//        callAccounts = new HashMap();
         for (CommunicationRecord.CommunicationType communicationType : CommunicationRecord.CommunicationType.values()) {
             for (CallRecord.CallType callType : CallRecord.CallType.values()) {
                 accounts.put(new ChargeTypeGroup(communicationType, callType), new ChargeBalance());
             }
         }
 
-//        messageAccounts = new HashMap();
         for (CommunicationRecord.CommunicationType communicationType : CommunicationRecord.CommunicationType.values()) {
             for (MessageRecord.Type messageType : MessageRecord.Type.values()) {
                 for (MessageRecord.SendType sendType : MessageRecord.SendType.values()) {
@@ -38,7 +42,6 @@ public class Balance implements Record {
             }
         }
 
-//        dataAccessAccounts = new HashMap<>();
         Stream.of(CommunicationRecord.CommunicationType.values()).forEach(type -> {
             accounts.put(new ChargeTypeGroup(type), new ChargeBalance());
         });
@@ -54,9 +57,9 @@ public class Balance implements Record {
         return new HashMap() {{
             put("remainMoney", remainMoney);
             put("remainData", new HashMap() {{
-                put("local", accounts.get(new ChargeTypeGroup(CommunicationRecord.CommunicationType.LOCAL)).freeNumbers);
-                put("internal", accounts.get(new ChargeTypeGroup(CommunicationRecord.CommunicationType.INTERNAL)).freeNumbers);
-                put("international", accounts.get(new ChargeTypeGroup(CommunicationRecord.CommunicationType.INTERNATIONAL)).freeNumbers);
+                put("local", accounts.get(new ChargeTypeGroup(CommunicationRecord.CommunicationType.LOCAL)).freeNumber);
+                put("internal", accounts.get(new ChargeTypeGroup(CommunicationRecord.CommunicationType.INTERNAL)).freeNumber);
+                put("international", accounts.get(new ChargeTypeGroup(CommunicationRecord.CommunicationType.INTERNATIONAL)).freeNumber);
             }});
             put("remainCallMinutes", new HashMap() {{
                 put("local", getFreeNumbers(accounts, CommunicationRecord.CommunicationType.LOCAL));
@@ -65,8 +68,8 @@ public class Balance implements Record {
             }
                 public long getFreeNumbers
                         (Map<ChargeTypeGroup, ChargeBalance> accounts, CommunicationRecord.CommunicationType communicationType) {
-                    return accounts.get(new ChargeTypeGroup(communicationType, CallRecord.CallType.CALLEE)).freeNumbers +
-                            accounts.get(new ChargeTypeGroup(communicationType, CallRecord.CallType.CALLER)).freeNumbers;
+                    return accounts.get(new ChargeTypeGroup(communicationType, CallRecord.CallType.CALLEE)).freeNumber +
+                            accounts.get(new ChargeTypeGroup(communicationType, CallRecord.CallType.CALLER)).freeNumber;
                 }
             });
             put("remainMessages", new HashMap() {{
@@ -77,8 +80,8 @@ public class Balance implements Record {
                 public long getFreeNumbers
                         (Map<ChargeTypeGroup, ChargeBalance> accounts, CommunicationRecord.CommunicationType
                                 communicationType, MessageRecord.Type type) {
-                    return accounts.get(new ChargeTypeGroup(communicationType, type, MessageRecord.SendType.SENDER)).freeNumbers +
-                            accounts.get(new ChargeTypeGroup(communicationType, type, MessageRecord.SendType.RECEIVER)).freeNumbers;
+                    return accounts.get(new ChargeTypeGroup(communicationType, type, MessageRecord.SendType.SENDER)).freeNumber +
+                            accounts.get(new ChargeTypeGroup(communicationType, type, MessageRecord.SendType.RECEIVER)).freeNumber;
                 }
 
                 public HashMap getMessageMap(final CommunicationRecord.CommunicationType communicationType) {
@@ -98,9 +101,15 @@ public class Balance implements Record {
     }
 
     public static Balance buildFromDocument(Document document) {
-        Balance balance = new Balance();
+        Balance balance = SafetyInjector.injectMembers(new Balance());
         balance.remainMoney = document.getDouble("remain_money");
-//        balance.
+        ((List<Document>)document.get("accounts")).stream().forEach(document1 -> {
+            String chargeTypeGroupId = document.getString("charge_type_group");
+            Optional<ChargeTypeGroup> chargeType = balance.chargeTypeGroupMapper.findById(chargeTypeGroupId);
+            if(chargeType.isPresent()) {
+                balance.accounts.put(chargeType.get(), ChargeBalance.buildFromDocument((Document)document.get("charge_balance")));
+            }
+        });
         return balance;
     }
 
@@ -111,7 +120,7 @@ public class Balance implements Record {
 
                 ChargeBalance callChargeBalance = balance.accounts.get(new ChargeTypeGroup(record.communicationType, ((CallRecord) record).callType));
                 Long costMinutes = ((CallRecord) record).duration.getStandardMinutes();
-                long freeMinutes = callChargeBalance.freeNumbers;
+                long freeMinutes = callChargeBalance.freeNumber;
                 if (freeMinutes > costMinutes) {
                     callChargeBalance.addFreeNumber(-costMinutes);
                 } else {
@@ -131,7 +140,7 @@ public class Balance implements Record {
                 if (((DataAccessRecord) record).chargeType.equals(ChargeType.CHARGE)) {
                     ChargeBalance dataAccessChargeBalance = balance.accounts.get(new ChargeTypeGroup(record.communicationType));
                     Long costData = ((DataAccessRecord) record).data;
-                    long freeData = dataAccessChargeBalance.freeNumbers;
+                    long freeData = dataAccessChargeBalance.freeNumber;
                     if (freeData > costData) {
                         dataAccessChargeBalance.addFreeNumber(-costData);
                     } else {
@@ -150,7 +159,7 @@ public class Balance implements Record {
                 double charge = 0.0;
 
                 ChargeBalance messageChargeBalance = balance.accounts.get(new ChargeTypeGroup(record.communicationType, ((MessageRecord) record).type, ((MessageRecord) record).sendType));
-                if (messageChargeBalance.freeNumbers > 0) {
+                if (messageChargeBalance.freeNumber > 0) {
                     messageChargeBalance.addFreeNumber(-1);
                 } else {
                     charge = messageChargeBalance.unitPrice;

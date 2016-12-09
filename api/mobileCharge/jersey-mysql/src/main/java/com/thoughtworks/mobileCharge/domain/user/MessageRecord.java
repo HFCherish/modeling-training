@@ -50,7 +50,7 @@ public class MessageRecord extends CommunicationRecord implements Record {
     public Map<String, Object> toRefJson(Routes routes) {
         return new HashMap() {{
             put("id", id.id());
-            put("type", type.name());
+            put("messageType", type.name());
             put("send_type", sendType.name());
             put("createdAt", new DateTime(createdAt));
             put("from_locale", LocaleFormatter.getCityAndCountry(from_locale));
@@ -73,7 +73,7 @@ public class MessageRecord extends CommunicationRecord implements Record {
                 .append("from_locale", LocaleFormatter.toDocument(newMessage.from_locale))
                 .append("createdAt", newMessage.createdAt)
                 .append("owner", newMessage.ownerId.id())
-                .append("type", newMessage.type.name())
+                .append("messageType", newMessage.type.name())
                 .append("send_type", newMessage.sendType.name())
                 .append("target_card", PhoneCard.toDocument(newMessage.targetCard))
                 .append("communication_type", newMessage.communicationType.name())
@@ -88,7 +88,7 @@ public class MessageRecord extends CommunicationRecord implements Record {
         messageRecord.targetCard = PhoneCard.buildFromDocument((Document) document.get("target_card"));
         messageRecord.createdAt = document.getLong("createdAt");
         messageRecord.ownerId = new EntityId(document.getString("owner"));
-        messageRecord.type = Type.valueOf(document.getString("type"));
+        messageRecord.type = Type.valueOf(document.getString("messageType"));
         messageRecord.sendType = SendType.valueOf(document.getString("send_type"));
         messageRecord.communicationType = CommunicationType.valueOf(document.getString("communication_type"));
         messageRecord.fee = document.getDouble("fee");

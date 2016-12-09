@@ -1,11 +1,9 @@
 package com.thoughtworks.mobileCharge.infrastructure.mongo;
 
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.thoughtworks.mobileCharge.domain.user.Balance;
-import com.thoughtworks.mobileCharge.domain.user.CallRecord;
 import com.thoughtworks.mobileCharge.domain.user.User;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.UserMapper;
 import org.bson.Document;

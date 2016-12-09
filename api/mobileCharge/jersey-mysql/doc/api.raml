@@ -35,13 +35,13 @@ mediaType:  application/json
         description: get all call records of some month
         queryParameters:
           perPage: 
-            type: integer
+            messageType: integer
             default: 10
           page:
-            type: integer
+            messageType: integer
             default: 1
           month:
-            type: integer
+            messageType: integer
         responses:
           200:
             body:
@@ -68,13 +68,13 @@ mediaType:  application/json
         description: get all message records of some month
         queryParameters:
           perPage: 
-            type: integer
+            messageType: integer
             default: 10
           page:
-            type: integer
+            messageType: integer
             default: 1
           month:
-            type: integer
+            messageType: integer
         responses:
           200:
             body:
@@ -101,13 +101,13 @@ mediaType:  application/json
         description: get all data access records of some month
         queryParameters:
           perPage: 
-            type: integer
+            messageType: integer
             default: 10
           page:
-            type: integer
+            messageType: integer
             default: 1
           month:
-            type: integer
+            messageType: integer
         responses:
           200:
             body:
@@ -142,7 +142,7 @@ mediaType:  application/json
 #         description: get all package purchase records
 #         queryParameters:
 #           valid:
-#             type: boolean
+#             messageType: boolean
 #             default: true
 #             description: only get the packages that is valid at present
 #         responses:
