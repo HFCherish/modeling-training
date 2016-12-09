@@ -79,9 +79,9 @@ public class UserApiTest extends ApiSupportWithMock {
 
         assertThat(response.getStatus(), is(200));
         Map balanceInfo = response.readEntity(Map.class);
-        assertThat(balanceInfo.get("remainedMoney"), is(0.0));
-        assertThat(((Map)balanceInfo.get("remainedData")).get("local"), is(0));
-        assertThat(((Map)balanceInfo.get("remainedCallMinutes")).get("local"), is(0));
-        assertThat(((Map)((Map)balanceInfo.get("remainedMessages")).get("local")).get("MMS"), is(0));
+        assertThat(balanceInfo.get("remainMoney"), is(0.0));
+        assertThat(((Map)balanceInfo.get("remainData")).get("local"), is(0));
+        assertThat(((Map)balanceInfo.get("remainCallMinutes")).get("local"), is(0));
+        assertThat(((Map)((Map)balanceInfo.get("remainMessages")).get("local")).get("MMS"), is(0));
     }
 }

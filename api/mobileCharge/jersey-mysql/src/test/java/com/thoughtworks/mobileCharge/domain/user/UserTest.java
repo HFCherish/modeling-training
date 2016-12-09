@@ -17,6 +17,7 @@ import java.util.Locale;
 import static com.thoughtworks.mobileCharge.support.TestHelper.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.*;
 
 /**
@@ -77,5 +78,12 @@ public class UserTest {
         assertThat(saved.targetConsumer, is(toSave.targetConsumer));
         assertThat(saved.fromLocale, is(toSave.fromLocale));
         assertThat(saved.ownerId, is(user.getId()));
+    }
+
+    @Test
+    public void should_get_user_balance() {
+        Balance balance = user.getBalance();
+        assertThat(balance.remainMoney > 0, is(true));
+//        assertThat(balance.accounts.isEmpty(), is(false));
     }
 }

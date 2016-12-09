@@ -4,6 +4,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.thoughtworks.mobileCharge.domain.user.Balance;
 import com.thoughtworks.mobileCharge.domain.user.CallRecord;
 import com.thoughtworks.mobileCharge.domain.user.User;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.UserMapper;
@@ -15,9 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.mongodb.client.model.Projections.exclude;
-import static com.mongodb.client.model.Projections.fields;
-import static com.mongodb.client.model.Projections.include;
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Projections.*;
 
 /**
  * Created by pzzheng on 12/8/16.
@@ -42,6 +42,14 @@ public class UserDB implements UserMapper {
         ArrayList<Document> documents = users.find()
                 .projection(fields(include("idCard", "phoneCard"))).into(new ArrayList<>());
         return documents.stream().map(document -> User.buildFromDocument(document)).filter(user -> user!=null).collect(Collectors.toList());
+    }
+
+    @Override
+    public Balance getBalanceOf(User user) {
+        Document document = users.find(Filters.eq("_id", user.getId().id()))
+                .projection(and(fields(include("balance")), fields(excludeId())))
+                .first();
+        return Balance.buildFromDocument((Document)document.get("balance"));
     }
 
 }

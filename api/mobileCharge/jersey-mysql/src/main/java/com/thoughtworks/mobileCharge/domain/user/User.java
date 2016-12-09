@@ -4,6 +4,7 @@ import com.thoughtworks.mobileCharge.domain.EntityId;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.CallRecordMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.DataAccessRecordMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.MessageRecordMapper;
+import com.thoughtworks.mobileCharge.infrastructure.mappers.UserMapper;
 import com.thoughtworks.mobileCharge.infrastructure.records.Record;
 import com.thoughtworks.mobileCharge.infrastructure.util.SafetyInjector;
 import com.thoughtworks.mobileCharge.util.IdGenerator;
@@ -33,6 +34,9 @@ public class User implements Record {
 
     @Inject
     DataAccessRecordMapper dataAccessRecordMapper;
+
+    @Inject
+    UserMapper userMapper;
 
     public User(String idCard, Balance balance, PhoneCard phoneCard) {
         this.id = new EntityId(IdGenerator.next());
@@ -70,6 +74,9 @@ public class User implements Record {
     }
 
     public Balance getBalance() {
+        if(balance == null) {
+            balance = userMapper.getBalanceOf(this);
+        }
         return balance;
     }
 
