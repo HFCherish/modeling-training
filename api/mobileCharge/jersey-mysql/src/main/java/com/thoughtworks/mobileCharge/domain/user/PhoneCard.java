@@ -40,10 +40,10 @@ public class PhoneCard implements Record{
     }
 
     public static PhoneCard buildFromDocument(Document document) {
-//        PhoneCard phoneCard = new PhoneCard();
-//        phoneCard.locale = LocaleFormatter.buildFromDocument((Document)(document.get("locale")));
-//        phoneCard.phoneNumber = document.getString("phoneNumber");
-//        return phoneCard;
-        return null;
+        if (document.isEmpty()) return null;
+        PhoneCard phoneCard = new PhoneCard();
+        phoneCard.locale = LocaleFormatter.buildFromDocument((Document)(document.get("locale")));
+        phoneCard.phoneNumber = document.getString("phoneNumber");
+        return phoneCard;
     }
 }

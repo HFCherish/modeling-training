@@ -32,6 +32,7 @@ public class User implements Record {
     private User() {}
 
     public static User buildFromDocument(Document document) {
+        if(document.isEmpty())  return null;
         User user = new User();
         user.id = new EntityId(document.get("_id").toString());
         user.idCard = document.get("idCard").toString();

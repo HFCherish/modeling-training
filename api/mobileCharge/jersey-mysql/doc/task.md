@@ -79,7 +79,7 @@
 
 1. find user by id
 	2. contains right basic info - 15: 17
-	3. contains right phone card info -15: 
+	3. contains right phone card info -15 : 8 
 	    1. contains right locale info -5:
 	4. contains right balance info -15:
 5. user.saveCallRecord

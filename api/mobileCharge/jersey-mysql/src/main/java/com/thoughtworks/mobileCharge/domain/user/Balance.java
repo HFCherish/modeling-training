@@ -46,6 +46,10 @@ public class Balance implements Record {
 
     }
 
+    public double getRemainedMoney() {
+        return remainedMoney;
+    }
+
     public double charge(CommunicationRecord record, BiFunction<CommunicationRecord, Balance, Double> chargeStrategy) {
         return chargeStrategy.apply(record, this);
     }
