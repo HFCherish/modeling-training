@@ -13,9 +13,7 @@ import javax.inject.Inject;
 
 import java.util.Locale;
 
-import static com.thoughtworks.mobileCharge.support.TestHelper.beijingLocale;
-import static com.thoughtworks.mobileCharge.support.TestHelper.getCallRecord;
-import static com.thoughtworks.mobileCharge.support.TestHelper.getPhoneCard;
+import static com.thoughtworks.mobileCharge.support.TestHelper.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.*;
@@ -52,12 +50,7 @@ public class UserTest {
 
     @Test
     public void should_save_and_get_that_message_record() {
-        MessageRecord toSave = new MessageRecord(user,
-                beijingLocale(),
-                getPhoneCard(beijingLocale()),
-                MessageRecord.Type.MMS,
-                MessageRecord.SendType.SENDER,
-                new DateTime().getMillis());
+        MessageRecord toSave = getMessageRecord(user, new DateTime());
 
         MessageRecord saved = user.saveMessage(toSave);
         assertThat(saved.getId(), is(toSave.getId()));

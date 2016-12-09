@@ -2,22 +2,19 @@ package com.thoughtworks.mobileCharge.api.services;
 
 import com.thoughtworks.mobileCharge.domain.PaginatedList;
 import com.thoughtworks.mobileCharge.domain.user.CallRecord;
-import com.thoughtworks.mobileCharge.domain.user.PhoneCard;
 import com.thoughtworks.mobileCharge.domain.user.User;
 import com.thoughtworks.mobileCharge.domain.user.UserRepo;
 import com.thoughtworks.mobileCharge.support.DatabaseTestRunner;
 import org.joda.time.DateTime;
-import org.joda.time.Duration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
-import static com.thoughtworks.mobileCharge.support.TestHelper.beijingLocale;
 import static com.thoughtworks.mobileCharge.support.TestHelper.getCallRecord;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by pzzheng on 12/9/16.

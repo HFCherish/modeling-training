@@ -34,14 +34,13 @@ public class TestHelper {
                 targetCard);
     }
 
-    public static CallRecord getMessageRecord(User owner, DateTime start) {
-        PhoneCard targetCard = getPhoneCard(beijingLocale());
-        return new CallRecord(beijingLocale(),
-                owner,
-                start,
-                new Duration(60),
-                CallRecord.CallType.CALLER,
-                targetCard);
+    public static MessageRecord getMessageRecord(User owner, DateTime start) {
+        return new MessageRecord(owner,
+                beijingLocale(),
+                getPhoneCard(beijingLocale()),
+                MessageRecord.Type.MMS,
+                MessageRecord.SendType.SENDER,
+                start.getMillis());
     }
 
     public static PhoneCard getPhoneCard(Locale locale) {

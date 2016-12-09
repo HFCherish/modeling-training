@@ -8,7 +8,6 @@ import com.thoughtworks.mobileCharge.domain.user.User;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.CallRecordMapper;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.joda.time.DateTime;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class CallRecordDB implements CallRecordMapper {
     public long countOf(User user, int month) {
         Bson filter = Filters.eq("owner", user.getId().id());
         if( month>=1 && month<=12) {
-            filter = and(filter, getMonthFilter(month));
+            filter = and(filter, getMonthFilter(month, "start"));
         }
         return callRecords.count(filter);
     }
@@ -43,7 +42,7 @@ public class CallRecordDB implements CallRecordMapper {
     public List<CallRecord> findAllOf(User user, int month, int page, int perPage) {
         Bson filter = Filters.eq("owner", user.getId().id());
         if( month>=1 && month<=12) {
-            filter = and(filter, getMonthFilter(month));
+            filter = and(filter, getMonthFilter(month, "start"));
         }
         ArrayList<Document> documents = callRecords.find(filter).skip(page).limit(perPage).into(new ArrayList<>());
         return documents.stream().map(document -> CallRecord.buildFromDocument(document)).filter(callRecord -> callRecord != null).collect(Collectors.toList());

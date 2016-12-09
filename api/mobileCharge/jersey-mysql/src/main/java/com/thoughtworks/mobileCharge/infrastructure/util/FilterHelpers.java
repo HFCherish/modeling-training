@@ -10,11 +10,11 @@ import static com.mongodb.client.model.Filters.and;
  * Created by pzzheng on 12/9/16.
  */
 public class FilterHelpers {
-    public static Bson getMonthFilter(int month) {
+    public static Bson getMonthFilter(int month, String startFieldName) {
         DateTime current = new DateTime();
         DateTime targetStart = new DateTime(current.getYear(), month, 1, 0, 0);
         DateTime targetEnd = targetStart.plusMonths(1);
-        return and(Filters.gte("start", targetStart.getMillis()),
-                Filters.lt("start", targetEnd.getMillis()));
+        return and(Filters.gte(startFieldName, targetStart.getMillis()),
+                Filters.lt(startFieldName, targetEnd.getMillis()));
     }
 }

@@ -95,7 +95,7 @@
     1. save to db and can get that one with right id -15:
     1. can get with right duration, start, locale, type, send type ,target card.., owner id info - 20: 26
 1. user can get all message records -5:
-    1. can get by month - 10:
+    1. can get by month - 10: 11
 1. user save database access record
     1. save to db and can get that one with right id - 15:
     1. can get with right details -15:
