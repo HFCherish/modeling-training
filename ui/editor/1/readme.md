@@ -14,4 +14,4 @@
     1. 直接对parentElement使用getElement查找子元素中的text、node节点。getElement等操作可以直接对任一元素执行, 表示在它的子元素中查找。
     1. 使用querySelector定义条件获取节点(这是第二种常用的查询dom的方法)
 2. 可以增加新的editor-15: 48
-3. 可以拖拽editor-15:
+3. 可以拖拽editor-15: 20

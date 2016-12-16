@@ -54,6 +54,40 @@ function addRow() {
     flush();
 }
 
+function drag() {
+    function getTarget(event) {
+        return event.target || event.srcElement;
+    }
+    var components = document.getElementsByClassName('component');
+    for(var i=0; i<components.length; i++) {
+        components[i].style.position = 'absolute';
+        var startLeft, startTop, flag = false;
+        components[i].onmousedown = function (event) {
+            flag = true;
+            startLeft = event.clientX - this.offsetLeft;
+            startTop = event.clientY - this.offsetTop;
+        };
+        components[i].onmousemove = function (event) {
+            if(flag) {
+                startLeft = event.clientX - startLeft;
+                startLeft = startLeft < 0 ? 0 : startLeft;
+                this.style.left =  startLeft;
+                this.style.left =  startLeft + 'px';
+                startTop = event.clientY - startTop;
+                startTop = startTop < 0 ? 0 : startTop;
+                this.style.top = startTop;
+                this.style.top = startTop + 'px';
+            }
+        };
+        components[i].onmouseup = function (event) {
+            flag = false;
+        };
+        components[i].onmouseout = function (event) {
+            flag = false;
+        };
+    }
+}
+
 function addEventListener(buttonClass, eventListener) {
     var buttons = document.getElementsByClassName(buttonClass);
     for (var i = 0; i < buttons.length; i++) {
@@ -82,6 +116,7 @@ function flush() {
     addEventListener('addRow', addRow);
     addEventListener('showButton', render);
     addEventListener('editButton', edit);
+    drag();
 }
 
 flush();
