@@ -1,0 +1,12 @@
+li {
+    list-style-type: none;
+}
+
+li.column {
+    float: left;
+    display: inline-block;
+}
+
+.title, .text {
+    margin-bottom: 10px;
+}
