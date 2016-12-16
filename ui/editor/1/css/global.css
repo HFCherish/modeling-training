@@ -7,6 +7,12 @@ li.column {
     display: inline-block;
 }
 
-.title, .text {
+.title {
     margin-bottom: 10px;
+}
+
+ul.component {
+    border: 1px solid blanchedalmond;
+    padding: 5px;
+    margin: 10px 0;
 }
