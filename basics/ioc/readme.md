@@ -11,6 +11,7 @@ Implement a simple injector in accordance with JSR-330.
             1. how to get the annotation annotated by scope :40
 2. field injection
 	3. constructor injection －15 : 22
+	    1. can only has one constructor with injection annotation -5 : 10
 	4. field injection
 	5. method injection
     3. Qualified
