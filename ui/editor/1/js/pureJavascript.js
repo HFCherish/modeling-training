@@ -63,20 +63,22 @@ function drag() {
         components[i].style.position = 'absolute';
         var startLeft, startTop, flag = false;
         components[i].onmousedown = function (event) {
+            event = window.event || event;
             flag = true;
-            startLeft = event.clientX - this.offsetLeft;
-            startTop = event.clientY - this.offsetTop;
+            // startLeft = event.clientX - this.offsetLeft;
+            // startTop = event.clientY - this.offsetTop;
         };
         components[i].onmousemove = function (event) {
             if(flag) {
-                startLeft = event.clientX - startLeft;
-                startLeft = startLeft < 0 ? 0 : startLeft;
-                this.style.left =  startLeft;
-                this.style.left =  startLeft + 'px';
-                startTop = event.clientY - startTop;
-                startTop = startTop < 0 ? 0 : startTop;
-                this.style.top = startTop;
-                this.style.top = startTop + 'px';
+                event = window.event || event;
+                // startLeft = event.clientX - startLeft;
+                // startLeft = startLeft < 0 ? 0 : startLeft;
+                // this.style.left =  startLeft + 'px';
+                // startTop = event.clientY - startTop;
+                // startTop = startTop < 0 ? 0 : startTop;
+                // this.style.top = startTop + 'px';
+                this.style.left = event.clientX +  'px';
+                this.style.top = event.clientY + 'px';
             }
         };
         components[i].onmouseup = function (event) {
