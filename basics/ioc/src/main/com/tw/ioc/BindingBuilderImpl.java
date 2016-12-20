@@ -15,9 +15,10 @@ public class BindingBuilderImpl<T> implements AnnotatedBindingBuilder<T> {
     }
 
     @Override
-    public void to(Class<? extends T> toInjectImplClass) {
+    public ScopeBindingBuilder<T> to(Class<? extends T> toInjectImplClass) {
         Binding<?> binding = mutableBindings.get(toInjectClass);
-        mutableBindings.replace(toInjectClass, new Binding<T>(toInjectClass, Providers.fromImplementationClass(toInjectImplClass), binding.getAnnotationType(), binding.getScope()));
+        mutableBindings.replace(toInjectClass, new Binding<>(toInjectClass, Providers.fromImplementationClass(toInjectImplClass), binding.getAnnotationType(), binding.getScope()));
+        return new ScopeBindingBuilderImpl<T>(toInjectClass, mutableBindings);
     }
 
     @Override
