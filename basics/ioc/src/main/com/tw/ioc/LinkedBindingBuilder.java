@@ -5,4 +5,6 @@ package com.tw.ioc;
  */
 public interface LinkedBindingBuilder<T> {
     void to(Class<? extends T> toInjectImplClass);
+
+    void toInstance(T instance);
 }

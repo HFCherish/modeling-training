@@ -17,7 +17,7 @@ public class RecordBinder implements Binder {
     public <T> AnnotatedBindingBuilder<T> bind(Class<T> toInjectClass) {
         Binding<T> binding = new Binding<>(toInjectClass, null, null, null);
         mutableBindings.put(toInjectClass, binding);
-        return new AnnotatedBindingBuilderImpl(toInjectClass, mutableBindings);
+        return new BindingBuilderImpl(toInjectClass, mutableBindings);
     }
 
     @Override

@@ -13,14 +13,6 @@ public class InjectorImpl implements Injector {
     @Override
     public <T> T getInstance(Class<T> toInjectClass) {
         Binding<T> binding = binder.getBinding(toInjectClass);
-        try {
-            System.out.println(binding.getToInjectImplClass());
-            return binding.getToInjectImplClass().newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return binding.getProvider().get();
     }
 }

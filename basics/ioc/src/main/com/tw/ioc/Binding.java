@@ -7,13 +7,13 @@ import java.lang.annotation.Annotation;
  */
 public class Binding<T> {
     Class<T> toInjectClass;
-    Class<? extends T> toInjectImplClass;
+    Provider<T> provider;
     Class<? extends Annotation> annotationType;
     Scope scope;
 
-    public Binding(Class<T> toInjectClass, Class<? extends T> toInjectImplClass, Class<? extends Annotation> annotationType, Scope scope) {
+    public Binding(Class<T> toInjectClass, Provider<T> provider, Class<? extends Annotation> annotationType, Scope scope) {
         this.toInjectClass = toInjectClass;
-        this.toInjectImplClass = toInjectImplClass;
+        this.provider = provider;
         this.annotationType = annotationType;
         this.scope = scope;
     }
@@ -22,8 +22,8 @@ public class Binding<T> {
         return toInjectClass;
     }
 
-    public Class<? extends T> getToInjectImplClass() {
-        return toInjectImplClass;
+    public Provider<T> getProvider() {
+        return provider;
     }
 
     public Class<? extends Annotation> getAnnotationType() {
