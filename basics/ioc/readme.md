@@ -7,9 +7,10 @@ Implement a simple injector in accordance with JSR-330.
     2. scope
         1. can set scope as singleton when bind -15: 15
         2. can set scope as singleton by using annotation -15: 8
-        3. can set scope as self-defined scope
+        3. can set scope as self-defined scope -15: 52
+            1. how to get the annotation annotated by scope :40
     3. @Qualified
 2. field injection
 	3. constructor injection
 	4. field injection
-	5. method inje ction
+	5. method injection
