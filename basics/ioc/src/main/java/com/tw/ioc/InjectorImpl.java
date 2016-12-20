@@ -21,14 +21,15 @@ public class InjectorImpl implements Injector {
     @Override
     public <T> T getInstance(Class<T> toInjectClass) {
         Binding<T> binding = binder.getBinding(toInjectClass);
-        if (binding == null) {
-            return getInstanceFromConstructor(toInjectClass);
-        }
-        return binding.getProvider().get();
+        T res;
+        res = binding == null ? getInstanceFromConstructor(toInjectClass) : binding.getProvider().get();
+        injectMembers(res);
+        return res;
     }
 
     @Override
     public void injectMembers(Object instance) {
+        if (instance == null) return;
         List<Field> injectFields = Arrays.stream(instance.getClass().getDeclaredFields()).filter(field -> field.isAnnotationPresent(Inject.class)).collect(Collectors.toList());
         injectFields.stream().forEach(field -> {
             field.setAccessible(true);
@@ -43,7 +44,7 @@ public class InjectorImpl implements Injector {
 
     private <T> T getInstanceFromConstructor(Class<T> toInjectClass) {
         try {
-            Constructor<T> constructor = toInjectClass.getConstructor(new Class[0]);
+            Constructor<T> constructor = toInjectClass.getDeclaredConstructor(new Class[0]);
             if (constructor != null) {
                 constructor.setAccessible(true);
                 return constructor.newInstance(new Object[0]);
@@ -61,7 +62,7 @@ public class InjectorImpl implements Injector {
     }
 
     private <T> T getInstanceFromInjectConstructor(Class<T> toInjectClass) {
-        List<Constructor<?>> constructors = Arrays.stream(toInjectClass.getConstructors()).filter(constructor -> constructor.isAnnotationPresent(Inject.class)).collect(Collectors.toList());
+        List<Constructor<?>> constructors = Arrays.stream(toInjectClass.getDeclaredConstructors()).filter(constructor -> constructor.isAnnotationPresent(Inject.class)).collect(Collectors.toList());
 
         if (constructors.size() > 1) {
             try {

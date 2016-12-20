@@ -19,6 +19,12 @@ public class FieldInjectionTest {
         assertThat(instance.execute(), is("hello petrina"));
     }
 
+    @Test
+    public void should_inject_fields_when_get_instance() {
+        WithFieldToInject instance = DI.createInjector(new Configurations()).getInstance(WithFieldToInject.class);
+        assertThat(instance.execute(), is("hello petrina"));
+    }
+
     static class WithFieldToInject {
         @Inject
         ToInject toInject;
