@@ -5,4 +5,6 @@ package com.tw.ioc;
  */
 public interface Injector {
     <T> T getInstance(Class<T> toInjectClass);
+
+    void injectMembers(Object instance);
 }

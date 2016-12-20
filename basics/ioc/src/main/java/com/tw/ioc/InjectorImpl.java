@@ -2,12 +2,11 @@ package com.tw.ioc;
 
 import javax.inject.Inject;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by pzzheng on 12/20/16.
@@ -26,6 +25,20 @@ public class InjectorImpl implements Injector {
             return getInstanceFromConstructor(toInjectClass);
         }
         return binding.getProvider().get();
+    }
+
+    @Override
+    public void injectMembers(Object instance) {
+        List<Field> injectFields = Arrays.stream(instance.getClass().getDeclaredFields()).filter(field -> field.isAnnotationPresent(Inject.class)).collect(Collectors.toList());
+        injectFields.stream().forEach(field -> {
+            field.setAccessible(true);
+            Class<?> fieldType = field.getType();
+            try {
+                field.set(instance, getInstance(fieldType));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private <T> T getInstanceFromConstructor(Class<T> toInjectClass) {

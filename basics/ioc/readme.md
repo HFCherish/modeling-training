@@ -13,6 +13,8 @@ Implement a simple injector in accordance with JSR-330.
 	3. constructor injection －15 : 22
 	    1. can only has one constructor with injection annotation -5 : 10
 	4. field injection
+	    1. can inject fields of a given instance (injectMembers) -15: 13
+	    1. can get an instance with fields injection (getInstance) -15:
 	5. method injection
     3. Qualified
         1. @name
