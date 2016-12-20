@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +31,27 @@ public class InjectorImpl implements Injector {
     @Override
     public void injectMembers(Object instance) {
         if (instance == null) return;
+        injectFields(instance);
+        injectMethods(instance);
+
+    }
+
+    private void injectMethods(Object instance) {
+        List<Method> injectMethods = Arrays.stream(instance.getClass().getDeclaredMethods()).filter(method -> method.isAnnotationPresent(Inject.class)).collect(Collectors.toList());
+        injectMethods.stream().forEach(method -> {
+            method.setAccessible(true);
+            List<?> parameters = Arrays.stream(method.getParameterTypes()).map(type -> getInstance(type)).collect(Collectors.toList());
+            try {
+                method.invoke(instance, parameters.toArray());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void injectFields(Object instance) {
         List<Field> injectFields = Arrays.stream(instance.getClass().getDeclaredFields()).filter(field -> field.isAnnotationPresent(Inject.class)).collect(Collectors.toList());
         injectFields.stream().forEach(field -> {
             field.setAccessible(true);

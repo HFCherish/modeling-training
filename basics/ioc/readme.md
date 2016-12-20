@@ -16,5 +16,6 @@ Implement a simple injector in accordance with JSR-330.
 	    1. can inject fields of a given instance (injectMembers) -15: 13
 	    1. can get an instance with fields injection (getInstance) -10: 6
 	5. method injection
+	    1. can inject method parameters -15 :
     3. Qualified
         1. @name
