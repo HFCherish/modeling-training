@@ -7,7 +7,7 @@ public final class Providers {
     private Providers() {}
 
 
-    public static <T> Provider<T> froImplementationClass(Class<? extends T> toInjectImplClass) {
+    public static <T> Provider<T> fromImplementationClass(Class<? extends T> toInjectImplClass) {
         return () -> {
             try {
                 return toInjectImplClass.newInstance();
@@ -18,5 +18,9 @@ public final class Providers {
             }
             return null;
         };
+    }
+
+    public static <T> Provider<T> fromInstance(T instance) {
+        return () -> instance;
     }
 }
