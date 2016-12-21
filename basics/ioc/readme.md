@@ -22,4 +22,7 @@ Implement a simple injector in accordance with JSR-330.
             1. use key (contains qualifier and toInjectClass) to get binding instance -15: 15
             1. can use @name to qualify the instantiation of fields -15 : 47
             1. can use @name to qualify the instantiation of method parameters -10 : 8
-        2. self defined qualifier -15:
+        2. self defined qualifier:
+            1. create self defined qualifier -5: 5
+            2. use self defined qualifier to qualify field -15:
+            2. use self defined qualifier to qualify method parameters -10:
