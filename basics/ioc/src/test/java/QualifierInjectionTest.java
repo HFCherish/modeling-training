@@ -3,15 +3,18 @@ import com.tw.ioc.Injector;
 import com.tw.ioc.Names;
 import org.junit.Before;
 import org.junit.Test;
+import sun.reflect.annotation.AnnotationParser;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Qualifier;
 
+import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
+import java.util.Collections;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -27,9 +30,12 @@ public class QualifierInjectionTest {
     @Before
     public void setUp() {
         injector = DI.createInjector(binder -> {
-            binder.bind(ToInject.class).annotatedWith(Names.named("first")).to(ToInjectImpl.class);
-            binder.bind(ToInject.class).annotatedWith(Names.named("second")).to(ToInjectImpl2.class);
-            binder.bind(ToInject.class).annotatedWith(DefaultCase.class).to(ToInjectImpl.class);
+//            binder.bind(ToInject.class).annotatedWith(Names.named("first")).to(ToInjectImpl.class);
+//            binder.bind(ToInject.class).annotatedWith(Names.named("second")).to(ToInjectImpl2.class);
+//            binder.bind(ToInject.class).annotatedWith(DefaultCase.class).to(ToInjectImpl.class);
+            binder.bind(ToInject.class).annotatedWith(AnnotationParser.annotationForMap(Named.class, Collections.singletonMap("value", "first"))).to(ToInjectImpl.class);
+            binder.bind(ToInject.class).annotatedWith(AnnotationParser.annotationForMap(Named.class, Collections.singletonMap("value", "second"))).to(ToInjectImpl2.class);
+            binder.bind(ToInject.class).annotatedWith(AnnotationParser.annotationForMap(DefaultCase.class, Collections.emptyMap())).to(ToInjectImpl.class);
         });
     }
 
@@ -43,6 +49,13 @@ public class QualifierInjectionTest {
     @Test
     public void should_inject_method_with_annotation() {
         WithMethodToInject instance = injector.getInstance(WithMethodToInject.class);
+        assertThat(instance.execute(), is("hello petrina"));
+        assertThat(instance.execute2(), is("hello petrina2"));
+    }
+
+    @Test
+    public void should_inject_field_with_self_defined_annotation() {
+        WithFieldToInjectUsingSelfDefinedQualifier instance = injector.getInstance(WithFieldToInjectUsingSelfDefinedQualifier.class);
         assertThat(instance.execute(), is("hello petrina"));
         assertThat(instance.execute2(), is("hello petrina2"));
     }
@@ -64,10 +77,18 @@ public class QualifierInjectionTest {
     }
 
     @Test
-    public void should_inject_field_with_self_defined_annotation() {
-        WithFieldToInjectUsingSelfDefinedQualifier instance = injector.getInstance(WithFieldToInjectUsingSelfDefinedQualifier.class);
-        assertThat(instance.execute(), is("hello petrina"));
-        assertThat(instance.execute2(), is("hello petrina2"));
+    public void annotation_instantiate_test() {
+        Annotation firstNameAnnotation = AnnotationParser.annotationForMap(Named.class, Collections.singletonMap("value", "first"));
+        Annotation firstNameAnnotation1 = AnnotationParser.annotationForMap(Named.class, Collections.singletonMap("value", "first"));
+        Annotation secondNameAnnotation = AnnotationParser.annotationForMap(Named.class, Collections.singletonMap("value", "second"));
+        assertThat(firstNameAnnotation, is(firstNameAnnotation1));
+        assertThat(firstNameAnnotation, not(secondNameAnnotation));
+        assertThat(firstNameAnnotation instanceof Named, is(true));
+
+        Annotation defaultCaseAnnotation = AnnotationParser.annotationForMap(DefaultCase.class, Collections.emptyMap());
+        Annotation defaultCaseAnnotation1 = AnnotationParser.annotationForMap(DefaultCase.class, Collections.emptyMap());
+        assertThat(defaultCaseAnnotation instanceof DefaultCase, is(true));
+        assertThat(defaultCaseAnnotation, is(defaultCaseAnnotation1));
     }
 
     @Qualifier

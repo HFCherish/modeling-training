@@ -25,4 +25,7 @@ Implement a simple injector in accordance with JSR-330.
         2. self defined qualifier:
             1. create self defined qualifier -5: 5
             2. use self defined qualifier to qualify field -15: 23
+                1. refactor: 
+                    1. always bind annotation rather than annotation type (how to get annotation instance) －15 : 5
+                    <!--2. can provide a way to get key from an annotation according to from annotation type or annotation-->
             2. use self defined qualifier to qualify method parameters -10:
