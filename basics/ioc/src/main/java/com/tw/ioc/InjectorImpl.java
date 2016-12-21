@@ -1,6 +1,8 @@
 package com.tw.ioc;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -70,7 +72,8 @@ public class InjectorImpl implements Injector {
             field.setAccessible(true);
             Class<?> fieldType = field.getType();
             try {
-                field.set(instance, getInstance(fieldType));
+                Annotation qualifier = field.isAnnotationPresent(Named.class) ? Names.named(field.getAnnotation(Named.class).value()) : null;
+                field.set(instance, getInstance(Key.of(fieldType, qualifier)));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -85,7 +88,9 @@ public class InjectorImpl implements Injector {
                 return constructor.newInstance(new Object[0]);
             }
         } catch (NoSuchMethodException e) {
-            return getInstanceFromInjectConstructor(toInjectClass);
+            T res = getInstanceFromInjectConstructor(toInjectClass);
+            if (res != null) return res;
+            e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
@@ -113,6 +118,7 @@ public class InjectorImpl implements Injector {
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
+            return null;
         }
         Constructor<T> constructor = (Constructor<T>) constructors.get(0);
         List<?> parameters = Arrays.stream(constructor.getParameterTypes()).map(type -> getInstance(type)).collect(Collectors.toList());

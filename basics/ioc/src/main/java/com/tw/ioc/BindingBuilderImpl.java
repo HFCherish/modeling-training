@@ -40,7 +40,9 @@ public class BindingBuilderImpl<T> implements AnnotatedBindingBuilder<T> {
     @Override
     public LinkedBindingBuilder<T> annotatedWith(Annotation annotation) {
         Binding<?> binding = mutableBindings.get(toInjectKey);
-        mutableBindings.replace(toInjectKey, new Binding(toInjectKey.getToInjectClass(), binding.getProvider(), annotation.annotationType(), binding.getScope()));
-        return new BindingBuilderImpl<T>(toInjectKey, mutableBindings);
+        mutableBindings.remove(toInjectKey);
+        Key<T> newInjectKey = Key.of(toInjectKey.getToInjectClass(), annotation);
+        mutableBindings.put(newInjectKey, new Binding(toInjectKey.getToInjectClass(), binding.getProvider(), annotation.annotationType(), binding.getScope()));
+        return new BindingBuilderImpl<T>(newInjectKey, mutableBindings);
     }
 }

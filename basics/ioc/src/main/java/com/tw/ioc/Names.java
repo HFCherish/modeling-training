@@ -24,6 +24,21 @@ public class Names {
         }
 
         @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            NamedImpl named = (NamedImpl) o;
+
+            return value.equals(named.value);
+        }
+
+        @Override
+        public int hashCode() {
+            return value.hashCode();
+        }
+
+        @Override
         public Class<? extends Annotation> annotationType() {
             return Named.class;
         }

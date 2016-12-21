@@ -14,12 +14,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class QualifierInjectionTest {
     @Test
     public void should_inject_with_annotation() {
-//        WithFieldToInject instance = DI.createInjector(binder -> {
-//            binder.bind(ToInject.class).annotatedWith(Names.named("first")).to(ToInjectImpl.class);
-//            binder.bind(ToInject.class).annotatedWith(Names.named("second")).to(ToInjectImpl2.class);
-//        }).getInstance(WithFieldToInject.class);
-//        assertThat(instance.execute(), is("hello petrina"));
-//        assertThat(instance.execute2(), is("hello petrina2"));
+        WithFieldToInject instance = DI.createInjector(binder -> {
+            binder.bind(ToInject.class).annotatedWith(Names.named("first")).to(ToInjectImpl.class);
+            binder.bind(ToInject.class).annotatedWith(Names.named("second")).to(ToInjectImpl2.class);
+        }).getInstance(WithFieldToInject.class);
+        assertThat(instance.execute(), is("hello petrina"));
+        assertThat(instance.execute2(), is("hello petrina2"));
     }
 
     static class WithFieldToInject {
