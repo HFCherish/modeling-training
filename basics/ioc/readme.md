@@ -17,15 +17,19 @@ Implement a simple injector in accordance with JSR-330.
 	    1. can get an instance with fields injection (getInstance) -10: 6
 	5. method injection
 	    1. can inject method parameters -15 : 10
-    3. Qualified
-        1. @name
-            1. use key (contains qualifier and toInjectClass) to get binding instance -15: 15
-            1. can use @name to qualify the instantiation of fields -15 : 47
-            1. can use @name to qualify the instantiation of method parameters -10 : 8
-        2. self defined qualifier:
-            1. create self defined qualifier -5: 5
-            2. use self defined qualifier to qualify field -15: 23
-                1. refactor: 
-                    1. always bind annotation rather than annotation type (how to get annotation instance) －15 : 5
-                    <!--2. can provide a way to get key from an annotation according to from annotation type or annotation-->
-            2. use self defined qualifier to qualify method parameters -10:
+    
+# @Qualified
+    1. @name
+        1. use key (contains qualifier and toInjectClass) to get binding instance -15: 15
+        1. can use @name to qualify the instantiation of fields -15 : 47
+        1. can use @name to qualify the instantiation of method parameters -10 : 8
+    2. self defined qualifier:
+        1. create self defined qualifier -5: 5
+        2. use self defined qualifier to qualify field -15: 23
+            1. refactor: 
+                1. always bind annotation rather than annotation type (how to get annotation instance) －15 : 5
+                <!--2. can provide a way to get key from an annotation according to from annotation type or annotation-->
+        2. use self defined qualifier to qualify method parameters -10: 3
+    
+# @Provider
+    1. can bind to self defined provider -10: 12

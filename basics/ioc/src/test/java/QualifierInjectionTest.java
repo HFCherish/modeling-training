@@ -61,6 +61,13 @@ public class QualifierInjectionTest {
     }
 
     @Test
+    public void should_inject_method_parameter_with_self_defined_annotation() {
+        WithMethodToInjectUsingSelfDefinedAnnotation instance = injector.getInstance(WithMethodToInjectUsingSelfDefinedAnnotation.class);
+        assertThat(instance.execute(), is("hello petrina"));
+        assertThat(instance.execute2(), is("hello petrina2"));
+    }
+
+    @Test
     public void should_able_to_get_self_defined_annotation() {
         try {
             Field toInject = WithFieldToInjectUsingSelfDefinedQualifier.class.getDeclaredField("toInject");
@@ -101,10 +108,6 @@ public class QualifierInjectionTest {
         @DefaultCase
         ToInject toInject;
 
-//        @Inject
-//        @DefaultCase
-//        ToInject toInject3;
-
         @Inject
         @Named("second")
         ToInject toInject2;
@@ -144,6 +147,25 @@ public class QualifierInjectionTest {
 
         @Inject
         public void setToInject(@Named("first")ToInject toInject, @Named("second") ToInject toInject2) {
+            this.toInject = toInject;
+            this.toInject2 = toInject2;
+        }
+
+        public String execute() {
+            return toInject.sayHello();
+        }
+
+        public String execute2() {
+            return toInject2.sayHello();
+        }
+    }
+
+    static class WithMethodToInjectUsingSelfDefinedAnnotation {
+        ToInject toInject;
+        ToInject toInject2;
+
+        @Inject
+        public void setToInject(@DefaultCase ToInject toInject, @Named("second") ToInject toInject2) {
             this.toInject = toInject;
             this.toInject2 = toInject2;
         }

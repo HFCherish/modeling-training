@@ -1,6 +1,8 @@
 package com.tw.ioc;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 /**
@@ -28,6 +30,24 @@ public class BindingBuilderImpl<T> implements AnnotatedBindingBuilder<T> {
     public void toInstance(T instance) {
         Binding<?> binding = mutableBindings.get(toInjectKey);
         mutableBindings.replace(toInjectKey, new Binding<T>(toInjectKey.getToInjectClass(), Providers.fromInstance(instance), binding.getAnnotationType(), binding.getScope()));
+    }
+
+    @Override
+    public void toProvider(Class<? extends Provider> providerClass) {
+        Binding<?> binding = mutableBindings.get(toInjectKey);
+        try {
+            Constructor<? extends Provider> emptyConstructor = providerClass.getDeclaredConstructor(new Class[0]);
+            emptyConstructor.setAccessible(true);
+            mutableBindings.replace(toInjectKey, new Binding<T>(toInjectKey.getToInjectClass(), emptyConstructor.newInstance(new Object[0]), binding.getAnnotationType(), binding.getScope()));
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

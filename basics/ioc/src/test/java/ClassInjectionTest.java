@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Created by pzzheng on 12/19/16.
  */
-public class ToInjectTest {
+public class ClassInjectionTest {
     @Test
     public void should_can_bind_to_implementation_class() {
         Injector injector = DI.createInjector(binder -> binder.bind(ToInject.class).to(ToInjectImpl.class));

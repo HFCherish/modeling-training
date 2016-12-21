@@ -7,4 +7,6 @@ public interface LinkedBindingBuilder<T> {
     ScopeBindingBuilder to(Class<? extends T> toInjectImplClass);
 
     void toInstance(T instance);
+
+    void toProvider(Class<? extends Provider> providerClass);
 }

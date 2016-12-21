@@ -54,10 +54,6 @@ public class InjectorImpl implements Injector {
         injectMethods.stream().forEach(method -> {
             method.setAccessible(true);
             List<?> parameters = Arrays.stream(method.getParameters()).map(parameter -> {
-//                Annotation qualifier = parameter.isAnnotationPresent(Named.class) ? Names.named(parameter.getAnnotation(Named.class).value()) : null;
-//                Annotation qualifier = parameter.isAnnotationPresent(Named.class) ? parameter.getAnnotation(Named.class) : null;
-//                System.out.println(((Named)qualifier).value());
-//                findAnnotationByMetaAnnotationType(parameter.getAnnotations(), Qualifier.class);
                 Annotation qualifier = null;
                 Optional<Annotation> qualifierOptional = AnnotationHelper.findAnnotationByMetaAnnotationType(parameter.getAnnotations(), Qualifier.class);
                 if(qualifierOptional.isPresent()) {
@@ -81,7 +77,6 @@ public class InjectorImpl implements Injector {
             field.setAccessible(true);
             Class<?> fieldType = field.getType();
             try {
-//                Key<?> key = Key.of(fieldType);
                 Annotation qualifier = null;
                 Optional<Annotation> qualifierOptional = AnnotationHelper.findAnnotationByMetaAnnotationType(field.getAnnotations(), Qualifier.class);
                 if(qualifierOptional.isPresent()) {

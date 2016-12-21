@@ -118,7 +118,7 @@ function flush() {
     addEventListener('addRow', addRow);
     addEventListener('showButton', render);
     addEventListener('editButton', edit);
-    drag();
+    // drag();
 }
 
 flush();

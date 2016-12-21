@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Created by pzzheng on 12/20/16.
  */
-public class ToInjectSingletonTest {
+public class SingletonTest {
     @Test
     public void should_can_bind_class_using_singleton_annotation() {
         Injector injector = DI.createInjector(binder -> binder.bind(ToInjectSingleton.class).to(ToInjectSingletonImpl.class));
