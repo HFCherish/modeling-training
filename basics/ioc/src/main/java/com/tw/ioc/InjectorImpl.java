@@ -52,9 +52,9 @@ public class InjectorImpl implements Injector {
         List<Method> injectMethods = Arrays.stream(instance.getClass().getDeclaredMethods()).filter(method -> method.isAnnotationPresent(Inject.class)).collect(Collectors.toList());
         injectMethods.stream().forEach(method -> {
             method.setAccessible(true);
-            List<?> parameters = Arrays.stream(method.getParameterTypes()).map(type -> {
-
-                return getInstance(type);
+            List<?> parameters = Arrays.stream(method.getParameters()).map(parameter -> {
+                Annotation qualifier = parameter.isAnnotationPresent(Named.class) ? Names.named(parameter.getAnnotation(Named.class).value()) : null;
+                return getInstance(Key.of(parameter.getType(), qualifier));
             }).collect(Collectors.toList());
             try {
                 method.invoke(instance, parameters.toArray());
