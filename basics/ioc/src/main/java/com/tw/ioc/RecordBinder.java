@@ -11,19 +11,23 @@ import java.util.Optional;
  */
 public class RecordBinder implements Binder {
     private final HashMap<Class<?>, Binding<?>> mutableBindings;
+    private final HashMap<Key<?>, Binding<?>> mutableBindingsWithKey;
     private final HashMap<Class<? extends Annotation>, ScopeBinding> scopeBindings;
 //    private HashMap<Class<?>, Binding<?>> immutableBindings = Collections.unmodifiableMap(mutableBindings);
 
     public RecordBinder() {
         this.mutableBindings = new HashMap<>();
+        this.mutableBindingsWithKey = new HashMap<>();
         this.scopeBindings = new HashMap();
     }
 
     @Override
     public <T> AnnotatedBindingBuilder<T> bind(Class<T> toInjectClass) {
         Binding<T> binding = new Binding<>(toInjectClass, null, null, getScope(toInjectClass));
-        mutableBindings.put(toInjectClass, binding);
-        return new BindingBuilderImpl(toInjectClass, mutableBindings);
+//        mutableBindings.put(toInjectClass, binding);
+//        return new BindingBuilderImpl(toInjectClass, mutableBindings);
+        mutableBindingsWithKey.put(Key.of(toInjectClass), binding);
+        return new BindingBuilderImpl(toInjectClass, mutableBindingsWithKey);
     }
 
     private <T> Scope getScope(Class<T> toInjectClass) {
@@ -38,7 +42,8 @@ public class RecordBinder implements Binder {
 
     @Override
     public <T> Binding<T> getBinding(Class<T> toInjectClass) {
-        return (Binding<T>) mutableBindings.get(toInjectClass);
+//        return (Binding<T>) mutableBindings.get(toInjectClass);
+        return (Binding<T>) mutableBindingsWithKey.get(Key.of(toInjectClass));
     }
 
     @Override

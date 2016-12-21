@@ -16,6 +16,10 @@ Implement a simple injector in accordance with JSR-330.
 	    1. can inject fields of a given instance (injectMembers) -15: 13
 	    1. can get an instance with fields injection (getInstance) -10: 6
 	5. method injection
-	    1. can inject method parameters -15 :
+	    1. can inject method parameters -15 : 10
     3. Qualified
         1. @name
+            1. use key (contains qualifier and toInjectClass) to get binding instance -15: 15
+            1. can use @name to qualify the instantiation of fields -15 :
+            1. can use @name to qualify the instantiation of method parameters
+        2. self defined qualifier -15:

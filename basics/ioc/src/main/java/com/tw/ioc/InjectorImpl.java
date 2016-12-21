@@ -40,7 +40,10 @@ public class InjectorImpl implements Injector {
         List<Method> injectMethods = Arrays.stream(instance.getClass().getDeclaredMethods()).filter(method -> method.isAnnotationPresent(Inject.class)).collect(Collectors.toList());
         injectMethods.stream().forEach(method -> {
             method.setAccessible(true);
-            List<?> parameters = Arrays.stream(method.getParameterTypes()).map(type -> getInstance(type)).collect(Collectors.toList());
+            List<?> parameters = Arrays.stream(method.getParameterTypes()).map(type -> {
+
+                return getInstance(type);
+            }).collect(Collectors.toList());
             try {
                 method.invoke(instance, parameters.toArray());
             } catch (IllegalAccessException e) {
