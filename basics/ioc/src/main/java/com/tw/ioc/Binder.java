@@ -10,5 +10,7 @@ public interface Binder {
 
     <T> Binding<T> getBinding(Class<T> toInjectClass);
 
+    <T> Binding<T> getBinding(Key<T> key);
+
     void bindScope(Class<? extends Annotation> scopeAnnotation, Scope scope);
 }

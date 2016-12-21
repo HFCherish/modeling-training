@@ -14,6 +14,14 @@ public class Key<T> {
         this.qualifierType = qualifierType;
     }
 
+    public Class<T> getToInjectClass() {
+        return toInjectClass;
+    }
+
+    public Class<? extends Annotation> getQualifierType() {
+        return qualifierType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

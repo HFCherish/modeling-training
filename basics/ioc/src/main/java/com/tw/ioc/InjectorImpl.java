@@ -21,9 +21,19 @@ public class InjectorImpl implements Injector {
 
     @Override
     public <T> T getInstance(Class<T> toInjectClass) {
-        Binding<T> binding = binder.getBinding(toInjectClass);
+//        Binding<T> binding = binder.getBinding(toInjectClass);
+//        T res;
+//        res = binding == null ? getInstanceFromConstructor(toInjectClass) : binding.getProvider().get();
+//        injectMembers(res);
+//        return res;
+        return getInstance(Key.of(toInjectClass));
+    }
+
+    @Override
+    public <T> T getInstance(Key<T> key) {
+        Binding<T> binding = binder.getBinding(key);
         T res;
-        res = binding == null ? getInstanceFromConstructor(toInjectClass) : binding.getProvider().get();
+        res = binding == null ? getInstanceFromConstructor(key.getToInjectClass()) : binding.getProvider().get();
         injectMembers(res);
         return res;
     }
