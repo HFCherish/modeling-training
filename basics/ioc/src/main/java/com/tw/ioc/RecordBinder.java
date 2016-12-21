@@ -1,8 +1,8 @@
 package com.tw.ioc;
 
-import javax.inject.Singleton;
+import com.tw.ioc.util.AnnotationHelper;
+
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -27,7 +27,7 @@ public class RecordBinder implements Binder {
 
     private <T> Scope getScope(Class<T> toInjectClass) {
         Annotation[] annotations = toInjectClass.getAnnotations();
-        Optional<Annotation> scopeAnnotation = Arrays.stream(annotations).filter(annotation -> annotation.annotationType().isAnnotationPresent(javax.inject.Scope.class)).findFirst();
+        Optional<Annotation> scopeAnnotation = AnnotationHelper.findAnnotationByMetaAnnotationType(annotations, javax.inject.Scope.class);
         Scope scope = null;
         if(scopeAnnotation.isPresent()) {
             scope = scopeBindings.get(scopeAnnotation.get().annotationType()).getScope();

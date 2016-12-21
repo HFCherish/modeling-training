@@ -1,7 +1,10 @@
 package com.tw.ioc;
 
+import com.tw.ioc.util.AnnotationHelper;
+
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Qualifier;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -9,7 +12,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.tw.ioc.util.AnnotationHelper.findAnnotationByMetaAnnotationType;
 
 /**
  * Created by pzzheng on 12/20/16.
@@ -49,6 +55,9 @@ public class InjectorImpl implements Injector {
             method.setAccessible(true);
             List<?> parameters = Arrays.stream(method.getParameters()).map(parameter -> {
                 Annotation qualifier = parameter.isAnnotationPresent(Named.class) ? Names.named(parameter.getAnnotation(Named.class).value()) : null;
+//                Annotation qualifier = parameter.isAnnotationPresent(Named.class) ? parameter.getAnnotation(Named.class) : null;
+//                System.out.println(((Named)qualifier).value());
+//                findAnnotationByMetaAnnotationType(parameter.getAnnotations(), Qualifier.class);
                 return getInstance(Key.of(parameter.getType(), qualifier));
             }).collect(Collectors.toList());
             try {
@@ -67,8 +76,20 @@ public class InjectorImpl implements Injector {
             field.setAccessible(true);
             Class<?> fieldType = field.getType();
             try {
-                Annotation qualifier = field.isAnnotationPresent(Named.class) ? Names.named(field.getAnnotation(Named.class).value()) : null;
-                field.set(instance, getInstance(Key.of(fieldType, qualifier)));
+                Key<?> key = Key.of(fieldType);
+                Optional<Annotation> qualifierOptional = AnnotationHelper.findAnnotationByMetaAnnotationType(field.getAnnotations(), Qualifier.class);
+                if(qualifierOptional.isPresent()) {
+                    Annotation qualifier = qualifierOptional.get();
+                    if(qualifier instanceof Named) {
+                        key = Key.of(fieldType, Names.named(field.getAnnotation(Named.class).value()));
+                    } else  {
+                        key = Key.of(fieldType, qualifier.annotationType());
+                    }
+                }
+//                Annotation qualifier = field.isAnnotationPresent(Named.class) ? Names.named(field.getAnnotation(Named.class).value()) : null;
+//                qualifier = qualifier == null ? qualifier
+//                System.out.println(qualifier.annotationType().getName());
+                field.set(instance, getInstance(key));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }

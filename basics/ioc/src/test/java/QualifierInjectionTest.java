@@ -14,6 +14,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -28,6 +29,7 @@ public class QualifierInjectionTest {
         injector = DI.createInjector(binder -> {
             binder.bind(ToInject.class).annotatedWith(Names.named("first")).to(ToInjectImpl.class);
             binder.bind(ToInject.class).annotatedWith(Names.named("second")).to(ToInjectImpl2.class);
+            binder.bind(ToInject.class).annotatedWith(DefaultCase.class).to(ToInjectImpl.class);
         });
     }
 
@@ -49,10 +51,23 @@ public class QualifierInjectionTest {
     public void should_able_to_get_self_defined_annotation() {
         try {
             Field toInject = WithFieldToInjectUsingSelfDefinedQualifier.class.getDeclaredField("toInject");
+            Field toInject3 = WithFieldToInjectUsingSelfDefinedQualifier.class.getDeclaredField("toInject3");
             assertThat(toInject.isAnnotationPresent(DefaultCase.class), is(true));
+            assertThat(toInject.getAnnotation(DefaultCase.class), is(toInject3.getAnnotation(DefaultCase.class)));
+
+            Field toInject2 = WithFieldToInject.class.getDeclaredField("toInject2");
+            toInject = WithFieldToInject.class.getDeclaredField("toInject");
+            assertThat(toInject.getAnnotation(Named.class), not(toInject2.getAnnotation(Named.class)));
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void should_inject_field_with_self_defined_annotation() {
+        WithFieldToInjectUsingSelfDefinedQualifier instance = injector.getInstance(WithFieldToInjectUsingSelfDefinedQualifier.class);
+        assertThat(instance.execute(), is("hello petrina"));
+        assertThat(instance.execute2(), is("hello petrina2"));
     }
 
     @Qualifier
@@ -64,6 +79,10 @@ public class QualifierInjectionTest {
         @Inject
         @DefaultCase
         ToInject toInject;
+
+//        @Inject
+//        @DefaultCase
+//        ToInject toInject3;
 
         @Inject
         @Named("second")

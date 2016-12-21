@@ -7,15 +7,8 @@ import java.util.HashMap;
  * Created by pzzheng on 12/20/16.
  */
 public class BindingBuilderImpl<T> implements AnnotatedBindingBuilder<T> {
-//    private final Class<T> toInjectClass;
     private final Key<T> toInjectKey;
     private final HashMap<Key<?>, Binding<?>> mutableBindings;
-
-//    public BindingBuilderImpl(Class<T> toInjectClass, HashMap<Key<?>, Binding<?>> mutableBindings) {
-//        this.toInjectClass = toInjectClass;
-//        this.mutableBindings = mutableBindings;
-//    }
-
 
     public BindingBuilderImpl(Key<T> toInjectKey, HashMap<Key<?>, Binding<?>> mutableBindings) {
         this.toInjectKey = toInjectKey;
@@ -43,6 +36,15 @@ public class BindingBuilderImpl<T> implements AnnotatedBindingBuilder<T> {
         mutableBindings.remove(toInjectKey);
         Key<T> newInjectKey = Key.of(toInjectKey.getToInjectClass(), annotation);
         mutableBindings.put(newInjectKey, new Binding(toInjectKey.getToInjectClass(), binding.getProvider(), annotation.annotationType(), binding.getScope()));
+        return new BindingBuilderImpl<T>(newInjectKey, mutableBindings);
+    }
+
+    @Override
+    public LinkedBindingBuilder<T> annotatedWith(Class<? extends Annotation> annotationClass) {
+        Binding<?> binding = mutableBindings.get(toInjectKey);
+        mutableBindings.remove(toInjectKey);
+        Key<T> newInjectKey = Key.of(toInjectKey.getToInjectClass(), annotationClass);
+        mutableBindings.put(newInjectKey, new Binding(toInjectKey.getToInjectClass(), binding.getProvider(), annotationClass, binding.getScope()));
         return new BindingBuilderImpl<T>(newInjectKey, mutableBindings);
     }
 }
