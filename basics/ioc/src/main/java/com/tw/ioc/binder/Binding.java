@@ -1,4 +1,7 @@
-package com.tw.ioc;
+package com.tw.ioc.binder;
+
+import com.tw.ioc.Provider;
+import com.tw.ioc.Scope;
 
 import java.lang.annotation.Annotation;
 

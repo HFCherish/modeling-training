@@ -1,9 +1,11 @@
 package com.tw.ioc;
 
+import com.tw.ioc.binder.Binder;
+import com.tw.ioc.binder.Binding;
+import com.tw.ioc.binder.Key;
 import com.tw.ioc.util.AnnotationHelper;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Qualifier;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -14,8 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static com.tw.ioc.util.AnnotationHelper.findAnnotationByMetaAnnotationType;
 
 /**
  * Created by pzzheng on 12/20/16.

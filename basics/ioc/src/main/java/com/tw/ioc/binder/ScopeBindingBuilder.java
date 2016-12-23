@@ -1,4 +1,6 @@
-package com.tw.ioc;
+package com.tw.ioc.binder;
+
+import com.tw.ioc.Scope;
 
 /**
  * Created by pzzheng on 12/20/16.

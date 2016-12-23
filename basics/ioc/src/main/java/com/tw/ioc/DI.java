@@ -1,5 +1,9 @@
 package com.tw.ioc;
 
+import com.tw.ioc.binder.RecordBinder;
+import com.tw.ioc.configuration.Configuration;
+import com.tw.ioc.configuration.RootConfiguration;
+
 /**
  * Created by pzzheng on 12/19/16.
  */

@@ -1,5 +1,6 @@
-package com.tw.ioc;
+package com.tw.ioc.binder;
 
+import com.tw.ioc.Scope;
 import com.tw.ioc.util.AnnotationHelper;
 
 import java.lang.annotation.Annotation;

@@ -1,4 +1,3 @@
-import com.tw.ioc.Configuration;
 import com.tw.ioc.DI;
 import org.junit.Test;
 

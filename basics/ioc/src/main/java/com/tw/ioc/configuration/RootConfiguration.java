@@ -1,4 +1,6 @@
-package com.tw.ioc;
+package com.tw.ioc.configuration;
+
+import com.tw.ioc.binder.Binder;
 
 import static com.tw.ioc.Scopes.SINGLETON;
 

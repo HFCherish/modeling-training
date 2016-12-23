@@ -1,5 +1,5 @@
-import com.tw.ioc.Binder;
-import com.tw.ioc.Configuration;
+import com.tw.ioc.binder.Binder;
+import com.tw.ioc.configuration.Configuration;
 
 /**
  * Created by pzzheng on 12/20/16.
