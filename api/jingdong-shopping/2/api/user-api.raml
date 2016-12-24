@@ -1,0 +1,37 @@
+#%RAML 0.8
+title: user management
+version: v2
+mediaType:  application/json
+
+/users:
+    post: 
+      description: user can register. customer and seller provide different input
+      responses:
+        201:
+        400:
+          description: username/email has been used
+    /session:
+      post:
+        description: user login
+        responses:
+          201:
+          401:
+            description: username or password is not right
+    /uid:
+        get:
+          description: get user profile
+          responses:
+            200:
+            403:
+              description: not uid or jd admin; 
+            404:
+              description: uid not exists
+        /session:
+          delete:
+            description: user logout
+            responses:
+              204:
+              403:
+                description: not uid
+              404:
+                description: uid not exists

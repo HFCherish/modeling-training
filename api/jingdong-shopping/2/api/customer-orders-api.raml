@@ -1,0 +1,74 @@
+#%RAML 0.8
+title: customer orders
+version: v2
+mediaType: application/json
+
+/customers/cid/orders:
+  post:
+    description: customer place an order
+    responses:
+      200:
+      400:
+        description: missed/invalid order item info
+      403:
+        description: not cid
+  /oid:
+    get:
+      description: customer/jd admin get order detail
+      responses:
+        200:
+        404:
+          description: oid not exists
+        403:
+          description: not cid or jd admin
+    /cancel:
+      post:
+        description: customer cancel a transaction
+        responses:
+          201:
+          404:
+            description: oid not exists
+          403:
+            description: not cid
+          409:
+            description: order has been paid or canceld
+    /payment:
+      post:
+        description: customer pay for the order
+        responses:
+          201:
+          403:
+            description: not cid
+          404:
+            description: oid not exists | oid is canceld
+          409:
+            description: oid has been paid
+    /order_items/oiid:
+      /refund_contract:
+        post:
+          description: customer and seller come to an agreement about the refund of oiid
+          responses:
+            201:
+            403:
+              description: not the seller of the product
+            404:
+              description: ooid not exists
+            409:
+              description: oiid refund_contract already exists | oiid is not delivered
+        /refund:
+          post:
+            description: refund to customer
+            responses:
+              201:
+              403:
+                description: not seller of the product
+              409:
+                description: seller has not confirmed the delivery yet
+
+
+
+
+
+
+
+

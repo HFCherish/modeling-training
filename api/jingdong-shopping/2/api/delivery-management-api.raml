@@ -1,0 +1,35 @@
+#%RAML 0.8
+title: delivery management
+version: v2
+mediaType: application/json
+
+/item_forms/ifid/delivery:
+  post:
+    description: the provider of these items add delivery information for these items. eg. customer add goods_return information for refund_contract; seller add delivery information for customer order
+    responses:
+      201:
+      400:
+        description: input fields missed/invalid
+      403:
+        description: not the provider of these items
+      404:
+        description: ifid not exists
+  get:
+    description: the provider or the receiver or jd admin get the delivery information
+    responses:
+      200:
+      404:
+        description: ifid not exists | ifid is not delivered
+      403:
+        description: the provider | the receiver | jd admin
+  /delivery_confimation:
+    post:
+      description: the receiver confirms to receive the goods
+      responses:
+        201:
+        400:
+          description: input fields missed/invalid
+        404:
+          description: ifid not exists
+        409:
+          description: ifid is not delivered | has confirmed the ifid

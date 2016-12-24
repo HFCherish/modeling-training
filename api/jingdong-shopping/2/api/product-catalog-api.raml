@@ -1,0 +1,44 @@
+#%RAML 0.8
+title: product catalog
+version: v2
+mediaType:  application/json
+
+/sellers/sid/products:
+  post:
+    description: seller launch new product
+    responses:
+      201:
+      400:
+        description: missed input fields
+      403:
+        description: not sid
+  get:
+    description: seller browse all products of his company
+    responses:
+      200:
+      403:
+        description: not sid or jd admin
+  /pid:
+    put:
+      description: seller update product description
+      responses:
+        204:
+        403:
+          description: not sid
+        404:
+          description: pid not exists
+        400:
+          description: description field missed
+    /price:
+      post:
+        description: seller priced the product
+        responses:
+          201:
+          403:
+            description: not sid
+          404:
+            description: pid not exists
+          400:
+            description: price field missed
+
+
