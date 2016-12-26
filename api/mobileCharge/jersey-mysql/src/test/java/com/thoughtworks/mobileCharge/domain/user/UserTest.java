@@ -1,24 +1,16 @@
 package com.thoughtworks.mobileCharge.domain.user;
 
-import com.thoughtworks.mobileCharge.api.services.CallRecordQueryService;
-import com.thoughtworks.mobileCharge.domain.ChargeType;
-import com.thoughtworks.mobileCharge.domain.PaginatedList;
 import com.thoughtworks.mobileCharge.support.DatabaseTestRunner;
 import org.joda.time.DateTime;
-import org.joda.time.Duration;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
-import java.util.Locale;
-
 import static com.thoughtworks.mobileCharge.support.TestHelper.*;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by pzzheng on 12/9/16.

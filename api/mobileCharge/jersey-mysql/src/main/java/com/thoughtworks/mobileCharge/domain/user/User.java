@@ -1,6 +1,7 @@
 package com.thoughtworks.mobileCharge.domain.user;
 
 import com.thoughtworks.mobileCharge.domain.EntityId;
+import com.thoughtworks.mobileCharge.domain.PaginatedList;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.CallRecordMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.DataAccessRecordMapper;
 import com.thoughtworks.mobileCharge.infrastructure.mappers.MessageRecordMapper;
@@ -86,6 +87,10 @@ public class User implements Record {
 
     public CallRecord saveCallRecord(CallRecord newCall) {
         return callRecordMapper.saveCallRecord(newCall);
+    }
+
+    public PaginatedList<CallRecord> findAllCallRecords(int month) {
+        return new PaginatedList<>(callRecordMapper.countOf(this, month), (page, perPage) -> callRecordMapper.findAllOf(this, month, page, perPage));
     }
 
     @Override

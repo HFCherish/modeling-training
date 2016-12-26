@@ -2,9 +2,10 @@ package com.thoughtworks.mobileCharge.api;
 
 import com.thoughtworks.mobileCharge.api.beans.CallRecordRequestBean;
 import com.thoughtworks.mobileCharge.api.jersey.Routes;
-import com.thoughtworks.mobileCharge.api.services.CallRecordQueryService;
 import com.thoughtworks.mobileCharge.domain.Page;
-import com.thoughtworks.mobileCharge.domain.user.*;
+import com.thoughtworks.mobileCharge.domain.user.CallRecord;
+import com.thoughtworks.mobileCharge.domain.user.User;
+import com.thoughtworks.mobileCharge.domain.user.UserRepo;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
@@ -28,7 +29,6 @@ public class CallRecordsApi {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createCallRecordUseBean(CallRecordRequestBean info,
                                      @Context UserRepo userRepo,
-                                     @Context CallRecordQueryService callRecordQueryService,
                                      @Context Routes routes) {
 
         CallRecord callerRecord = user.saveCallRecord(new CallRecord(
@@ -46,12 +46,11 @@ public class CallRecordsApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Page<CallRecord> getAllOfUser(@Context CallRecordQueryService callRecordQueryService,
-                                         @QueryParam("page") int page,
+    public Page<CallRecord> getAllOfUser(@QueryParam("page") int page,
                                          @QueryParam("perPage") int perPage,
                                          @DefaultValue("0") @QueryParam("month") int month,
                                          @Context UriInfo uriInfo) {
-        return callRecordQueryService.findAllOf(user, month).toPage(page, perPage, uriInfo);
+        return user.findAllCallRecords(month).toPage(page, perPage, uriInfo);
     }
 
 

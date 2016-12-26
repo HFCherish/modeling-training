@@ -22,8 +22,6 @@ import static org.junit.Assert.assertThat;
 @RunWith(DatabaseTestRunner.class)
 public class CallRecordQueryServiceTest {
     @Inject
-    CallRecordQueryService callRecordQueryService;
-    @Inject
     UserRepo userRepo;
     private User user;
 
@@ -36,7 +34,7 @@ public class CallRecordQueryServiceTest {
     public void should_get_all_call_records() {
         CallRecord toSave = getCallRecord(user, new DateTime());
         user.saveCallRecord(toSave);
-        PaginatedList<CallRecord> allCallRecords = callRecordQueryService.findAllOf(user, 0);
+        PaginatedList<CallRecord> allCallRecords = user.findAllCallRecords(0);
         assertThat(allCallRecords.size(), is(1l));
     }
 
@@ -45,10 +43,10 @@ public class CallRecordQueryServiceTest {
         user.saveCallRecord(getCallRecord(user, new DateTime(2016, 1,1,1,1)));
         user.saveCallRecord(getCallRecord(user, new DateTime(2016, 2,1,1,1)));
 
-        assertThat(callRecordQueryService.findAllOf(user, 0).size(), is(2l));
+        assertThat(user.findAllCallRecords(0).size(), is(2l));
 
-        assertThat(callRecordQueryService.findAllOf(user, 1).size(), is(1l));
-        assertThat(callRecordQueryService.findAllOf(user, 2).size(), is(1l));
+        assertThat(user.findAllCallRecords(1).size(), is(1l));
+        assertThat(user.findAllCallRecords(2).size(), is(1l));
     }
 
 }

@@ -6,7 +6,6 @@ import com.thoughtworks.mobileCharge.api.jersey.*;
 import com.thoughtworks.mobileCharge.api.services.DataAccessRecordQueryService;
 import com.thoughtworks.mobileCharge.api.services.MessageRecordQueryService;
 import com.thoughtworks.mobileCharge.domain.CurrentUserService;
-import com.thoughtworks.mobileCharge.api.services.CallRecordQueryService;
 import com.thoughtworks.mobileCharge.domain.user.UserRepo;
 import com.thoughtworks.mobileCharge.infrastructure.services.AuthorizationServiceImpl;
 import com.thoughtworks.mobileCharge.util.Json;
@@ -35,7 +34,6 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +59,7 @@ public class ApiSupportWithMock {
 
     protected UserRepo userRepo = mock(UserRepo.class);
     protected MessageRecordQueryService messageRecordQueryService = mock(MessageRecordQueryService.class);
-    protected CallRecordQueryService callRecordQueryService = mock(CallRecordQueryService.class);
+//    protected CallRecordQueryService callRecordQueryService = mock(CallRecordQueryService.class);
     protected DataAccessRecordQueryService dataAccessRecordQueryService = mock(DataAccessRecordQueryService.class);
     protected CurrentUserService currentUserService = mock(CurrentUserService.class);
 
@@ -86,7 +84,7 @@ public class ApiSupportWithMock {
                             protected void configure() {
                                 bind(userRepo).to(UserRepo.class);
                                 bind(currentUserService).to(CurrentUserService.class);
-                                bind(callRecordQueryService).to(CallRecordQueryService.class);
+//                                bind(callRecordQueryService).to(CallRecordQueryService.class);
                                 bind(messageRecordQueryService).to(MessageRecordQueryService.class);
                                 bind(dataAccessRecordQueryService).to(DataAccessRecordQueryService.class);
                                 bind(AuthorizationServiceImpl.class).to(AuthorizationService.class);

@@ -1,13 +1,9 @@
 package com.thoughtworks.mobileCharge.infrastructure.records;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Injector;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
-import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
-import com.thoughtworks.mobileCharge.api.services.CallRecordQueryService;
 import com.thoughtworks.mobileCharge.api.services.DataAccessRecordQueryService;
 import com.thoughtworks.mobileCharge.api.services.MessageRecordQueryService;
 import com.thoughtworks.mobileCharge.domain.test.MyTestCodecRepo;
@@ -19,7 +15,6 @@ import com.thoughtworks.mobileCharge.infrastructure.mongo.codecs.MyTestCodec;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.MyTestCodecCodecRepoImpl;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.TestRepoImpl;
 import com.thoughtworks.mobileCharge.infrastructure.repositories.UserRepoImpl;
-import com.thoughtworks.mobileCharge.infrastructure.services.CallRecordQueryServicesImpl;
 import com.thoughtworks.mobileCharge.infrastructure.services.DataAccessRecordQueryServiceImpl;
 import com.thoughtworks.mobileCharge.infrastructure.services.MessageRecordQueryServiceImpl;
 import com.thoughtworks.mobileCharge.infrastructure.util.SafetyInjector;
@@ -92,7 +87,7 @@ public class Models extends AbstractModule {
         bind(UserRepo.class).to(UserRepoImpl.class);
         bind(UserMapper.class).to(UserDB.class);
         bind(CallRecordMapper.class).to(CallRecordDB.class);
-        bind(CallRecordQueryService.class).to(CallRecordQueryServicesImpl.class);
+//        bind(CallRecordQueryService.class).to(CallRecordQueryServicesImpl.class);
         bind(MessageRecordMapper.class).to(MessageRecordDB.class);
         bind(MessageRecordQueryService.class).to(MessageRecordQueryServiceImpl.class);
         bind(DataAccessRecordMapper.class).to(DataAccessRecordDB.class);

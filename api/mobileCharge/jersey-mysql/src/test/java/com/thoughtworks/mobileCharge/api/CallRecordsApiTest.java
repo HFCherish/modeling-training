@@ -105,12 +105,11 @@ public class CallRecordsApiTest extends ApiSupportWithMock {
 
     @Test
     public void should_200_when_get_all_call_records() {
-        User user = getUser(mock(Balance.class));
+        User user = spy(getUser(mock(Balance.class)));
         when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         CallRecord callRecord = new CallRecord(new Locale("zh", "CN", "beijing"), user, DateTime.now(), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", beijingLocale()));
-        when(callRecordQueryService.findAllOf(eq(user), anyInt())).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord)));
-
+        doReturn(new PaginatedList(1, (page, perPage) -> asList(callRecord))).when(user).findAllCallRecords(anyInt());
 
         Response response = get(callsUrl(user));
 
@@ -128,15 +127,15 @@ public class CallRecordsApiTest extends ApiSupportWithMock {
 
     @Test
     public void should_get_all_call_records_by_month() {
-        User user = getUser(mock(Balance.class));
+        User user = spy(getUser(mock(Balance.class)));
         when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
 
         CallRecord callRecord_Aug = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 8, 1, 1, 1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", beijingLocale()));
         CallRecord callRecord_Jul = new CallRecord(new Locale("zh", "CN", "beijing"), user, new DateTime(2016, 7, 1, 1, 1), new Duration(1000), CallRecord.CallType.CALLER, new PhoneCard("13245465767", beijingLocale()));
-        when(callRecordQueryService.findAllOf(eq(user), eq(7))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord_Jul)));
-        when(callRecordQueryService.findAllOf(eq(user), eq(8))).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(callRecord_Aug)));
-        when(callRecordQueryService.findAllOf(eq(user), eq(0))).thenReturn(new PaginatedList<>(2, (page, perPage) -> asList(callRecord_Aug, callRecord_Jul)));
+        doReturn(new PaginatedList(1, (page, perPage) -> asList(callRecord_Jul))).when(user).findAllCallRecords(eq(7));
+        doReturn(new PaginatedList(1, (page, perPage) -> asList(callRecord_Aug))).when(user).findAllCallRecords(eq(8));
+        doReturn(new PaginatedList(2, (page, perPage) -> asList(callRecord_Aug, callRecord_Jul))).when(user).findAllCallRecords(eq(0));
 
 
         Response response = get(callsUrl(user));
