@@ -1,0 +1,30 @@
+{
+	"id": "id fo ad requirement",
+	"total_price": 4324,
+	"createdAt": 432432,
+	"charge_items": [
+		{
+			"id": "item id1",
+			"charge_factor": "factor id, eg. cpt_charge_mode_id",
+			"quantity": 1
+		},
+		{
+			"id": "item id2",
+			"charge_factor": "factor id, eg. banner_and_homepage_id",
+			"quantity": 1	
+		},
+		{
+			"id": "item id3",
+			"charge_factor": "factor id, eg. sidebar_id",
+			"quantity": 1	
+		}
+	],
+	"websites":[
+		"tieba.baidu.com",
+		"jingyan.baidu.com"
+	],
+	"links": [{
+		"rel": "self",
+		"uri": "users/uid/ad_requirements/adid"
+	}]
+}

@@ -13,8 +13,8 @@ public class MethodInjectionTest {
 
     @Test
     public void should_inject_method_parameters_for_a_instance() {
-        WithMethodToInject instance = DI.createInjector(new Configurations()).getInstance(WithMethodToInject.class);
-        assertThat(instance.execute(), is("hello petrina"));
+        WithMethodToInject instance = DI.createInjector(binder -> binder.bind(ToInject.class).to(ToInjectImpl.class)).getInstance(WithMethodToInject.class);
+        assertThat(instance.execute(), is(ToInjectImpl.HELLO_PETRINA));
     }
 
     static class WithMethodToInject {

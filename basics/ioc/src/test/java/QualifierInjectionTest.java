@@ -42,34 +42,33 @@ public class QualifierInjectionTest {
     @Test
     public void should_inject_field_with_annotation() {
         WithFieldToInject instance = injector.getInstance(WithFieldToInject.class);
-        assertThat(instance.execute(), is("hello petrina"));
-        assertThat(instance.execute2(), is("hello petrina2"));
+        assertThat(instance.execute(), is(ToInjectImpl.HELLO_PETRINA));
+        assertThat(instance.execute2(), is(ToInjectImpl2.HELLO_PETRINA2));
     }
 
     @Test
     public void should_inject_method_with_annotation() {
         WithMethodToInject instance = injector.getInstance(WithMethodToInject.class);
-        assertThat(instance.execute(), is("hello petrina"));
-        assertThat(instance.execute2(), is("hello petrina2"));
+        assertThat(instance.execute(), is(ToInjectImpl.HELLO_PETRINA));
+        assertThat(instance.execute2(), is(ToInjectImpl2.HELLO_PETRINA2));
     }
 
     @Test
     public void should_inject_field_with_self_defined_annotation() {
         WithFieldToInjectUsingSelfDefinedQualifier instance = injector.getInstance(WithFieldToInjectUsingSelfDefinedQualifier.class);
-        assertThat(instance.execute(), is("hello petrina"));
-        assertThat(instance.execute2(), is("hello petrina2"));
+        assertThat(instance.execute(), is(ToInjectImpl.HELLO_PETRINA));
+        assertThat(instance.execute2(), is(ToInjectImpl2.HELLO_PETRINA2));
     }
 
     @Test
     public void should_inject_method_parameter_with_self_defined_annotation() {
         WithMethodToInjectUsingSelfDefinedAnnotation instance = injector.getInstance(WithMethodToInjectUsingSelfDefinedAnnotation.class);
-        assertThat(instance.execute(), is("hello petrina"));
-        assertThat(instance.execute2(), is("hello petrina2"));
+        assertThat(instance.execute(), is(ToInjectImpl.HELLO_PETRINA));
+        assertThat(instance.execute2(), is(ToInjectImpl2.HELLO_PETRINA2));
     }
 
     @Test
-    public void should_able_to_get_self_defined_annotation() {
-        try {
+    public void should_able_to_get_self_defined_annotation() throws NoSuchFieldException {
             Field toInject = WithFieldToInjectUsingSelfDefinedQualifier.class.getDeclaredField("toInject");
             Field toInject3 = WithFieldToInjectUsingSelfDefinedQualifier.class.getDeclaredField("toInject3");
             assertThat(toInject.isAnnotationPresent(DefaultCase.class), is(true));
@@ -78,9 +77,6 @@ public class QualifierInjectionTest {
             Field toInject2 = WithFieldToInject.class.getDeclaredField("toInject2");
             toInject = WithFieldToInject.class.getDeclaredField("toInject");
             assertThat(toInject.getAnnotation(Named.class), not(toInject2.getAnnotation(Named.class)));
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
@@ -107,6 +103,10 @@ public class QualifierInjectionTest {
         @Inject
         @DefaultCase
         ToInject toInject;
+
+        @Inject
+        @DefaultCase
+        ToInject toInject3;
 
         @Inject
         @Named("second")

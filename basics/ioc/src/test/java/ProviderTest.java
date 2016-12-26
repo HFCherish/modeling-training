@@ -16,7 +16,7 @@ public class ProviderTest {
         Injector injector = DI.createInjector(binder -> binder.bind(ToInject.class).toProvider(ToInjectProvider.class));
 
         ToInject instance1 = injector.getInstance(ToInject.class);
-        assertThat(instance1.sayHello(), is("hello petrina"));
+        assertThat(instance1.sayHello(), is(ToInjectImpl.HELLO_PETRINA));
     }
 
     static class ToInjectProvider implements Provider<ToInject> {

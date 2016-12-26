@@ -1,0 +1,8 @@
+{
+	"ad_content": "ad_content id",
+	"charge_items": ["itemId", "itemId"],
+	"websites":[
+		"tieba.baidu.com",
+		"jingyan.baidu.com"
+	]
+}

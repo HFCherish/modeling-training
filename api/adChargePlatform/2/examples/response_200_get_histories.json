@@ -1,0 +1,12 @@
+[
+	{
+		"action": "CLICK",
+		"createdAt": 32423,
+		"ad": "ad requirement id1"
+	},
+	{
+		"action": "VIEW",
+		"createdAt": 32423,
+		"ad": "ad requirement id2"
+	}
+]

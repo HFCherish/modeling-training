@@ -4,7 +4,6 @@ import org.junit.Test;
 import javax.inject.Inject;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -14,15 +13,13 @@ public class ConstructorInjectionTest {
 
     @Test
     public void should_inject_construct_parameter() {
-        WithToInjectConstructor instance = DI.createInjector(new Configurations()).getInstance(WithToInjectConstructor.class);
-        assertThat(instance.execute(), is("hello petrina"));
+        WithToInjectConstructor instance = DI.createInjector(binder -> binder.bind(ToInject.class).to(ToInjectImpl.class)).getInstance(WithToInjectConstructor.class);
+        assertThat(instance.execute(), is(ToInjectImpl.HELLO_PETRINA));
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void should_only_has_one_constructor_with_inject_annotation() {
-        InvalidWithToInjectConstructor instance = DI.createInjector(new Configurations()).getInstance(InvalidWithToInjectConstructor.class);
-        assertThat(instance, is(nullValue()));
-//        assertThat(instance.execute(), is("hello petrina"));
+        DI.createInjector(binder -> binder.bind(ToInject.class).to(ToInjectImpl.class)).getInstance(InvalidWithToInjectConstructor.class);
     }
 
     static class WithToInjectConstructor {

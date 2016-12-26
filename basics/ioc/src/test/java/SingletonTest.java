@@ -15,7 +15,7 @@ public class SingletonTest {
 
         ToInjectSingleton instance1 = injector.getInstance(ToInjectSingleton.class);
         ToInjectSingleton instance2 = injector.getInstance(ToInjectSingleton.class);
-        assertThat(instance1.sayHello(), is("hello petrina"));
+        assertThat(instance1.sayHello(), is(ToInjectSingletonImpl.HELLO_PETRINA_SINGLETON));
         assertThat(instance1.equals(instance2), is(true));
     }
 }

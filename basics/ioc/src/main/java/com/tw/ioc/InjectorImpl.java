@@ -64,9 +64,9 @@ public class InjectorImpl implements Injector {
             try {
                 method.invoke(instance, parameters.toArray());
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e.getMessage());
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e.getMessage());
             }
         });
     }
@@ -84,7 +84,7 @@ public class InjectorImpl implements Injector {
                 }
                 field.set(instance, getInstance(Key.of(fieldType, qualifier)));
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e.getMessage());
             }
         });
     }
@@ -99,13 +99,13 @@ public class InjectorImpl implements Injector {
         } catch (NoSuchMethodException e) {
             T res = getInstanceFromInjectConstructor(toInjectClass);
             if (res != null) return res;
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
         return null;
     }
@@ -114,20 +114,10 @@ public class InjectorImpl implements Injector {
         List<Constructor<?>> constructors = Arrays.stream(toInjectClass.getDeclaredConstructors()).filter(constructor -> constructor.isAnnotationPresent(Inject.class)).collect(Collectors.toList());
 
         if (constructors.size() > 1) {
-            try {
-                throw new InstantiationException("can only annotate one constructor with Inject");
-            } catch (InstantiationException e1) {
-                e1.printStackTrace();
-            }
-            return null;
+                throw new RuntimeException("can only annotate one constructor with Inject");
         }
         if (constructors.size() < 0) {
-            try {
-                throw new NoSuchMethodException("no empty constructor or construction with injection");
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-            return null;
+                throw new RuntimeException("no empty constructor or construction with injection");
         }
         Constructor<T> constructor = (Constructor<T>) constructors.get(0);
         List<?> parameters = Arrays.stream(constructor.getParameterTypes()).map(type -> getInstance(type)).collect(Collectors.toList());
@@ -135,12 +125,11 @@ public class InjectorImpl implements Injector {
         try {
             return constructor.newInstance(parameters.toArray());
         } catch (InstantiationException e1) {
-            e1.printStackTrace();
+            throw new RuntimeException(e1.getMessage());
         } catch (IllegalAccessException e1) {
-            e1.printStackTrace();
+            throw new RuntimeException(e1.getMessage());
         } catch (InvocationTargetException e1) {
-            e1.printStackTrace();
+            throw new RuntimeException(e1.getMessage());
         }
-        return null;
     }
 }

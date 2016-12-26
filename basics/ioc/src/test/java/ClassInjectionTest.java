@@ -16,7 +16,7 @@ public class ClassInjectionTest {
 
         ToInject instance1 = injector.getInstance(ToInject.class);
         ToInject instance2 = injector.getInstance(ToInject.class);
-        assertThat(instance1.sayHello(), is("hello petrina"));
+        assertThat(instance1.sayHello(), is(ToInjectImpl.HELLO_PETRINA));
         assertThat(instance1.equals(instance2), is(false));
     }
 
@@ -26,7 +26,7 @@ public class ClassInjectionTest {
 
         ToInject instance1 = injector.getInstance(ToInject.class);
         ToInject instance2 = injector.getInstance(ToInject.class);
-        assertThat(instance1.sayHello(), is("hello petrina"));
+        assertThat(instance1.sayHello(), is(ToInjectImpl.HELLO_PETRINA));
         assertThat(instance1.equals(instance2), is(true));
     }
 
@@ -36,7 +36,7 @@ public class ClassInjectionTest {
 
         ToInject instance1 = injector.getInstance(ToInject.class);
         ToInject instance2 = injector.getInstance(ToInject.class);
-        assertThat(instance1.sayHello(), is("hello petrina"));
+        assertThat(instance1.sayHello(), is(ToInjectImpl.HELLO_PETRINA));
         assertThat(instance1.equals(instance2), is(true));
     }
 }

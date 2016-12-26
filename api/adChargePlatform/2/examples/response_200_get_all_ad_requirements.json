@@ -1,0 +1,10 @@
+[{
+	"id": "id fo ad requirement",
+	"total_price": 4324,
+	"createdAt": 432432,
+	"charge_items": ["charge item id", "item id"],
+	"links": [{
+		"rel": "self",
+		"uri": "users/uid/ad_requirements/adid"
+	}]
+}]

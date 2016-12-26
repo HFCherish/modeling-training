@@ -1,0 +1,17 @@
+{
+	"places": [
+		{
+			"place": "BANNER | BOTTOM_BANNER",
+			"rate": 4
+		},
+		{
+			"place": "BOTTOM_BANNER",
+			"rate": 3
+		},
+		{
+			"place": "SIDEBAR",
+			"rate": 2
+		}
+	],
+	"yield": 0.7
+}
