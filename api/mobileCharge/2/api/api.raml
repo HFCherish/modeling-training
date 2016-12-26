@@ -1,12 +1,12 @@
 #%RAML 0.8
 title: mobile charge
-version: v1
+version: v2
 mediaType:  application/json
 
-/users:
-  /uid:
+/cards:
+  /cid:
     get:
-      description: can get card detail of owner
+      description: can get card detail
       responses:
         200:
           body:
@@ -14,10 +14,10 @@ mediaType:  application/json
               example: !include examples/response_200_get_card.json
               schema: !include schemas/response_200_get_card.schema.json
         404:
-          description: current owner is not uid
+          description: current owner is not cid
     /calls:
       post:
-        description: owner has a new call
+        description: card has a new call
         body:
           application/json:
             example: !include examples/request_post_call.json
@@ -26,9 +26,9 @@ mediaType:  application/json
           201:
             headers:
               location:
-                example: "users/uid/calls/callId"
+                example: "cards/cid/calls/callId"
           404:
-            description: current owner is not uid
+            description: current owner is not cid
           400:
             description: field incomplete
       get:
@@ -42,13 +42,8 @@ mediaType:  application/json
             default: 1
           month:
             type: integer
-        responses:
-          200:
-            body:
-              application/json:
-                example: !include examples/response_get_call_records.json
           404:
-            description: current owner is not uid
+            description: current owner is not cid
     /messages:
       post:
         description: owner send a message
@@ -59,9 +54,9 @@ mediaType:  application/json
           201:
             headers:
               location:
-                example: "users/uid/messages/mid"
+                example: "cards/cid/messages/mid"
           404:
-            description: current owner is not uid
+            description: current owner is not cid
           400:
             description: field incomplete
       get:
@@ -81,7 +76,7 @@ mediaType:  application/json
               application/json:
                 example: !include examples/response_get_message_records.json
           404:
-            description: current owner is not uid
+            description: current owner is not cid
     /data_accesses:
       post:
         description: owner access a web
@@ -92,9 +87,9 @@ mediaType:  application/json
           201:
             headers:
               location:
-                example: "users/uid/data_accesses/daid"
+                example: "cards/cid/data_accesses/daid"
           404:
-            description: current owner is not uid
+            description: current owner is not cid
           400:
             description: field incomplete
       get:
@@ -114,17 +109,17 @@ mediaType:  application/json
               application/json:
                 example: !include examples/response_get_data_access_records.json
           404:
-            description: current owner is not uid
-    /balance:
-      get: 
-        description: get the remained money and data of card
-        responses: 
-          200:
-            body:
-              application/json:
-                example: !include examples/response_get_balance.json
-          404:
             description: current owner is not cid
+    # /balance:
+    #   get: 
+    #     description: get the remained money and data of card
+    #     responses: 
+    #       200:
+    #         body:
+    #           application/json:
+    #             example: !include examples/response_get_balance.json
+    #       404:
+    #         description: current owner is not cid
 #     /package_purchases:
 #       post:
 #         description: purchase a package
@@ -135,7 +130,7 @@ mediaType:  application/json
 #           201:
 #             headers:
 #               location:
-#                 example: "users/uid/package_purchases/ppid"
+#                 example: "cards/cid/package_purchases/ppid"
 #           400:
 #             description: product not exists
 #       get:
@@ -162,7 +157,7 @@ mediaType:  application/json
 #           201:
 #             headers:
 #               location:
-#                 example: "users/uid/top_ups/tuid"
+#                 example: "cards/cid/top_ups/tuid"
 #           400:
 #             description: product not exists / target phone number not supported (not a owner in the system)
 #       get:

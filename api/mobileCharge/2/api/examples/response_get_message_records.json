@@ -1,0 +1,22 @@
+{
+  "count": 10,
+  "prev": "xx",
+  "next": "xxx",
+  "first": "xxx",
+  "last": "xxx",
+  "items": [{
+	"type": "SMS | MMS",
+	"createdAt": 57869,
+	"communication_type": "LOCAL | INTERNAL | INTERNATIONAL",
+	"target": {
+		"phone_number": "1236879",
+		"card_locale": "Beijing-China"
+	},
+	"from_locale": "Beijing-China",
+	"send_type": "SENDER | RECEIVER",
+	"fee": 8098,
+	"links": [{
+		"rel": "self",
+		"uri": "/users/uid/messages/mid"
+	}]
+}]}

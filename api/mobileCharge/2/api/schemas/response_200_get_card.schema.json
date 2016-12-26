@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "phone_card": {
+      "type": "object",
+      "properties": {
+        "phone_number": "string",
+        "card_locale": {
+          "type": "string",
+          "description": "format is like this: Beijing-China"
+        }
+      },
+      "required": ["phone_number", "card_locale"]
+    },
+    "ID_Card": {
+      "type": "string",
+      "description": "certificate with real identity"
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rel": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "rel",
+          "uri"
+        ]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "ID_Card",
+    "phone_card",
+    "links"
+  ]
+}

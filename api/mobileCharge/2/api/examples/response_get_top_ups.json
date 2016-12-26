@@ -1,0 +1,12 @@
+[
+{
+	"createdAt": 34234,
+	"product": {
+		"id": "xxx"
+	},
+	"amount": 20,
+	"price": 19.1,
+	"target": {
+		"phone_number": "13256787899"
+	}
+}]

@@ -1,0 +1,39 @@
+{
+	"id": "xxx",
+	"phone_card": {
+		"phone_number": "1236879",
+		"card_locale": "Beijing-China",
+	},
+	"ID_Card": "234542",
+	"links": [{
+		"rel": "self",
+		"uri": "/users/uid"
+	}],
+	"balance": {
+		"remainedMoney": 34.2,
+		"remainedData": {
+			"local": 32.1,
+			"international": 32.1,
+			"internal": 32.1
+		},
+		"remainedCallMinutes": {
+			"local": 12,
+			"internal": 32,
+			"international": 324
+		},
+		"remainedMessages": {
+			"local": {
+				"MMS": 10,
+				"SMS": 10
+			},
+			"internal": {
+				"MMS": 10,
+				"SMS": 10
+			},
+			"international": {
+				"MMS": 10,
+				"SMS": 10
+			}
+		}
+	}
+}

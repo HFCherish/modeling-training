@@ -1,0 +1,24 @@
+{
+  "count": 10,
+  "prev": "xx",
+  "next": "xxx",
+  "first": "xxx",
+  "last": "xxx",
+  "items": [{
+	"duration": {
+		"start": 34324,
+		"end": 3424
+	},
+	"from_locale": "Beijing-China",
+	"target": {
+		"phone_number": "1236879",
+		"card_locale": "Beijing-China"
+	},
+	"communication_type": "LOCAL | INTERNAL | INTERNATIONAL",
+	"call_type": "CALLER | CALLEE",
+	"fee": 8098,
+	"links": [{
+		"rel": "self",
+		"uri": "/users/uid/calls/callId"
+	}]
+}]}
