@@ -80,7 +80,7 @@ public class DataAccessRecordsApiTest extends ApiSupportWithMock {
 
     @Test
     public void should_200_when_get_all_call_records() {
-        User user = getUser(mock(Balance.class));
+        User user = spy(getUser(mock(Balance.class)));
         when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         DataAccessRecord dataAccessRecord = new DataAccessRecord(user,
@@ -90,7 +90,7 @@ public class DataAccessRecordsApiTest extends ApiSupportWithMock {
                 ChargeType.CHARGE,
                 789798l,
                 new DateTime().getMillis());
-        when(dataAccessRecordQueryService.findAllOf(eq(user), anyInt())).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(dataAccessRecord)));
+        doReturn(new PaginatedList(1, (page, perPage) -> asList(dataAccessRecord))).when(user).findAllDataAccess(anyInt());
 
 
         Response response = get(dataAccessRecordsUrl(user));

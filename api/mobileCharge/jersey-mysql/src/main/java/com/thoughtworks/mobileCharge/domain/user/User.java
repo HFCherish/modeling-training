@@ -85,6 +85,10 @@ public class User implements Record {
         return messageRecordMapper.saveMessage(newMessage);
     }
 
+    public PaginatedList<MessageRecord> findAllMessages(int month) {
+        return new PaginatedList<>(messageRecordMapper.countOf(this, month), (page, perPage) -> messageRecordMapper.findAllOf(this, month, page, perPage));
+    }
+
     public CallRecord saveCallRecord(CallRecord newCall) {
         return callRecordMapper.saveCallRecord(newCall);
     }
@@ -117,5 +121,9 @@ public class User implements Record {
 
     public DataAccessRecord saveDataAccess(DataAccessRecord newDataAccess) {
         return dataAccessRecordMapper.saveDataAccessRecord(newDataAccess);
+    }
+
+    public PaginatedList<DataAccessRecord> findAllDataAccess(int month) {
+        return new PaginatedList<>(dataAccessRecordMapper.countOf(this, month), (page, perPage) -> dataAccessRecordMapper.findAllOf(this, month, page, perPage));
     }
 }

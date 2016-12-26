@@ -76,7 +76,7 @@ public class MessageRecordsApiTest extends ApiSupportWithMock {
 
     @Test
     public void should_200_when_get_all_call_records() {
-        User user = getUser(mock(Balance.class));
+        User user = spy(getUser(mock(Balance.class)));
         when(userRepo.findById(anyString())).thenReturn(Optional.of(user));
         when(currentUserService.currentUser()).thenReturn(Optional.of(user));
         MessageRecord messageRecord = new MessageRecord(user,
@@ -85,7 +85,7 @@ public class MessageRecordsApiTest extends ApiSupportWithMock {
                 MessageRecord.Type.MMS,
                 MessageRecord.SendType.SENDER,
                 new DateTime().getMillis());
-        when(messageRecordQueryService.findAllOf(eq(user), anyInt())).thenReturn(new PaginatedList<>(1, (page, perPage) -> asList(messageRecord)));
+        doReturn(new PaginatedList(1, (page, perPage) -> asList(messageRecord))).when(user).findAllMessages(anyInt());
 
 
         Response response = get(messageRecordsUrl(user));

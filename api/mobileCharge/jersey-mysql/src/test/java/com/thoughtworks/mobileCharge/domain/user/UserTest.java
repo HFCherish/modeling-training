@@ -1,5 +1,6 @@
 package com.thoughtworks.mobileCharge.domain.user;
 
+import com.thoughtworks.mobileCharge.domain.PaginatedList;
 import com.thoughtworks.mobileCharge.support.DatabaseTestRunner;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -77,5 +78,62 @@ public class UserTest {
         Balance balance = user.getBalance();
         assertThat(balance.remainMoney > 0, is(true));
         assertThat(balance.accounts.isEmpty(), is(false));
+    }
+
+    @Test
+    public void should_get_all_call_records() {
+        CallRecord toSave = getCallRecord(user, new DateTime());
+        user.saveCallRecord(toSave);
+        PaginatedList<CallRecord> allCallRecords = user.findAllCallRecords(0);
+        assertThat(allCallRecords.size(), is(1l));
+    }
+
+    @Test
+    public void should_get_all_call_records_by_month() {
+        user.saveCallRecord(getCallRecord(user, new DateTime(2016, 1,1,1,1)));
+        user.saveCallRecord(getCallRecord(user, new DateTime(2016, 2,1,1,1)));
+
+        assertThat(user.findAllCallRecords(0).size(), is(2l));
+
+        assertThat(user.findAllCallRecords(1).size(), is(1l));
+        assertThat(user.findAllCallRecords(2).size(), is(1l));
+    }
+
+    @Test
+    public void should_get_all_data_access_records() {
+        DataAccessRecord toSave = getDataAccessRecord(user, new DateTime());
+        user.saveDataAccess(toSave);
+        PaginatedList<DataAccessRecord> dataAccessRecords = user.findAllDataAccess(0);
+        assertThat(dataAccessRecords.size(), is(1l));
+    }
+
+    @Test
+    public void should_get_all_data_access_records_by_month() {
+        user.saveDataAccess(getDataAccessRecord(user, new DateTime(2016, 1, 1, 1, 1)));
+        user.saveDataAccess(getDataAccessRecord(user, new DateTime(2016, 2, 1, 1, 1)));
+
+        assertThat(user.findAllDataAccess(0).size(), is(2l));
+
+        assertThat(user.findAllDataAccess(1).size(), is(1l));
+        assertThat(user.findAllDataAccess(2).size(), is(1l));
+    }
+
+    @Test
+    public void should_get_all_message_records() {
+        MessageRecord toSave = getMessageRecord(user, new DateTime());
+        user.saveMessage(toSave);
+        PaginatedList<MessageRecord> messageRecords = user.findAllMessages(0);
+        assertThat(messageRecords.size(), is(1l));
+    }
+
+    @Test
+    public void should_get_all_message_records_by_month() {
+        user.saveMessage(getMessageRecord(user, new DateTime(2016, 1,1,1,1)));
+        user.saveMessage(getMessageRecord(user, new DateTime(2016, 2,1,1,1)));
+
+        assertThat(user.findAllMessages(0).size(), is(2l));
+
+        assertThat(user.findAllMessages(1).size(), is(1l));
+        assertThat(user.findAllMessages(2).size(), is(1l));
     }
 }
