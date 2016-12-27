@@ -7,7 +7,11 @@
 
 # 主要功能点:
 1. 定义映射关系(xml或annotation)
-2. document和pojo的相互映射
+2. document和pojo的相互映射和转换
     1. 基本数据类型映射
     2. 嵌套数据类型映射
+
+# tasks:
+1. 用xml定义映射关系
+    1.
     

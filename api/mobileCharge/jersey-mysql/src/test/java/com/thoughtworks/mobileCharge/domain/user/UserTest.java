@@ -94,7 +94,6 @@ public class UserTest {
         user.saveCallRecord(getCallRecord(user, new DateTime(2016, 2,1,1,1)));
 
         assertThat(user.findAllCallRecords(0).size(), is(2l));
-
         assertThat(user.findAllCallRecords(1).size(), is(1l));
         assertThat(user.findAllCallRecords(2).size(), is(1l));
     }
@@ -113,7 +112,6 @@ public class UserTest {
         user.saveDataAccess(getDataAccessRecord(user, new DateTime(2016, 2, 1, 1, 1)));
 
         assertThat(user.findAllDataAccess(0).size(), is(2l));
-
         assertThat(user.findAllDataAccess(1).size(), is(1l));
         assertThat(user.findAllDataAccess(2).size(), is(1l));
     }
@@ -132,7 +130,6 @@ public class UserTest {
         user.saveMessage(getMessageRecord(user, new DateTime(2016, 2,1,1,1)));
 
         assertThat(user.findAllMessages(0).size(), is(2l));
-
         assertThat(user.findAllMessages(1).size(), is(1l));
         assertThat(user.findAllMessages(2).size(), is(1l));
     }
