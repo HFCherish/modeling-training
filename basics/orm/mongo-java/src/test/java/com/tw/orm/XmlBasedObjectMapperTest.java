@@ -1,5 +1,6 @@
 package com.tw.orm;
 
+import com.tw.orm.testObjects.Location;
 import com.tw.orm.testObjects.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -94,6 +95,7 @@ public class XmlBasedObjectMapperTest {
     @Test
     public void should_able_to_add_xml_file() throws SAXException, IOException, XPathExpressionException, ClassNotFoundException, ParserConfigurationException, NoSuchFieldException {
         xmlBasedObjectMapper.addXmlObjectMapper(new File("src/test/resources/com.tw.orm/userMapper.xml"));
+        xmlBasedObjectMapper.addXmlObjectMapper(new File("src/test/resources/com.tw.orm/locationMapper.xml"));
 
         ObjectDescriptor objectDescriptor = xmlBasedObjectMapper.getDescriptor(User.class);
         assertThat(objectDescriptor, is(notNullValue()));
@@ -107,6 +109,6 @@ public class XmlBasedObjectMapperTest {
         assertThat(nicknameProperty.getPropertyType(), is(equalTo(String.class)));
         assertThat(usernameProperty.getPropertyType(), is(equalTo(String.class)));
 
-
+        assertThat(xmlBasedObjectMapper.getDescriptor(Location.class), is(notNullValue()));
     }
 }
