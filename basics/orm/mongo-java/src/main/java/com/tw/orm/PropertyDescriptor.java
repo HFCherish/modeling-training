@@ -9,7 +9,7 @@ public class PropertyDescriptor {
     private Class<?> propertyType;
     boolean isId;
 
-    public PropertyDescriptor(String fieldName, String propertyName, Class<String> propertyType) {
+    public PropertyDescriptor(String fieldName, String propertyName, Class<?> propertyType) {
         this.fieldName = fieldName;
         this.propertyName = propertyName;
         this.propertyType = propertyType;
