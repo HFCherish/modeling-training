@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="records">
+    <resultMap id="user" type="com.thoughtworks.ketsu.domain.user.User">
+        <id property="id" column="userId"/>
+        <result property="username" column="userName"/>
+        <result property="nickname" column="userNickname"/>
+        <result property="email" column="userEmail"/>
+        <result property="imgUrl" column="userImg"/>
+        <result property="role" column="userRole"/>
+        <result property="isSystemAdmin" column="isSysAdmin"/>
+        <result property="department" column="userDept"/>
+        <result property="homeOffice" column="userHomeOffice"/>
+        <result property="grade" column="userGrade"/>
+        <result property="password" column="userPassword"/>
+    </resultMap>
+
+    <resultMap id="categoryId" type="com.thoughtworks.ketsu.domain.EntityId">
+        <constructor>
+            <idArg column="categoryId" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="category" type="com.thoughtworks.ketsu.domain.categories.Category">
+        <result property="name" column="categoryName"/>
+        <association property="id" resultMap="categoryId"/>
+    </resultMap>
+
+    <resultMap id="competenceId" type="com.thoughtworks.ketsu.domain.EntityId">
+        <constructor>
+            <idArg column="competenceId" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="competence" type="com.thoughtworks.ketsu.domain.competence.Competence">
+        <result property="name" column="competenceName"/>
+        <result property="description" column="competenceDesc"/>
+        <association property="category" resultMap="category"/>
+        <association property="id" resultMap="competenceId"/>
+        <collection property="patterns" resultMap="patternWithoutCompetence" notNullColumn="patternId"/>
+    </resultMap>
+
+    <resultMap id="competenceWithoutBehaviors" type="com.thoughtworks.ketsu.domain.competence.Competence">
+        <result property="name" column="competenceName"/>
+        <result property="description" column="competenceDesc"/>
+        <result property="createdAt" column="competenceCreatedAt"/>
+        <association property="category" resultMap="category"/>
+        <association property="id" resultMap="competenceId"/>
+    </resultMap>
+
+    <resultMap id="patternId" type="com.thoughtworks.ketsu.domain.EntityId">
+        <constructor>
+            <idArg column="patternId" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="patternWithoutCompetence" type="com.thoughtworks.ketsu.domain.pattern.Pattern">
+        <result property="description" column="patternDesc"/>
+        <result property="hint" column="patternHint"/>
+        <association property="id" resultMap="patternId"/>
+        <association property="competence" javaType="com.thoughtworks.ketsu.domain.competence.Competence">
+            <association property="id" resultMap="competenceId"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="pattern" type="com.thoughtworks.ketsu.domain.pattern.Pattern">
+        <result property="description" column="patternDesc"/>
+        <result property="hint" column="patternHint"/>
+        <association property="id" resultMap="patternId"/>
+        <association property="competence" resultMap="competenceWithoutBehaviors"/>
+    </resultMap>
+
+    <resultMap id="selfReflectionId" type="com.thoughtworks.ketsu.domain.EntityId">
+        <constructor>
+            <idArg column="srId" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="selfReflection" type="com.thoughtworks.ketsu.domain.selfReflections.SelfReflection">
+        <result property="createdAt" column="srCreatedAt"/>
+        <association property="owner" resultMap="user" columnPrefix="SROU_"/>
+        <association property="creator" resultMap="user" columnPrefix="SRCU_"/>
+        <association property="id" resultMap="selfReflectionId"/>
+        <collection property="patterns" resultMap="pattern" notNullColumn="patternId"/>
+    </resultMap>
+
+    <resultMap id="selfReflectionData" type="com.thoughtworks.ketsu.application.queryData.SelfReflectionData">
+        <id column="srId" />
+        <association property="selfReflection" resultMap="selfReflection" />
+        <collection property="evidences" resultMap="evidence" notNullColumn="evidenceId" />
+    </resultMap>
+
+    <resultMap id="simpleSelfReflectionData" type="com.thoughtworks.ketsu.application.queryData.SelfReflectionData">
+        <id column="srId" />
+        <association property="selfReflection" resultMap="selfReflection" />
+        <collection property="evidences" resultMap="evidenceWithoutFeedbackAndInvitations" notNullColumn="evidenceId" />
+    </resultMap>
+
+    <resultMap id="evidenceId" type="com.thoughtworks.ketsu.domain.EntityId">
+        <constructor>
+            <idArg column="evidenceId" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="evidence" type="com.thoughtworks.ketsu.domain.selfReflections.Evidence">
+        <result property="createdAt" column="evidenceCreatedAt"/>
+        <result property="content" column="evidenceContent"/>
+        <result property="ownerName" column="evidenceOwnerName"/>
+        <result property="submitted" column="evidenceSubmitted"/>
+        <association property="id" resultMap="evidenceId"/>
+        <association property="selfReflectionId" resultMap="selfReflectionId" />
+        <association property="patternId" resultMap="patternId" />
+        <collection property="feedbacks" resultMap="feedback" notNullColumn="fbId" />
+        <collection property="invitations" resultMap="invitationWithoutEvidence" notNullColumn="invitationId" />
+    </resultMap>
+
+    <resultMap id="evidenceWithoutFeedbackAndInvitations" type="com.thoughtworks.ketsu.domain.selfReflections.Evidence">
+        <result property="createdAt" column="evidenceCreatedAt"/>
+        <result property="content" column="evidenceContent"/>
+        <result property="ownerName" column="evidenceOwnerName"/>
+        <result property="submitted" column="evidenceSubmitted"/>
+        <association property="id" resultMap="evidenceId"/>
+        <association property="patternId" resultMap="patternId" />
+        <association property="selfReflectionId" resultMap="selfReflectionId"/>
+    </resultMap>
+
+    <resultMap id="evidenceData" type="com.thoughtworks.ketsu.application.queryData.EvidenceData">
+        <id column="evidenceId"/>
+        <association property="owner" resultMap="user" columnPrefix="EUO_" />
+        <association property="evidence" resultMap="evidence" />
+        <association property="pattern" resultMap="pattern" />
+    </resultMap>
+
+    <resultMap id="invitationId" type="com.thoughtworks.ketsu.domain.EntityId">
+        <constructor>
+            <idArg column="invitationId" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="invitation" type="com.thoughtworks.ketsu.domain.invitations.Invitation">
+        <result property="role" column="invitationRole"/>
+        <association property="id" resultMap="invitationId"/>
+        <association property="owner" resultMap="user" columnPrefix="IVUO_"/>
+        <association property="evidence" resultMap="evidenceWithoutFeedbackAndInvitations"/>
+        <association property="program" resultMap="programWithoutCompetence"/>
+    </resultMap>
+
+    <resultMap id="invitationWithoutEvidence" type="com.thoughtworks.ketsu.domain.invitations.Invitation">
+        <result property="role" column="invitationRole"/>
+        <association property="id" resultMap="invitationId"/>
+        <association property="owner" resultMap="user" columnPrefix="IVUO_"/>
+        <association property="program" resultMap="programWithoutCompetence"/>
+    </resultMap>
+
+    <resultMap id="invitationData" type="com.thoughtworks.ketsu.application.queryData.InvitationData">
+        <id column="invitationId"/>
+        <association property="invitation" resultMap="invitation" />
+        <association property="inviter" resultMap="user" columnPrefix="EUO_"/>
+        <association property="pattern" resultMap="pattern" />
+    </resultMap>
+
+    <resultMap id="feedbackId" type="com.thoughtworks.ketsu.domain.EntityId">
+        <constructor>
+            <idArg column="fbId" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="feedback" type="com.thoughtworks.ketsu.domain.feedbacks.Feedback">
+        <result property="comment" column="fbComment"/>
+        <result property="type" column="fbType"/>
+        <result property="createdAt" column="fbCreatedAt"/>
+        <result property="role" column="fbRole"/>
+        <association property="id" resultMap="feedbackId"/>
+        <association property="evidence" resultMap="evidenceWithoutFeedbackAndInvitations" />
+        <association property="program" resultMap="programWithoutCompetence" />
+        <association property="author" resultMap="user" columnPrefix="FUA_" />
+    </resultMap>
+
+    <!--<resultMap id="feedbackWithEvidence" type="com.thoughtworks.ketsu.domain.feedbacks.Feedback">-->
+        <!--<result property="comment" column="fbComment"/>-->
+        <!--<result property="type" column="fbType"/>-->
+        <!--<result property="createdAt" column="fbCreatedAt"/>-->
+        <!--<association property="id" resultMap="feedbackId"/>-->
+        <!--<association property="author" resultMap="user"/>-->
+        <!--<association property="evidence" resultMap="evidenceWithoutFeedbackAndInvitations"/>-->
+    <!--</resultMap>-->
+
+    <resultMap id="assignmentId" type="com.thoughtworks.ketsu.domain.EntityId">
+        <constructor>
+            <idArg column="assiId" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="assignment" type="com.thoughtworks.ketsu.domain.assignment.Assignment">
+        <result property="role" column="assiRole"/>
+        <result property="createdAt" column="createdAt"/>
+        <association property="user" resultMap="user" columnPrefix="AUU_" />
+        <association property="coach" resultMap="user" columnPrefix="AUC_" />
+        <association property="id" resultMap="assignmentId"/>
+        <association property="programId" resultMap="programId"/>
+    </resultMap>
+
+    <resultMap id="assignmentData" type="com.thoughtworks.ketsu.application.queryData.AssignmentData">
+        <id column="assiId" />
+        <association property="assignment" resultMap="assignment" />
+        <association property="program" javaType="com.thoughtworks.ketsu.domain.programs.Program">
+            <result property="name" column="programName"/>
+            <result property="description" column="programDesc"/>
+            <result property="status" column="programStatus"/>
+            <association property="id" resultMap="programId"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="programId" type="com.thoughtworks.ketsu.domain.EntityId">
+        <constructor>
+            <idArg column="programId" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="program" type="com.thoughtworks.ketsu.domain.programs.Program">
+        <result property="name" column="programName"/>
+        <result property="description" column="programDesc"/>
+        <result property="status" column="programStatus"/>
+        <association property="id" resultMap="programId"/>
+        <association property="competences" resultMap="competence" notNullColumn="competenceId"/>
+    </resultMap>
+
+    <resultMap id="programWithoutCompetence" type="com.thoughtworks.ketsu.domain.programs.Program">
+        <result property="name" column="programName"/>
+        <result property="description" column="programDesc"/>
+        <result property="status" column="programStatus"/>
+        <association property="id" resultMap="programId"/>
+    </resultMap>
+
+</mapper>
