@@ -7,6 +7,14 @@ public class ObjectDescriptor {
     Class<?> type;
     String id;
 
+    public ObjectDescriptor(Class<?> type) {
+        this.type = type;
+    }
+
+    public Class<?> getType() {
+        return type;
+    }
+
     void addPropertyDescriptor(PropertyDescriptor propertyDescriptor) {
 
     }

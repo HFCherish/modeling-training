@@ -12,7 +12,7 @@
 # tasks:
 ## 使用xml定义映射关系，并实现document和pojo的相互转换
 1. 可以定义映射关系
-	2. 可以在映射表（objectMapper）中注册并获取相应的对象映射描述（objectDescriptor）－15:
+	2. 可以在映射表（objectMapper）中注册并获取相应的对象映射描述（objectDescriptor）－15: 11
 	3. 可以在对象映射描述（objectDescriptor）中添加并获取相应的属性映射描述（PropertyDescriptor）－15:
 	4. 可以从xml文件中读取所有的对象映射描述
 		5. 可以从xml document解析并得到相应的对象映射描述

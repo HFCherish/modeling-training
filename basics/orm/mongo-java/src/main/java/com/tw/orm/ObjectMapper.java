@@ -9,4 +9,6 @@ public interface ObjectMapper {
     <T> Document mapToDocument(T obj);
     <T> T mapToPojo(Document document, Class<T> pojoClass);
     void registerObjectDescriptor(ObjectDescriptor objectDescriptor);
+
+    ObjectDescriptor getDescriptor(Class<?> type);
 }
