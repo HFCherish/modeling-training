@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mapper>
     <object type="com.tw.orm.testObjects.User">
+        <property name="id" field="_id" isId="true" />
         <property name="username" field="username" />
         <property name="nickname" field="nickname" />
     </object>

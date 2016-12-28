@@ -40,8 +40,10 @@ public class XmlBasedObjectMapper extends AbstractObjectMapper {
             Element element = (Element) propertyNodes.item(i);
             String propertyName = element.getAttribute("name");
             String fieldName = element.getAttribute("field");
+            Boolean isId = Boolean.valueOf(element.getAttribute("isId"));
             Class<?> propertyType = type.getDeclaredField(propertyName).getType();
-            objectDescriptor.addPropertyDescriptor(new PropertyDescriptor(fieldName, propertyName, propertyType));
+            PropertyDescriptor propertyDescriptor = new PropertyDescriptor(fieldName, propertyName, propertyType, isId);
+            objectDescriptor.addPropertyDescriptor(propertyDescriptor);
         }
         return objectDescriptor;
     }

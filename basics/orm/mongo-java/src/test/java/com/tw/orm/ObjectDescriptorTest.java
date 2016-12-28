@@ -14,7 +14,7 @@ public class ObjectDescriptorTest {
     public void should_add_and_get_property_descriptor() {
         ObjectDescriptor objectDescriptor = new ObjectDescriptor(User.class);
 
-        PropertyDescriptor propertyDescriptor = new PropertyDescriptor("username", "username", String.class);
+        PropertyDescriptor propertyDescriptor = new PropertyDescriptor("username", "username", String.class, false);
         objectDescriptor.addPropertyDescriptor(propertyDescriptor);
         assertThat(objectDescriptor.getPropertyDescriptor("username"), is(propertyDescriptor));
     }

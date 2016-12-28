@@ -64,4 +64,28 @@ public class XmlBasedObjectMapperTest {
         assertThat(usernameProperty.getPropertyName(), is("username"));
         assertThat(nicknameProperty.getPropertyType(), is(equalTo(String.class)));
     }
+
+    @Test
+    public void should_parse_xml_document_with_property_descriptors_with_id() throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, ClassNotFoundException, NoSuchFieldException {
+        StringBuilder xmlBuilder = new StringBuilder();
+        xmlBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                "<mapper>" +
+                    "<object type=\"com.tw.orm.testObjects.User\">" +
+                        "<property name=\"id\" field=\"_id\" isId=\"true\"/>" +
+                    "</object>" +
+                "</mapper>");
+        DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        Document document = documentBuilder.parse(new ByteArrayInputStream(xmlBuilder.toString().getBytes("UTF-8")));
+
+        XmlBasedObjectMapper xmlBasedObjectMapper = new XmlBasedObjectMapper();
+
+        List<ObjectDescriptor> objectDescriptors = xmlBasedObjectMapper.parse(document);
+        assertThat(objectDescriptors.size(), is(1));
+        ObjectDescriptor objectDescriptor = objectDescriptors.get(0);
+        PropertyDescriptor idProperty = objectDescriptor.getPropertyDescriptor("id");
+        assertThat(idProperty.getPropertyType(), is(equalTo(String.class)));
+        assertThat(idProperty.getFieldName(), is("_id"));
+        assertThat(idProperty.getPropertyName(), is("id"));
+        assertThat(idProperty.isId(), is(true));
+    }
 }
