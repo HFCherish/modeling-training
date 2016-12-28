@@ -16,7 +16,7 @@
 	3. 可以在对象映射描述（objectDescriptor）中添加并获取相应的属性映射描述（PropertyDescriptor）－15: 6
 	4. 可以从xml文件中读取所有的对象映射描述
 		5. 可以从xml document解析并得到相应的对象映射描述
-			6. 对象描述支持class －15:
+			6. 对象描述支持class －15: 12
 			4. 属性描述支持property、field －15:
 			5. 属性描述支持isId －10:
 		6. 可以在映射表中注册多个xml文件 －15:

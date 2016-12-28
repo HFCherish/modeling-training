@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper>
+    <object type="com.tw.orm.testObjects.User">
+        <propery name="username" field="username" />
+        <propery name="nickname" field="nickname" />
+    </object>
+</mapper>
