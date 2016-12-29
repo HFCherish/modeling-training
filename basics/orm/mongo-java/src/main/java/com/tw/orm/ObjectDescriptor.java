@@ -1,5 +1,6 @@
 package com.tw.orm;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,5 +26,9 @@ public class ObjectDescriptor {
 
     public PropertyDescriptor getPropertyDescriptor(String propertyName) {
         return propertyDescriptors.get(propertyName);
+    }
+
+    public Collection<PropertyDescriptor> getProperties() {
+        return propertyDescriptors.values();
     }
 }

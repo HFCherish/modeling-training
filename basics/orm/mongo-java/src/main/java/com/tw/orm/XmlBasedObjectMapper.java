@@ -25,7 +25,7 @@ public class XmlBasedObjectMapper extends AbstractObjectMapper {
 
     void addXmlObjectMapper(File file) throws ParserConfigurationException, IOException, SAXException, NoSuchFieldException, XPathExpressionException, ClassNotFoundException {
         List<ObjectDescriptor> descriptors = parse(DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(file));
-        descriptors.stream().forEach(o -> objectDescriptors.put(o.getType(), o));
+        descriptors.stream().forEach(o -> registerObjectDescriptor(o));
     }
 
     void addXmlObjectMapper(InputStream inputStream) throws ParserConfigurationException, IOException, SAXException, NoSuchFieldException, XPathExpressionException, ClassNotFoundException {

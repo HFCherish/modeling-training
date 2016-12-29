@@ -27,6 +27,11 @@ public abstract class AbstractObjectMapper implements ObjectMapper {
     }
 
     @Override
+    public boolean hasDescriptor(Class<?> type) {
+        return objectDescriptors.containsKey(type);
+    }
+
+    @Override
     public ObjectDescriptor getDescriptor(Class<?> type) {
         return objectDescriptors.get(type);
     }

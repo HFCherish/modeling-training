@@ -7,4 +7,16 @@ public class User {
     String id;
     String username;
     String nickname;
+
+    public String getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
 }

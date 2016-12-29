@@ -24,7 +24,7 @@
 	4. 类型一致，直接转换 －10: 5
 	5. 类型不一致：
 		6. document 和 pojo
-			5. document －> pojo －15:
+			5. document －> pojo －15: 60
 			6. pojo -> document －15:
 				7. 如果没有指定_id，自动生成ObjectId作为_id －10:
 		1. collection 和 mongo相应类型(BsonArray)

@@ -11,4 +11,6 @@ public interface ObjectMapper {
     void registerObjectDescriptor(ObjectDescriptor objectDescriptor);
 
     ObjectDescriptor getDescriptor(Class<?> type);
+
+    boolean hasDescriptor(Class<?> type);
 }
