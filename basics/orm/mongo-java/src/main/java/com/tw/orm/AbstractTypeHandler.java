@@ -27,8 +27,8 @@ public abstract class AbstractTypeHandler<S, T> implements TypeHandler<S, T> {
 //        System.out.println(target.getName());
         if(source.isAssignableFrom(sourceClass) && target.isAssignableFrom(targetClass))
             return map(sourceClass, targetClass);
-        if(target.isAssignableFrom(sourceClass) && source.isAssignableFrom(sourceClass))
-            return unmap(targetClass, sourceClass);
+        if(target.isAssignableFrom(sourceClass) && source.isAssignableFrom(targetClass))
+            return unmap(sourceClass, targetClass);
         return null;
     }
 }

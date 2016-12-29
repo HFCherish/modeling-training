@@ -38,7 +38,7 @@ public class ConversionContextTest {
     }
 
     @Test
-    public void should_convert_from_mongo_document_to_dojo() {
+    public void should_convert_from_mongo_document_to_pojo() {
         Document document = new Document("username", "petrina")
                 .append("nickname", "xz");
         conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
@@ -47,5 +47,16 @@ public class ConversionContextTest {
         assertThat(convertUser.getId(), is(document.getString("_id")));
         assertThat(convertUser.getUsername(), is(document.getString("username")));
         assertThat(convertUser.getNickname(), is(document.getString("nickname")));
+    }
+
+    @Test
+    public void should_convert_from_pojo_to_document() {
+        User user = new User().setId("someId").setUsername("petrina").setNickname("xz");
+        conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
+        Document convertDocument = conversionContext.convert(user, Document.class);
+
+        assertThat(convertDocument.getString("_id"), is(user.getId()));
+        assertThat(convertDocument.getString("username"), is(user.getUsername()));
+        assertThat(convertDocument.getString("nickname"), is(user.getNickname()));
     }
 }
