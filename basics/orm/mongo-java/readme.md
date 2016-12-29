@@ -25,8 +25,9 @@
 	5. 类型不一致：
 		6. document 和 pojo
 			5. document －> pojo －15: 60
+			    1. 为继承属性指定值
 			6. pojo -> document －15: 15
-				7. 如果没有指定_id，自动生成ObjectId作为_id －10:
+				7. 如果没有指定_id，自动生成ObjectId作为_id －10: 4
 		1. collection 和 mongo相应类型(BsonArray)
 			8. collection -> BsonArray -15:
 			9. BsonArray -> collection －15:

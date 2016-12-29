@@ -1,8 +1,7 @@
 package com.tw.orm;
 
 import org.bson.Document;
-
-import java.lang.reflect.Field;
+import org.bson.types.ObjectId;
 
 /**
  * Created by pzzheng on 12/28/16.
@@ -32,7 +31,7 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
             ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(targetClass);
             objectDescriptor.getProperties().stream().forEach(pd -> {
                 Object propertyValue = document.get(pd.getFieldName(), pd.getPropertyType());
-                ReflectionUtil.setField(res, propertyValue, pd.getPropertyName());
+                ReflectionUtil.setProperty(res, propertyValue, pd.getPropertyName());
             });
             return res;
         };
@@ -41,26 +40,18 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
     @Override
     protected Converter<Object, Document> unmap(Class<?> sourceClass, Class<?> targetClass) {
         return object -> {
+            if(object == null)  return null;
             Document document = new Document();
             ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(sourceClass);
             objectDescriptor.getProperties().stream().forEach(pd -> {
-                Object propertyValue = null;
-                try {
-                    Field property = sourceClass.getDeclaredField(pd.getPropertyName());
-                    if(!property.isAccessible()) {
-                        property.setAccessible(true);
-                    }
-                    propertyValue = property.get(object);
-                } catch (NoSuchFieldException e) {
-                    throw new RuntimeException(e.getMessage());
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+                Object propertyValue = ReflectionUtil.getPropertyValue(object, pd.getPropertyName());
                 if(propertyValue != null) {
                     document.append(pd.getFieldName(), propertyValue);
                 }
             });
-
+            if(document.get("_id") == null) {
+                document.append("_id", new ObjectId());
+            }
             return document;
         };
     }

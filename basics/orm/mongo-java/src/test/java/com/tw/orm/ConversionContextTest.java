@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -56,6 +57,17 @@ public class ConversionContextTest {
         Document convertDocument = conversionContext.convert(user, Document.class);
 
         assertThat(convertDocument.getString("_id"), is(user.getId()));
+        assertThat(convertDocument.getString("username"), is(user.getUsername()));
+        assertThat(convertDocument.getString("nickname"), is(user.getNickname()));
+    }
+
+    @Test
+    public void should_convert_from_pojo_to_document_and_add_id_if_not_exists() {
+        User user = new User().setUsername("petrina").setNickname("xz");
+        conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
+        Document convertDocument = conversionContext.convert(user, Document.class);
+
+        assertThat(convertDocument.get("_id"), is(notNullValue()));
         assertThat(convertDocument.getString("username"), is(user.getUsername()));
         assertThat(convertDocument.getString("nickname"), is(user.getNickname()));
     }

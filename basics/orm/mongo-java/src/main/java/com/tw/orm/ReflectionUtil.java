@@ -29,7 +29,7 @@ public class ReflectionUtil {
         return res;
     }
 
-    public static void setField(Object targetObject, Object propertyValue, String propertyName) {
+    public static void setProperty(Object targetObject, Object propertyValue, String propertyName) {
         try {
             Field property = targetObject.getClass().getDeclaredField(propertyName);
             if(!property.isAccessible()) {
@@ -41,5 +41,21 @@ public class ReflectionUtil {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+
+    public static Object getPropertyValue(Object object, String propertyName) {
+        Object propertyValue;
+        try {
+            Field property = object.getClass().getDeclaredField(propertyName);
+            if(!property.isAccessible()) {
+                property.setAccessible(true);
+            }
+            propertyValue = property.get(object);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e.getMessage());
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        return propertyValue;
     }
 }
