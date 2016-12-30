@@ -12,8 +12,9 @@ public class ConversionContext {
     List<TypeHandler> typeHandlers = new ArrayList<>();
 
     <S,T> T convert(S sourceObj, Class<T> targetClass) {
+        if(sourceObj == null)   return null;
         Class<?> sourceClass = sourceObj.getClass();
-        if(sourceClass.equals(targetClass)) {
+        if(targetClass.isAssignableFrom(sourceClass)) {
             return (T) sourceObj;
         }
 
@@ -21,7 +22,7 @@ public class ConversionContext {
         if (!typeHandler.isPresent())
             throw new NoTypeHandlerException("no type handler from " + sourceClass + " to " + targetClass);
 
-        return ((TypeHandler.Converter<S,T>)typeHandler.get().getConverter(sourceClass, targetClass)).convert(sourceObj);
+        return ((TypeHandler.Converter<S,T>)typeHandler.get().getConverter(sourceClass, targetClass, this)).convert(sourceObj);
     }
 
     void registerTypeHandler(TypeHandler typeHandler) {

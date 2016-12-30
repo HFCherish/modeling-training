@@ -4,9 +4,10 @@ package com.tw.orm;
  * Created by pzzheng on 12/28/16.
  */
 public class PropertyDescriptor {
-    private String propertyName;
-    private String fieldName;
+    private String propertyName;    //pojo property
+    private String fieldName;   //mongo field
     private Class<?> propertyType;
+    private Class<?> fieldType;
     private boolean isId;
 
     public PropertyDescriptor(String fieldName, String propertyName, Class<?> propertyType, boolean isId) {
@@ -30,5 +31,10 @@ public class PropertyDescriptor {
 
     public Class<?> getPropertyType() {
         return propertyType;
+    }
+
+    // TODO: 12/30/16 modify to use specified storage type
+    public Class<?> getFieldType() {
+        return Object.class;
     }
 }

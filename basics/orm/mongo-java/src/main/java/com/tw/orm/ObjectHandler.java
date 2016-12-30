@@ -21,7 +21,7 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
     }
 
     @Override
-    protected Converter<Document, Object> map(Class<?> sourceClass, Class<?> targetClass) {
+    protected Converter<Document, Object> map(Class<?> sourceClass, Class<?> targetClass, ConversionContext conversionContext) {
         return document -> {
             //create the object
             Object res;
@@ -30,7 +30,8 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
             //set properties
             ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(targetClass);
             objectDescriptor.getProperties().stream().forEach(pd -> {
-                Object propertyValue = document.get(pd.getFieldName(), pd.getPropertyType());
+                Object propertyValue = document.get(pd.getFieldName());
+                propertyValue = conversionContext.convert(propertyValue, pd.getPropertyType());
                 ReflectionUtil.setProperty(res, propertyValue, pd.getPropertyName());
             });
             return res;
@@ -38,18 +39,19 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
     }
 
     @Override
-    protected Converter<Object, Document> unmap(Class<?> sourceClass, Class<?> targetClass) {
+    protected Converter<Object, Document> unmap(Class<?> sourceClass, Class<?> targetClass, ConversionContext conversionContext) {
         return object -> {
-            if(object == null)  return null;
             Document document = new Document();
             ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(sourceClass);
             objectDescriptor.getProperties().stream().forEach(pd -> {
                 Object propertyValue = ReflectionUtil.getPropertyValue(object, pd.getPropertyName());
-                if(propertyValue != null) {
+                propertyValue = conversionContext.convert(propertyValue, pd.getFieldType());
+                if (propertyValue != null) {
                     document.append(pd.getFieldName(), propertyValue);
                 }
             });
-            if(document.get("_id") == null) {
+
+            if (document.get("_id") == null) {
                 document.append("_id", new ObjectId());
             }
             return document;

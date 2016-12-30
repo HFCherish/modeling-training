@@ -11,7 +11,7 @@ package com.tw.orm;
  */
 public interface TypeHandler<S, T> {
     boolean canConvert(Class<?> sourceClass, Class<?> targetClass);
-    Converter getConverter(Class<?> sourceClass, Class<?> targetClass);
+    Converter getConverter(Class<?> sourceClass, Class<?> targetClass, ConversionContext conversionContext);
 
     interface  Converter<S, T> {
         T convert(S sourceObj);
