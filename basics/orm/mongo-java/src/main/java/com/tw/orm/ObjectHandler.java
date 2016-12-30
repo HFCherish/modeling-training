@@ -45,8 +45,9 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
             ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(sourceClass);
             objectDescriptor.getProperties().stream().forEach(pd -> {
                 Object propertyValue = ReflectionUtil.getPropertyValue(object, pd.getPropertyName());
-                propertyValue = conversionContext.convert(propertyValue, pd.getFieldType());
                 if (propertyValue != null) {
+                    Class<?> fieldType = pd.getFieldType() != null ? pd.getFieldType() : propertyValue.getClass();
+                    propertyValue = conversionContext.convert(propertyValue, fieldType);
                     document.append(pd.getFieldName(), propertyValue);
                 }
             });

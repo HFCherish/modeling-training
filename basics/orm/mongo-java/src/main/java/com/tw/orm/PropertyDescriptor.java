@@ -35,6 +35,6 @@ public class PropertyDescriptor {
 
     // TODO: 12/30/16 modify to use specified storage type
     public Class<?> getFieldType() {
-        return Object.class;
+        return fieldType;
     }
 }
