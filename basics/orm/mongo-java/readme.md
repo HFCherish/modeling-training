@@ -25,18 +25,24 @@
 	5. 类型不一致：
 		6. document 和 pojo
 			5. document －> pojo －15: 60
-			    1. 为继承属性指定值 -15 : 29
+			    1. 转换继承属性 -15 : 29
+			    1. convert to a collection of corresponding pojo when the document field is a collection -15:
+			    1. convert to a collection of corresponding pojo when the document field is an array -15:
+			    1. String to enum -10:
+			    1. objectId to String -15:
 			6. pojo -> document －15: 15
 				7. 如果没有指定_id，自动生成ObjectId作为_id －10: 4
-		1. collection 和 mongo相应类型(BsonArray)
-			8. collection -> BsonArray -15:
-			9. BsonArray -> collection －15:
-		10. string 和 enum
-			11. string -> enum -10:
-			12. enum －> string -5:
-		13. string 和 ObjectId
-			14. string -> objectId -15:
-			15. ObjectId -> string -5:
-		16. string 和 uuid
-			17. string -> uuid -15:
-			18. uuid -> string -5:
+				1. 转换继承属性 -10: 6
+				1. convert to a collection of corresponding document object when the pojo property is an collection -15:
+				1. convert to a collection of corresponding document object when the pojo property is an array -15:
+				1. enum to String -5:
+				1. String to objectId -15:
+		<!--<!--1. collection 和 mongo相应类型(BsonArray)-->-->
+			<!--<!--8. collection -> BsonArray -15:-->-->
+			<!--<!--9. BsonArray -> collection －15:-->-->
+		<!--10. string 和 enum-->
+			<!--11. string -> enum -10:-->
+			<!--12. enum －> string -5:-->
+		<!--13. string 和 ObjectId-->
+			<!--14. string -> objectId -15:-->
+			<!--15. ObjectId -> string -5:-->

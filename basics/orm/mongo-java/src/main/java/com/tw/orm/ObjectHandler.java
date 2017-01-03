@@ -48,18 +48,24 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
     protected Converter<Object, Document> unmap(Class<?> sourceClass, Class<?> targetClass, ConversionContext conversionContext) {
         return object -> {
             Document document = new Document();
-            ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(sourceClass);
-            objectDescriptor.getProperties().stream().forEach(pd -> {
-                Object propertyValue = ReflectionUtil.getPropertyValue(object, pd.getPropertyName());
-                if (propertyValue != null) {
-                    Class<?> fieldType = pd.getFieldType() != null ? pd.getFieldType() : propertyValue.getClass();
-                    propertyValue = conversionContext.convert(propertyValue, fieldType);
-                    document.append(pd.getFieldName(), propertyValue);
-                }
-            });
+            Class<?> currentClass = sourceClass;
+            while (currentClass != null) {
+                ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(currentClass);
+                if (objectDescriptor == null)   break;
+                objectDescriptor.getProperties().stream().forEach(pd -> {
+                    Object propertyValue = ReflectionUtil.getPropertyValue(object, pd.getPropertyName());
+                    if (propertyValue != null) {
+                        Class<?> fieldType = pd.getFieldType() != null ? pd.getFieldType() : propertyValue.getClass();
+                        propertyValue = conversionContext.convert(propertyValue, fieldType);
+                        document.append(pd.getFieldName(), propertyValue);
+                    }
+                });
 
-            if (document.get("_id") == null) {
-                document.append("_id", new ObjectId());
+                if (document.get("_id") == null) {
+                    document.append("_id", new ObjectId());
+                }
+
+                currentClass = currentClass.getSuperclass();
             }
             return document;
         };

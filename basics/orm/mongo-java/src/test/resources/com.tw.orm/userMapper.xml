@@ -9,6 +9,7 @@
     <object type="com.tw.orm.testObjects.Person">
         <property name="personLocation" field="location" />
         <property name="sex" field="sex" />
+        <property name="sons" field="sons" />
     </object>
 
 </mapper>
