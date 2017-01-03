@@ -139,4 +139,14 @@ public class ConversionContextTest {
         assertThat(person.getSons().size(), is(2));
         assertThat(person.getSons().get(0).getSex(), is(anyOf(equalTo("female"), equalTo("male"))));
     }
+
+    @Test
+    public void should_convert_from_document_to_pojo_with_array_field() {
+        Document document = new Document("sons", new Document[]{new Document("sex", "female"), new Document("sex", "male")});
+        conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
+        Person person = conversionContext.convert(document, Person.class);
+
+        assertThat(person.getSons().size(), is(2));
+        assertThat(person.getSons().get(0).getSex(), is(anyOf(equalTo("female"), equalTo("male"))));
+    }
 }

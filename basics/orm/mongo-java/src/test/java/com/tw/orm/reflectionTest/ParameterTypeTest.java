@@ -7,7 +7,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,10 +42,33 @@ public class ParameterTypeTest {
         Field generic = ParameterTypeClass.class.getDeclaredField("generic");
         System.out.println(generic.getGenericType());
 //        System.out.println(((ParameterizedType)generic.getGenericType()).getActualTypeArguments()[0]);
+
+
+//        System.out.println(((ParameterizedType)generic.getGenericType()).getActualTypeArguments()[0]);
+    }
+
+    @Test
+    public void testArray() throws NoSuchFieldException {
+        System.out.println("------------------------------");
+        Field userArray = ParameterTypeClass.class.getDeclaredField("userArray");
+        assertThat(userArray.getType().isArray(), is(true));
+        assertThat(userArray.getType().getComponentType().equals(User.class), is(true));
+        Object testArray = new User[1];
+        ((Object[]) testArray)[0] = new User();
+        ArrayList c = new ArrayList();
+        Collections.addAll(c, testArray);
+        assertThat(c.size(), is(1));
+        assertThat(testArray.getClass().isArray(), is(true));
+        assertThat(testArray.getClass().getComponentType().equals(User.class), is(true));
+        Arrays.stream((Object[])testArray).forEach(o -> System.out.println(o.getClass().getName()));
+
+        Object testList = Arrays.asList(new User());
+        Stream.of(testList).forEach(o -> System.out.println(o.getClass().getName()));
     }
 
     class ParameterTypeClass {
         List<User> users;
         List generic;
+        User[] userArray;
     }
 }
