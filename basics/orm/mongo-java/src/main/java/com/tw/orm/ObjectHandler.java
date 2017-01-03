@@ -28,12 +28,18 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
             res = ReflectionUtil.instanceFromEmptyConstructor(targetClass);
 
             //set properties
-            ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(targetClass);
-            objectDescriptor.getProperties().stream().forEach(pd -> {
-                Object propertyValue = document.get(pd.getFieldName());
-                propertyValue = conversionContext.convert(propertyValue, pd.getPropertyType());
-                ReflectionUtil.setProperty(res, propertyValue, pd.getPropertyName());
-            });
+            Class<?> currentClass = targetClass;
+            while( currentClass != null) {
+                ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(currentClass);
+                if( objectDescriptor == null)
+                    break;
+                objectDescriptor.getProperties().stream().forEach(pd -> {
+                    Object propertyValue = document.get(pd.getFieldName());
+                    propertyValue = conversionContext.convert(propertyValue, pd.getPropertyType());
+                    ReflectionUtil.setProperty(res, propertyValue, pd.getPropertyName());
+                });
+                currentClass = currentClass.getSuperclass();
+            }
             return res;
         };
     }

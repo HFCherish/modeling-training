@@ -5,4 +5,10 @@
         <property name="username" field="username" />
         <property name="nickname" field="nickname" />
     </object>
+
+    <object type="com.tw.orm.testObjects.Person">
+        <property name="personLocation" field="location" />
+        <property name="sex" field="sex" />
+    </object>
+
 </mapper>

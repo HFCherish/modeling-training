@@ -6,4 +6,12 @@ package com.tw.orm.testObjects;
 public class Location {
     String country;
     String city;
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCity() {
+        return city;
+    }
 }

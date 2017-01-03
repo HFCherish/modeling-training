@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
@@ -28,6 +29,7 @@ public class ConversionContextTest {
         conversionContext = new ConversionContext();
         objectMapper = new XmlBasedObjectMapper();
         objectMapper.addXmlObjectMapper(new File("src/test/resources/com.tw.orm/userMapper.xml"));
+        objectMapper.addXmlObjectMapper(new File("src/test/resources/com.tw.orm/locationMapper.xml"));
     }
 
     @Test
@@ -48,6 +50,28 @@ public class ConversionContextTest {
         assertThat(convertUser.getId(), is(document.getString("_id")));
         assertThat(convertUser.getUsername(), is(document.getString("username")));
         assertThat(convertUser.getNickname(), is(document.getString("nickname")));
+        assertThat(convertUser.getPersonLocation(), is(nullValue()));
+    }
+
+    @Test
+    public void should_convert_from_mongo_document_to_pojo_and_set_property_extended_from_parents() throws SAXException, IOException, XPathExpressionException, ClassNotFoundException, ParserConfigurationException, NoSuchFieldException {
+        objectMapper.addXmlObjectMapper(new File("src/test/resources/com.tw.orm/locationMapper.xml"));
+        Document document = new Document("username", "petrina")
+                                .append("nickname", "xz")
+                                .append("sex", "female")
+                                .append("location", new Document("country", "China")
+                                                        .append("city", "Beijing"));
+        conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
+        User convertUser = conversionContext.convert(document, User.class);
+
+        assertThat(convertUser.getId(), is(nullValue()));
+        assertThat(convertUser.getUsername(), is(document.getString("username")));
+        assertThat(convertUser.getNickname(), is(document.getString("nickname")));
+        assertThat(convertUser.getSex(), is(notNullValue()));
+        assertThat(convertUser.getSex(), is("female"));
+//        assertThat(convertUser.getPersonLocation(), is(notNullValue()));
+//        assertThat(convertUser.getPersonLocation().getCountry(), is("China"));
+//        assertThat(convertUser.getPersonLocation().getCity(), is("Beijing"));
     }
 
     @Test

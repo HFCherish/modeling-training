@@ -3,7 +3,7 @@ package com.tw.orm.testObjects;
 /**
  * Created by pzzheng on 12/28/16.
  */
-public class User {
+public class User extends Person{
     String id;
     String username;
     String nickname;
