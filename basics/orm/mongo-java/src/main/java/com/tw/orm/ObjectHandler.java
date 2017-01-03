@@ -3,6 +3,11 @@ package com.tw.orm;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 /**
  * Created by pzzheng on 12/28/16.
  */
@@ -29,13 +34,19 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
 
             //set properties, going up the class hierarchy to set all declared properties.
             Class<?> currentClass = targetClass;
-            while( currentClass != null) {
+            while (currentClass != null) {
                 ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(currentClass);
-                if( objectDescriptor == null)
+                if (objectDescriptor == null)
                     break;
                 objectDescriptor.getProperties().stream().forEach(pd -> {
                     Object propertyValue = document.get(pd.getFieldName());
-                    propertyValue = conversionContext.convert(propertyValue, pd.getPropertyType());
+                    if (propertyValue instanceof Collection) {
+                        Type genericType = pd.getProperty().getGenericType();
+                        Class<?> propertyTypeParameter = genericType instanceof ParameterizedType ? (Class) (((ParameterizedType) genericType).getActualTypeArguments()[0]) : Object.class;
+                        propertyValue = ((Collection) propertyValue).stream().map(o -> conversionContext.convert(o, propertyTypeParameter)).collect(Collectors.toList());
+                    } else {
+                        propertyValue = conversionContext.convert(propertyValue, pd.getPropertyType());
+                    }
                     ReflectionUtil.setProperty(res, propertyValue, pd.getPropertyName());
                 });
                 currentClass = currentClass.getSuperclass();
@@ -51,7 +62,7 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
             Class<?> currentClass = sourceClass;
             while (currentClass != null) {
                 ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(currentClass);
-                if (objectDescriptor == null)   break;
+                if (objectDescriptor == null) break;
                 objectDescriptor.getProperties().stream().forEach(pd -> {
                     Object propertyValue = ReflectionUtil.getPropertyValue(object, pd.getPropertyName());
                     if (propertyValue != null) {

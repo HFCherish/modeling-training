@@ -26,7 +26,7 @@
 		6. document 和 pojo
 			5. document －> pojo －15: 60
 			    1. 转换继承属性 -15 : 29
-			    1. convert to a collection of corresponding pojo when the document field is a collection -15:
+			    1. convert to a collection of corresponding pojo when the document field is a collection -15: 22
 			    1. convert to a collection of corresponding pojo when the document field is an array -15:
 			    1. String to enum -10:
 			    1. objectId to String -15:

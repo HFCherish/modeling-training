@@ -137,6 +137,6 @@ public class ConversionContextTest {
         Person person = conversionContext.convert(document, Person.class);
 
         assertThat(person.getSons().size(), is(2));
-//        assertThat(person.getSons().get(0).getSex(), is(anyOf(equalTo("female"), equalTo("male"))));
+        assertThat(person.getSons().get(0).getSex(), is(anyOf(equalTo("female"), equalTo("male"))));
     }
 }
