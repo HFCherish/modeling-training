@@ -1,5 +1,6 @@
 package com.tw.orm;
 
+import com.tw.orm.testObjects.Person;
 import com.tw.orm.testObjects.User;
 import org.bson.Document;
 import org.junit.Before;
@@ -11,6 +12,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -128,13 +130,13 @@ public class ConversionContextTest {
 //        assertThat(((List) document.get("sons")).get(0) instanceof Document, is(true));
 //    }
 
-//    @Test
-//    public void should_convert_from_document_to_pojo_with_collection() {
-//        Document document = new Document("sons", asList(new Document("sex", "female"), new Document("sex", "male")));
-//        conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
-//        Person person = conversionContext.convert(document, Person.class);
-//
-//        assertThat(person.getSons().size(), is(2));
-//        assertThat(person.getSex(), is(anyOf(equalTo("female"), equalTo("maler"))));
-//    }
+    @Test
+    public void should_convert_from_document_to_pojo_with_collection_field() {
+        Document document = new Document("sons", asList(new Document("sex", "female"), new Document("sex", "male")));
+        conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
+        Person person = conversionContext.convert(document, Person.class);
+
+        assertThat(person.getSons().size(), is(2));
+//        assertThat(person.getSons().get(0).getSex(), is(anyOf(equalTo("female"), equalTo("male"))));
+    }
 }

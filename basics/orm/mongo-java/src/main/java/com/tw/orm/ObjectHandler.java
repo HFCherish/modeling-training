@@ -27,7 +27,7 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
             Object res;
             res = ReflectionUtil.instanceFromEmptyConstructor(targetClass);
 
-            //set properties
+            //set properties, going up the class hierarchy to set all declared properties.
             Class<?> currentClass = targetClass;
             while( currentClass != null) {
                 ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(currentClass);

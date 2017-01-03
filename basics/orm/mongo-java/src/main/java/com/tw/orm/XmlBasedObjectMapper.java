@@ -14,6 +14,7 @@ import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,11 +50,10 @@ public class XmlBasedObjectMapper extends AbstractObjectMapper {
         NodeList propertyNodes = (NodeList) xPath.evaluate("./property", objectNode, XPathConstants.NODESET);
         for (int i = 0; i < propertyNodes.getLength(); i++) {
             Element element = (Element) propertyNodes.item(i);
-            String propertyName = element.getAttribute("name");
             String fieldName = element.getAttribute("field");
             Boolean isId = Boolean.valueOf(element.getAttribute("isId"));
-            Class<?> propertyType = type.getDeclaredField(propertyName).getType();
-            PropertyDescriptor propertyDescriptor = new PropertyDescriptor(fieldName, propertyName, propertyType, isId);
+            Field property = type.getDeclaredField(element.getAttribute("name"));
+            PropertyDescriptor propertyDescriptor = new PropertyDescriptor(fieldName, isId, property);
             objectDescriptor.addPropertyDescriptor(propertyDescriptor);
         }
         return objectDescriptor;
