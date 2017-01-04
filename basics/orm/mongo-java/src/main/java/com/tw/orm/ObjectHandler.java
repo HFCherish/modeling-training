@@ -7,6 +7,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,20 +23,25 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
     }
 
     @Override
-    public boolean canConvert(Class<?> sourceClass, Class<?> targetClass) {
-        return (sourceClass.equals(Document.class) && objectMapper.hasDescriptor(targetClass)) ||
-                (targetClass.equals(Document.class) && objectMapper.hasDescriptor(sourceClass));
+    public Optional<Converter> getConverter(ConversionType sourceType, ConversionType targetType) {
+        if ((sourceType.getClazz().equals(Document.class) && objectMapper.hasDescriptor(targetType.getClazz()))) {
+            return Optional.of(map(sourceType, targetType));
+        }
+        if (targetType.getClazz().equals(Document.class) && objectMapper.hasDescriptor(sourceType.getClazz())) {
+            return Optional.of(unmap(sourceType, targetType));
+        }
+        return Optional.empty();
     }
 
     @Override
-    protected Converter<Document, Object> map(Class<?> sourceClass, Class<?> targetClass, ConversionContext conversionContext) {
-        return document -> {
+    protected Converter<Document, Object> map(ConversionType sourceType, ConversionType targetType) {
+        return (document, conversionContext) -> {
             //create the object
             Object res;
-            res = ReflectionUtil.instanceFromEmptyConstructor(targetClass);
+            res = ReflectionUtil.instanceFromEmptyConstructor(targetType.getClazz());
 
             //set properties, going up the class hierarchy to set all declared properties.
-            Class<?> currentClass = targetClass;
+            Class<?> currentClass = targetType.getClazz();
             while (currentClass != null) {
                 ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(currentClass);
                 if (objectDescriptor == null)
@@ -52,25 +58,27 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
                         } else {
                             stream = Arrays.stream((Object[]) propertyValue);
                         }
-                        propertyValue = stream.map(o -> conversionContext.convert(o, propertyTypeParameter)).collect(Collectors.toList());
+                        propertyValue = stream.map(o -> conversionContext.convert(o, ConversionType.of(propertyTypeParameter))).collect(Collectors.toList());
                     }
                     //non-collection field
                     else {
-                        propertyValue = conversionContext.convert(propertyValue, pd.getPropertyType());
+                        propertyValue = conversionContext.convert(propertyValue, ConversionType.of(pd.getPropertyType()));
                     }
                     ReflectionUtil.setProperty(res, propertyValue, pd.getPropertyName());
                 });
                 currentClass = currentClass.getSuperclass();
             }
+
             return res;
         };
+
     }
 
     @Override
-    protected Converter<Object, Document> unmap(Class<?> sourceClass, Class<?> targetClass, ConversionContext conversionContext) {
-        return object -> {
+    protected Converter<Object, Document> unmap(ConversionType sourceType, ConversionType targetType) {
+        return (object, conversionContext) -> {
             Document document = new Document();
-            Class<?> currentClass = sourceClass;
+            Class<?> currentClass = sourceType.getClazz();
             while (currentClass != null) {
                 ObjectDescriptor objectDescriptor = objectMapper.getDescriptor(currentClass);
                 if (objectDescriptor == null) break;
@@ -78,7 +86,7 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
                     Object propertyValue = ReflectionUtil.getPropertyValue(object, pd.getPropertyName());
                     if (propertyValue != null) {
                         Class<?> fieldType = pd.getFieldType() != null ? pd.getFieldType() : propertyValue.getClass();
-                        propertyValue = conversionContext.convert(propertyValue, fieldType);
+                        propertyValue = conversionContext.convert(propertyValue, ConversionType.of(fieldType));
                         document.append(pd.getFieldName(), propertyValue);
                     }
                 });
@@ -91,6 +99,6 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
             }
             return document;
         };
-    }
 
+    }
 }

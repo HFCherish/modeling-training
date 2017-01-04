@@ -33,10 +33,10 @@ public class ConversionContextTest {
 
     @Test
     public void should_return_the_obj_if_convert_to_same_type() {
-        assertThat(conversionContext.convert("string", String.class), is("string"));
-        assertThat(conversionContext.convert(1, Integer.class), is(1));
-        assertThat(conversionContext.convert(1.1, Double.class), is(1.1));
-        assertThat(conversionContext.convert(true, Boolean.class), is(true));
+        assertThat(conversionContext.convert("string", ConversionType.of(String.class)), is("string"));
+        assertThat(conversionContext.convert(1, ConversionType.of(Integer.class)), is(1));
+        assertThat(conversionContext.convert(1.1, ConversionType.of(Double.class)), is(1.1));
+        assertThat(conversionContext.convert(true, ConversionType.of(Boolean.class)), is(true));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ConversionContextTest {
         Document document = new Document("username", "petrina")
                 .append("nickname", "xz");
         conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
-        User convertUser = conversionContext.convert(document, User.class);
+        User convertUser = conversionContext.convert(document, ConversionType.of(User.class));
 
         assertThat(convertUser.getId(), is(document.getString("_id")));
         assertThat(convertUser.getUsername(), is(document.getString("username")));
@@ -61,7 +61,7 @@ public class ConversionContextTest {
                                 .append("location", new Document("country", "China")
                                                         .append("city", "Beijing"));
         conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
-        User convertUser = conversionContext.convert(document, User.class);
+        User convertUser = conversionContext.convert(document, ConversionType.of(User.class));
 
         assertThat(convertUser.getId(), is(nullValue()));
         assertThat(convertUser.getUsername(), is(document.getString("username")));
@@ -77,7 +77,7 @@ public class ConversionContextTest {
     public void should_convert_from_pojo_to_document() {
         User user = new User().setId("someId").setUsername("petrina").setNickname("xz");
         conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
-        Document convertDocument = conversionContext.convert(user, Document.class);
+        Document convertDocument = conversionContext.convert(user, ConversionType.of(Document.class));
 
         assertThat(convertDocument.getString("_id"), is(user.getId()));
         assertThat(convertDocument.getString("username"), is(user.getUsername()));
@@ -89,7 +89,7 @@ public class ConversionContextTest {
         User user = new User().setId("someId").setUsername("petrina").setNickname("xz");
         user.setSex("female");
         conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
-        Document convertDocument = conversionContext.convert(user, Document.class);
+        Document convertDocument = conversionContext.convert(user, ConversionType.of(Document.class));
 
         assertThat(convertDocument.getString("_id"), is(user.getId()));
         assertThat(convertDocument.getString("username"), is(user.getUsername()));
@@ -101,7 +101,7 @@ public class ConversionContextTest {
     public void should_convert_from_pojo_to_document_and_add_id_if_not_exists() {
         User user = new User().setUsername("petrina").setNickname("xz");
         conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
-        Document convertDocument = conversionContext.convert(user, Document.class);
+        Document convertDocument = conversionContext.convert(user, ConversionType.of(Document.class));
 
         assertThat(convertDocument.get("_id"), is(notNullValue()));
         assertThat(convertDocument.getString("username"), is(user.getUsername()));
@@ -134,7 +134,7 @@ public class ConversionContextTest {
     public void should_convert_from_document_to_pojo_with_collection_field() {
         Document document = new Document("sons", asList(new Document("sex", "female"), new Document("sex", "male")));
         conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
-        Person person = conversionContext.convert(document, Person.class);
+        Person person = conversionContext.convert(document, ConversionType.of(Person.class));
 
         assertThat(person.getSons().size(), is(2));
         assertThat(person.getSons().get(0).getSex(), is(anyOf(equalTo("female"), equalTo("male"))));
@@ -144,7 +144,7 @@ public class ConversionContextTest {
     public void should_convert_from_document_to_pojo_with_array_field() {
         Document document = new Document("sons", new Document[]{new Document("sex", "female"), new Document("sex", "male")});
         conversionContext.registerTypeHandler(new ObjectHandler(objectMapper));
-        Person person = conversionContext.convert(document, Person.class);
+        Person person = conversionContext.convert(document, ConversionType.of(Person.class));
 
         assertThat(person.getSons().size(), is(2));
         assertThat(person.getSons().get(0).getSex(), is(anyOf(equalTo("female"), equalTo("male"))));

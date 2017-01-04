@@ -12,16 +12,15 @@ public abstract class AbstractTypeHandler<S, T> implements TypeHandler<S, T> {
         this.target = target;
     }
 
-    protected abstract Converter<S, T> map(Class<?> sourceClass, Class<?> targetClass, ConversionContext conversionContext);
+    protected abstract Converter<S, T> map(ConversionType sourceType, ConversionType targetType);
+    protected abstract Converter<T, S> unmap(ConversionType sourceType, ConversionType targetType);
 
-    protected abstract Converter<T, S> unmap(Class<?> sourceClass, Class<?> targetClass, ConversionContext conversionContext);
-
-    @Override
-    public Converter getConverter(Class<?> sourceClass, Class<?> targetClass, ConversionContext conversionContext) {
-        if (source.isAssignableFrom(sourceClass) && target.isAssignableFrom(targetClass))
-            return map(sourceClass, targetClass, conversionContext);
-        if (target.isAssignableFrom(sourceClass) && source.isAssignableFrom(targetClass))
-            return unmap(sourceClass, targetClass, conversionContext);
-        return null;
-    }
+//    @Override
+//    public Optional<Converter> getConverter(ConversionType sourceType, ConversionType targetType) {
+//        if (source.isAssignableFrom(sourceType.getClazz()) && target.isAssignableFrom(targetType.getClazz()))
+//            return Optional.of(map(sourceType, targetType));
+//        if (target.isAssignableFrom(sourceType.getClazz()) && source.isAssignableFrom(targetType.getClazz()))
+//            return Optional.of(unmap(sourceType, targetType));
+//        return Optional.empty();
+//    }
 }

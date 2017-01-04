@@ -3,6 +3,8 @@ package com.tw.orm;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by pzzheng on 12/29/16.
@@ -78,5 +80,11 @@ public class ReflectionUtil {
             }
         }
         throw new NoSuchFieldException(propertyName);
+    }
+
+    public static Collection<Object> instanceOfCollection(ConversionType type) {
+        if (Collection.class.isAssignableFrom(type.getClazz())) return null;
+        // TODO: 1/4/17 modify to return according to class
+        return new ArrayList();
     }
 }

@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -32,12 +33,14 @@ public class ParameterTypeTest {
         assertThat(users.getGenericType() instanceof ParameterizedType, is(true));
         System.out.println("users.getGenericType().getClass(): " + users.getGenericType().getClass());
         Type type = ((ParameterizedType) users.getGenericType()).getActualTypeArguments()[0];
+        assertThat(((Class)((ParameterizedType) users.getGenericType()).getActualTypeArguments()[0]).equals(User.class), is(true));
+        assertThat(users.getGenericType().getTypeName(), containsString("List"));
+        assertThat(users.getGenericType().getTypeName(), containsString("User"));
         String parameterTypeName = type.getTypeName();
         System.out.println(parameterTypeName);
         System.out.println(Class.forName(parameterTypeName));
         System.out.println(((Class)type).getName());
         System.out.println("(Class)type: " + (Class)type);
-
         System.out.println("------------------------------");
         Field generic = ParameterTypeClass.class.getDeclaredField("generic");
         System.out.println(generic.getGenericType());
