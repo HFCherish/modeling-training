@@ -14,11 +14,10 @@ import java.util.stream.Stream;
 /**
  * Created by pzzheng on 12/28/16.
  */
-public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
+public class ObjectHandler implements BiTypeHandler<Document, Object> {
     private ObjectMapper objectMapper;
 
     public ObjectHandler(ObjectMapper objectMapper) {
-        super(Document.class, Object.class);
         this.objectMapper = objectMapper;
     }
 
@@ -34,7 +33,7 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
     }
 
     @Override
-    protected Converter<Document, Object> map(ConversionType sourceType, ConversionType targetType) {
+    public Converter<Document, Object> map(ConversionType sourceType, ConversionType targetType) {
         return (document, conversionContext) -> {
             //create the object
             Object res;
@@ -75,7 +74,7 @@ public class ObjectHandler extends AbstractTypeHandler<Document, Object> {
     }
 
     @Override
-    protected Converter<Object, Document> unmap(ConversionType sourceType, ConversionType targetType) {
+    public Converter<Object, Document> unmap(ConversionType sourceType, ConversionType targetType) {
         return (object, conversionContext) -> {
             Document document = new Document();
             Class<?> currentClass = sourceType.getClazz();

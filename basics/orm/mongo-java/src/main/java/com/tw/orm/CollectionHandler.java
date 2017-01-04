@@ -8,16 +8,7 @@ import java.util.Optional;
 /**
  * Created by pzzheng on 1/3/17.
  */
-public class CollectionHandler extends AbstractTypeHandler<Collection<Document>, Collection<Object>> {
-
-
-    public CollectionHandler(Class<Collection<Document>> source, Class<Collection<Object>> target) {
-        super(source, target);
-    }
-
-//    public CollectionHandler() {
-//        super(Collection<Document>.class, Collection<Object>.class);
-//    }
+public class CollectionHandler implements BiTypeHandler<Collection<Document>, Collection<Object>> {
 
     @Override
     public Optional<Converter> getConverter(ConversionType sourceType, ConversionType targetType) {
@@ -30,7 +21,7 @@ public class CollectionHandler extends AbstractTypeHandler<Collection<Document>,
     }
 
     @Override
-    protected Converter<Collection<Document>, Collection<Object>> map(ConversionType sourceType, ConversionType targetType) {
+    public Converter<Collection<Document>, Collection<Object>> map(ConversionType sourceType, ConversionType targetType) {
         return (documents, conversionContext) -> {
             Collection<Object> res = ReflectionUtil.instanceOfCollection(targetType);
             documents.stream().forEach(doc -> {
@@ -41,7 +32,7 @@ public class CollectionHandler extends AbstractTypeHandler<Collection<Document>,
     }
 
     @Override
-    protected Converter<Collection<Object>, Collection<Document>> unmap(ConversionType sourceType, ConversionType targetType) {
+    public Converter<Collection<Object>, Collection<Document>> unmap(ConversionType sourceType, ConversionType targetType) {
         return null;
     }
 
